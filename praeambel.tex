@@ -1,0 +1,106 @@
+% DOCUMENT CLASS %
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}  % Erlaubt es, Umlaute etc. zu verwenden (Datei muss UTF-8 Kodierung haben)
+\usepackage[english]{babel}
+\usepackage{hyperref}   % For footnotes
+
+% PACKAGES%
+\usepackage{parskip}    % kp warum
+\usepackage{amsfonts}   % For a basic mathfont
+\usepackage{interval}
+\usepackage{amsmath}    % For basic math symbols
+\usepackage{bbm}        % For \mathbbm (better version of \mathbb)
+\usepackage{csquotes}   % For \textquote{}
+%\usepackage{IEEEtrantools}  % For better alignments
+%\usepackage{tikz}  % For vectorgraphics
+\usepackage{unicode-math}
+\usepackage{graphicx}
+
+%% intemize without double spacing
+%\usepackage{enumitem}
+%\setlist[itemize]{noitemsep}
+
+%% Font config
+%\usepackage{fontspec}
+%\setmathfont{Latin Modern Math}[Scale=MatchUppercase, FakeBold={2}]
+
+% SETS %
+\newcommand*{\R}{\mathbbm R}    % Set of real numbers
+\newcommand*{\N}{\mathbbm N}    % Set of natural numbers (beginning at 0)
+\newcommand*{\Z}{\mathbbm Z}    % Set of integers
+\newcommand*{\Q}{\mathbbm Q}    % Set of rational numbers
+
+\newcommand*{\QDp}{{:}\text{ }} % Macro for ": " so that when writing something like "\forall x:" there is not a separation between the '\forall' and the ':'
+
+% for a funny ¯\_(ツ)_/¯-Emoji
+\newcommand{\shrug}[1][]{%
+    \begin{tikzpicture}[baseline,x=0.8\ht\strutbox,y=0.8\ht\strutbox,line width=0.125ex,#1]
+    \def\arm{(-2.5,0.95) to (-2,0.95) (-1.9,1) to (-1.5,0) (-1.35,0) to (-0.8,0)};
+    \draw \arm;
+    \draw[xscale=-1] \arm;
+    \def\headpart{(0.6,0) arc[start angle=-40, end angle=40,x radius=0.6,y radius=0.8]};
+    \draw \headpart;
+    \draw[xscale=-1] \headpart;
+    \def\eye{(-0.075,0.15) .. controls (0.02,0) .. (0.075,-0.15)};
+    \draw[shift={(-0.3,0.8)}] \eye;
+    \draw[shift={(0,0.85)}] \eye;
+    % draw mouth
+    \draw (-0.1,0.2) to [out=15,in=-100] (0.4,0.95); 
+    \end{tikzpicture}
+}
+
+
+% pasted content
+%       ↓
+
+% https://hartwork.org/beamer-theme-matrix/
+\usetheme{Boadilla}
+\usecolortheme{dolphin}
+
+% Ganz ohne Hintergrund fand ich das etwas zu plain
+\usebeamercolor{block body}
+\setbeamercolor{frametitle}{bg=block body.bg}
+
+% Die gängigen Informationen
+\institute[\scalebox{0.8}{CAU}]{Christian-Albrechts-Universität zu Kiel}
+\author[\scalebox{0.8}{H. Heyden \and M. Materzok \and N. Pulow \and S. Şimşek}]{Henri Heyden \and Mika Materzok \and Nike Pulow \and Senanur Şimşek \\ \small Group \textquote{Für Fortnite}}
+
+\def\pause{\onslide<+>{}}
+
+% https://statisticaloddsandends.wordpress.com/2019/02/18/beamer-inserting-section-slides-before-each-section/
+\AtBeginSection[]
+{
+    \begin{frame}[noframenumbering]
+        \frametitle{Overview}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+\AtBeginSubsection[]
+{
+    \begin{frame}[noframenumbering]
+        \frametitle{Overview}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
+\AtBeginSubsubsection[]
+{
+    \begin{frame}[noframenumbering]
+        \frametitle{Overview}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% macht die footline kleiner
+%\setbeamertemplate{footline}{
+%    \hspace{0.1cm} \insertshortauthor
+%    \hfill
+%    \insertshorttitle
+%    \hfill
+%    \insertframenumber{} / \inserttotalframenumber
+%    \hspace{0.1cm}
+%}
+
+% entfernt die icons rechts unten
+\setbeamertemplate{navigation symbols}{}
