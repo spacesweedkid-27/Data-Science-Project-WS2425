@@ -11,7 +11,7 @@
 
 ## Commits
 - commit messages should be short and concise
-- Each commit message should include the associated issue-number #<issuenumber>. This way, work on one issue can be clearly identified through commits.
+- Each commit message should include the associated issue-number #issuenumber. This way, work on one issue can be clearly identified through commits.
 
 ## Issue-Stati
 - currently, there are four stati (status? statoden?): todo, in progress, review and done
