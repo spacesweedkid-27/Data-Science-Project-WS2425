@@ -5,13 +5,6 @@
 
 \begin{document}
     \maketitle
-    
-    %\tableofcontents
-    \frame{
-        \centering
-        \huge
-        Die Quellen sind noch nicht up to date, morgen finden wir noch paar mehr, die man gut verwenden kann!
-    }
 
     \section{Music}
     \begin{frame}{Music}{Spotify API, Songsterr/Ultimate-Guitar webscraping}
@@ -29,9 +22,9 @@
     \section{Kiel}
     \begin{frame}{Kiel}{Stadt Kiel Open Data, Immowelt API, Tourismusverband Schleswig-Holstein, Public GPS-traces}
         \begin{itemize}[<+->]
-            \item What buslines/trains are most frequently late, and how late?
+            \item What bus-lines/trains are most frequently late, and how late?
             \item Which districts have the highest density of coffee shops and/or bars?
-            \item What influence did \alert{\textsc{\bfseries THE EVENT}}\footnote{Kieler Woche / Corona?} have on local retail and gastronomic sales?
+            \item What influence does the \textquote{Kieler Woche} have on local retail and gastronomic sales?
             \item How do search requests about Kiel change during the \textquote{Kieler Woche} over the year?
             \item How high is the economical influence of the \textquote{Kieler Woche} on the city?
             \item How did rental costs change in different parts of Kiel?
@@ -39,72 +32,17 @@
             \item Where are hotspots of GPS-activity in Kiel?
         \end{itemize}
     \end{frame}
+
     \section{Gaming}
     \begin{frame}{Gaming}{Steam API, Twitch API, Kaggle Gaming set}
         \begin{itemize}[<+->]
             \item Do playtime and ratings correlate?
             \item Which games have the longest active communities?
             \item How do Twitch-Streams influence the sales of games?
-            \item Which factors influence the popularity of a game?\footnote{Oder auch: What makes a game popular? Also konkret bezogen zum Beispiel auf Tags, die ein Spiel ausgezeichnet bekommt/hat.}
+            \item Which factors (i.e. tags on Steam) influence the popularity of a game?
             \item How do youtube-videos about a game influence the game's sales?
             \item What types of videogames are most played by which age-group?
             \item Did global events (Covid, 9/11, Ukraine war, \dots) influence sales of certain games?
-        \end{itemize}
-    \end{frame}
-
-    \section{Chat-Gpt}
-    \begin{frame}{Chat-Gpt}{OpenAi\footnote{Die API ist nicht frei verfügbar, aber wir könnten theoretisch prompts automatisch eingeben indem wir heimlich nen \textquote{virtuellen} browser steuern (aka. interactive session based webscraping) und prompts eingeben lassen. Verstößt aber eventuell gegen deren AGB.}, webscraping}
-        \begin{itemize}[<+->]
-            \item What are frequent prompts?
-            \item How do answers change with the same prompt remade?
-            \item ...\footnote{Mehr interessante Fragen}
-        \end{itemize}
-    \end{frame}
-
-    \section{Supermarket}
-    \begin{frame}{Supermarket}{LIDL/Rewe, etc.}
-        \begin{itemize}[<+->]
-            \item What are frequent itemsets?
-            \item How do sales change during the year?
-            \item What do people eat during different seasons?
-            \item What do people buy during different holidays?
-        \end{itemize}
-    \end{frame}
-
-    \section{Illnesses \& University}
-    \begin{frame}{Illnesses \& University}{\footnote{Gute Quellen finden!}}
-        \begin{itemize}[<+->]
-            \item When do students/lecturers get ill?
-            \item Do students/lecturers get ill at different times in the semester?
-            \item Do students get ill during the examination period?
-            \item Are students/lecturers suffering from higher stress compared to other people?
-            \item What are the influences of university to the mental health of students/lecturers?
-        \end{itemize}
-    \end{frame}
-
-    \section{Rich people}
-    \begin{frame}{Rich people}{Webscraping, public social media APIS\footnote{konkretisieren}, }
-        \begin{itemize}[<+->]
-            \item At which time or day in the week do some famous billionaires post the most on social media?
-            \item Which billionaires post most frequently on social media?
-            \item Which billionaires fly the most?\footnote{Fun fact: Taylor Swift is a billionaire according to Forbes.}
-            \item Has the post frequently of rich people changed on twitter/X compared to before Elon bought it?
-            \item Do rich people travel shorter or longer distances by plane?
-            \item Has the number of rich people which fly privately changed over time?
-            \item Does the post frequency of rich people on social media correlate to time spent in private planes?
-            \item Do rich people post frequently while on plane?
-        \end{itemize}
-    \end{frame}
-
-    \section{AI embeddings on images}
-    \begin{frame}{AI embeddings on images}{Publicly available vector embedders of Images, own autoencoder\footnote{Falls wir genug Zeit haben solch ein Modell zu trainieren}, MNIST, 80 Million Tiny Images, etc.}
-        \begin{itemize}[<+->]
-            \item Do different encoders have similar variance on the same datasets?
-            \item How do embeddings of different datasets behave?
-            \item How performant are trained encoders on different datasets?
-            \item What embeddings of one encoder form clusters across one dataset?
-            \item How do clusters change during dimensionality reduction via PCA?
-            \item Can we identify different clusters by eye with a 2D-PCA?\footnote{Hab das zufälligerweise gestern Abend gemacht mit den Bildern aus dem Medienpädagogik-Projekt vom dem ich erzählt hatte, war sehr interessant. Der Encoder hatte dabei 512 Dimensionen, also kann sowas auch sehr lange dauern zu berechnen.}
         \end{itemize}
     \end{frame}
 \end{document}
