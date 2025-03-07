@@ -16,4 +16,4 @@
 *.snm
 *.vrb
 *-SAVE-ERROR
-
+*.DS_STORE
