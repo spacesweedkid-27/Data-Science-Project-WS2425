@@ -1,3 +1,10 @@
+# Relevant Links
+- Google Sheet - Billboard End of Year 100: https://docs.google.com/spreadsheets/d/12zaq5xY-k9wuQZ1YkGHY4u_StVM8iklc2pl1UeKh4L4/edit?gid=1908918907#gid=1908918907
+- Spotify API: https://developer.spotify.com/documentation/web-api/reference/get-audio-analysis
+- Spotify API/Search: https://developer.spotify.com/documentation/web-api/reference/search
+- Lyrics: https://github.com/elmoiv/azapi
+- Genre (via topTags): https://www.last.fm/api/show/track.getTopTags
+
 # Data Science Project
 
 ## Issues
