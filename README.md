@@ -3,6 +3,7 @@
 - Spotify API: https://developer.spotify.com/documentation/web-api/reference/get-audio-analysis
 - Spotify API/Search: https://developer.spotify.com/documentation/web-api/reference/search
 - Lyrics: https://github.com/elmoiv/azapi
+- Genre (via topTags): https://www.last.fm/api/show/track.getTopTags
 
 # Data Science Project
 
