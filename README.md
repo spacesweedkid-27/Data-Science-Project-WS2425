@@ -6,7 +6,15 @@
 - Lyrics: https://github.com/elmoiv/azapi
 - Genre (via topTags): https://www.last.fm/api/show/track.getTopTags
 
-# Data Science Project
+# Organizational Rules
+
+## Branches
+At this point in time we're working on three branches that group our research questions:
+- chords
+- spotify
+- lyrics
+Work on a specific problem will be done on the appropriate branch. Merges into main should only be done,
+once all work on the problem is done (e.g. once all processing for the chord-dataset is completed).
 
 ## Issues
 - basic organization will be done using issues
