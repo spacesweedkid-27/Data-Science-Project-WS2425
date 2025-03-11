@@ -1,3 +1,4 @@
+.env
 .venv
 *.bcf
 *.run.xml

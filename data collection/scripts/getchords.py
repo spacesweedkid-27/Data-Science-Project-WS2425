@@ -3,7 +3,6 @@ import random
 import requests
 import re
 
-# not optimal, google quickly blocks
 def search(song, artist):
     query = f'"{song}" "{artist}'
     url = f'https://ultimate-guitar.com/search.php?search_type=title&value={query} chords'
