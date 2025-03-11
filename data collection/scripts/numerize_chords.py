@@ -116,14 +116,15 @@ def identify_key(chords: list[str], method: int = 0) -> str:
         # and select the most frequent one.
         nums = {}
         # Calculates frequencies of all shrinked chords.
-        for chord in [shrink_chord(c) for c in chords]:
+        shrunk_chords = [shrink_chord(c) for c in chords]
+        for chord in shrunk_chords:
             if chord not in nums.keys():
                 nums[chord] = 1
             else:
                 nums[chord] += 1
         
         # Search for chord with maximal occurrences.
-        return max(chords, key=lambda c: nums[c])
+        return max(shrunk_chords, key=lambda c: nums[c])
     elif method == 1:
         # Second method: Select first chord as tonic chord.
         return shrink_chord(chords[0])
