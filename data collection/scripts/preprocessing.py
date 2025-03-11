@@ -1,5 +1,6 @@
 import os
 import re
+import pandas as pd
 
 '''contains functions a couple of functions to prepare the data:
     - rename(path) renames all csv files into billboard_<year>.csv
@@ -12,7 +13,7 @@ in your case.'''
 
 path = "data collection/scripts" # not the final path, but I don't wanna mess with the "real" data at this point
 
-def rename(path):
+def rename_files(path):
     # function looks for and renames csv files
     for filename in os.listdir(path):
         '''safety-reasons: the raw data folder should only contain csv-files, but in
@@ -33,7 +34,30 @@ def rename(path):
                 print(f'renamed: {filename} to {new_name}')
     return None
 
-# TODO fill empty cells with artist from previous entry
-#def fill_artists(path):
-    # fill empty cells with NaN first
+def fill_artists(path):
+    # idea: fill empty cells with NaN first
     # the use ffill or something
+    for filename in os.listdir(path):
+        if filename.endswith(".csv"):
+            file = os.path.join(path, filename)
+
+            # load csv into dataframe
+            df = pd.read_csv(file)
+            
+            # rename Artist(s) to Artist because pandas has a problem with ( and )
+            # column names apparently
+            df.rename(columns={'Artist(s)': 'Artist'}, inplace=True)
+
+            # remove leading spaces in case pandas is being weird
+            df.columns.str.strip()
+
+            # forward fill method because the empty cells always need to be populated
+            # with the artist from the previous fill
+            df['Artist'] = df['Artist'].ffill()
+
+            # save changes to csv
+            df.to_csv(file, index=False)
+            print(f'updated {filename}')
+
+#rename_files(path)
+fill_artists(path)
