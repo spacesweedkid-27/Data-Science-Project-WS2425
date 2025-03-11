@@ -4,8 +4,8 @@ import requests
 import re
 
 def search(song, artist):
-    query = f'"{song}" "{artist}'
-    url = f'https://ultimate-guitar.com/search.php?search_type=title&value={query} chords'
+    query = f'"{song}+{artist}'
+    url = f'https://ultimate-guitar.com/search.php?search_type=title&value={query}&type=300'
 
     # maybe this helps with getting ip-banned?
     headers = {
@@ -74,4 +74,4 @@ def getUGlinks(input, output):
 
 
 # it might be useful to add automation to this process as well
-getUGlinks("billboard_2024.csv", "billboard_2024_chords.csv")
+getUGlinks("data collection/scripts/billboard_2024.csv", "data collection/scripts/billboard_2024_chords.csv")
