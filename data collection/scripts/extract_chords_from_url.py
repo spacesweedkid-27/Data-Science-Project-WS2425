@@ -7,6 +7,10 @@ from requests import get
 def get_chords(url: str) -> list[str] | None:
     """Given a URL to a ultimate-guitar chords tab,
        returns the chords that are played in a list."""
+    
+    # "not foud" is the token for missing chords in the table.
+    if url == 'not found':
+        return None
     # Get the response and decide if the content is wanted.
     response = get(url)
     if response.status_code != 200:
@@ -18,7 +22,7 @@ def get_chords(url: str) -> list[str] | None:
         # If there are no chords because
         # the site is blocked by some label,
         # then just return None again.
-        if matches is []:
+        if matches == []:
             return None
         else:
             return matches
