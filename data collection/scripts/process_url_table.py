@@ -35,12 +35,12 @@ def process_csv_to_chords(input_path: str, output_path: str) -> None:
 
             # Add random delay or whatever so that we don't get blacklisted...
             # THIS IS VERY IMPORTANT!
-            sleep(randint(10,20))
+            sleep(randint(10, 20))
 
     # Write result into new csv.
     with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['Title', 'Artist', 'Chords']
-        writer = csv.DictWriter(csvfile, fieldnames = fieldnames)
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(results)
     print(f'results saved for {output_path}')
@@ -70,7 +70,9 @@ def process_csv_to_harmonies(input_path: str, output_path: str) -> None:
 
             # If chords is not None, then we can use them,
             # else we set harmony to the mentioned string.
-            harmony = convert_song_to_harmony(chords) if chords else 'not found'
+            harmony = convert_song_to_harmony(
+                chords) if chords else 'not found'
+
             print(f'"""{song_name}""",{artist_name},{harmony}')
             results.append({
                 'Title': song_name,
@@ -81,7 +83,7 @@ def process_csv_to_harmonies(input_path: str, output_path: str) -> None:
     # ...
     with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['Title', 'Artist', 'Harmony']
-        writer = csv.DictWriter(csvfile, fieldnames = fieldnames)
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(results)
     print(f'results saved for {output_path}')
@@ -89,8 +91,9 @@ def process_csv_to_harmonies(input_path: str, output_path: str) -> None:
 
 
 # Set the path to the data-dir. Dependant on where Python is executed!
-def convert_all_url_tables(super_path : str = '../../data') -> None:
-    """This method is a cumulative run of 'process_csv_to_chords' with respect to the dataset we are using."""
+def convert_all_url_tables(super_path: str = '../../data') -> None:
+    """This method is a cumulative run of 'process_csv_to_chords'
+       with respect to the dataset we are using."""
     # Go through all years from 2005 to 2024 and process the correct csv-files.
     # After that store the chords in another table.
     for i in range(5, 25):
@@ -99,8 +102,9 @@ def convert_all_url_tables(super_path : str = '../../data') -> None:
         process_csv_to_chords(input_path, output_path)
 
 
-def convert_all_chord_tables(super_path : str = '../../data') -> None:
-    """This method is a cumulative run of 'process_csv_to_harmonies' with respect to the dataset we are using."""
+def convert_all_chord_tables(super_path: str = '../../data') -> None:
+    """This method is a cumulative run of 'process_csv_to_harmonies'
+       with respect to the dataset we are using."""
     # ...
     # ...
     for i in range(5, 25):
@@ -109,7 +113,7 @@ def convert_all_chord_tables(super_path : str = '../../data') -> None:
         process_csv_to_harmonies(input_path, output_path)
 
 
-#### Note: The following program was tested on the billboard of 2018,
-#### it should work on the others too, but they should be corrected, before running this!
+# Note: The following program was tested on the billboard of 2018,
+# it should work on the others too, but they should be corrected, before running this!
 # convert_all_chord_tables()
 # convert_all_url_tables()
