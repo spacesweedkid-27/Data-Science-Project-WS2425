@@ -4,6 +4,8 @@ import requests
 import re
 import warnings
 import time
+import json
+import html
 
 def search(song, artist):
     ''' Queries ultimate-guitar.com for chords for a (artist, song) combination.
@@ -51,19 +53,39 @@ def search(song, artist):
             if response.status_code != 200:
                 print(f'failed to fetch search results during second try for {song} by {cleaned_artist}')
                 return None
-            
-            match = re.search(r'https://tabs\.ultimate-guitar\.com/tab/[^&]*',
-                    response.text)
-            if match:
-                if 'official' in match.group(0):
+            chords_url = check_for_chords_type(response.text)
+
+            if chords_url:
+                if 'official' in chords_url:
                     warnings.warn(f'official found in link for {song} by {artist}')
-                    # return None
-                return match.group(0)
+                    return None
+                #if lowercase_song(song) in chords_url:
+                 #   return chords_url
+                #return None
+                return chords_url
+            
+            print(f'no chords found for {song} by {artist}')
+            return None
                 
 
     
         return None
     
+    chords_url = check_for_chords_type(response.text)
+
+    if chords_url:
+        if 'official' in chords_url:
+            warnings.warn(f'official found in link for {song} by {artist}')
+            return None
+        #if lowercase_song(song) in chords_url:
+         #   return chords_url
+        #return None
+        return chords_url
+    
+    print(f'no chords found for {song} by {artist}')
+    return None
+
+
     # Ultimate Guitar hides the links within JSON structures on load, so instead
     # of accessing them through their a href tag we'll need to look for the
     # appropriate link structure in the returned JSON. Currently this works
@@ -73,10 +95,13 @@ def search(song, artist):
     # somewhere within the link, as it usually is, but I can't be 100% sure
     # about this right now. The next steps in the processing-workflow will
     # reveal if I need to refine a couple of things.
-    match = re.search(r'https://tabs\.ultimate-guitar\.com/tab/[^&]*',
-                    response.text)
+    
+    #match = re.search(r'https://tabs\.ultimate-guitar\.com/tab/[^"}]+',
+     #                 response.text)
+    #match = re.search(r'https://tabs\.ultimate-guitar\.com/tab/[^&]*',
+     #               response.text)
 
-    if match:
+    #if match:
         # print(match.group(0))  # debugging purposes
         # Working under the assumption that if a tab is not online because of
         # licensing, the official tab will be returned by UG, which usually
@@ -84,19 +109,67 @@ def search(song, artist):
         # raising a custom warning in the commandline, which might later be
         # logged in a log-file. Currently not returning "not found" to the file,
         # as I want to manually check occurrences for official tabs.
-        if 'official' in match.group(0):
-            warnings.warn(f'official found in link for {song} by {artist}')
-            # return None
+    '''if 'official' in match.group(0):
+        warnings.warn(f'official found in link for {song} by {artist}')
+        return None
+    if lowercase_song(song) in match.group(0):
         return match.group(0)
+    else:
+        warnings.warn(f'Might be the wrong chords for {song} by {artist}')
+        return match.group(0)'''
     
     # if no match is found, return None so cell remains empty and can be skipped
     # in further processing
-    return None
+    #return None
 
 def remove_featuring(artist):
     ''' Removes 'featuring' and everything after that from the artist name, as
     this might cause no results to appear on ultimate-guitar.com.'''
     return re.split(r'\s+featuring\s+|\s+feat\.\.s+|\s+ft\.\s+', artist, flags=re.IGNORECASE)[0]
+
+def lowercase_song(song):
+    return song.replace(" ", "-").lower()
+
+def check_for_chords_type_old(response_text):
+    ''' Checks whether the url that was found contains the "chords"-type.'''
+    decoded = html.unescape(response_text)
+
+    match = re.search(r'(\[\{.*?\}\])', decoded, re.DOTALL)
+
+    if not match:
+        print('no json data in reponse')
+        return None
+    try:
+        # convert data to python list for easier search
+        json_data = json.loads(match.group(1)[:5000]) #  this is a shitton of chars
+
+        tab_url = None #  initialize as None in case no chords are found
+
+        json_data = json_data.replace("\\'", "'")
+        json_data = json_data.replace("\\", "")
+
+        for item in json_data:
+            if item.get('type', '').lower() == 'chords':
+                tab_url = item.get('tab_url')
+                if 'pro/?app_utm_source' in tab_url:
+                    continue
+            return tab_url
+    except json.JSONDecodeError as e:
+        print(f'json decoding failed: {e}')
+        print(f'json segment: {match.group(1)[:500]}')
+    return None
+
+def check_for_chords_type(response):
+    clean_response = html.unescape(response)
+    # debugging:
+    print(clean_response[:500]) #  Print snippet
+
+    matches = re.findall(r'https://tabs\.ultimate-guitar\.com/tab/[^"]*chords[^"]*', clean_response)
+    for url in matches:
+        print(url)
+        if "pro/?app_utm_source" not in url:  # Skip official/pro versions.
+            return url
+    return None #  return None if nothing was found.
 
 def get_ug_links(input, output):
     ''' Reads (song, artist) information from svg files, calls search() for
@@ -144,3 +217,5 @@ def get_ug_links(input, output):
 # it might be useful to add automation to this process as well
 #get_ug_links('data collection/scripts/billboard_2024.csv',
  #          'data collection/scripts/billboard_2024_chords.csv')
+#print(search("Girls Like You", "Maroon 5 featuring Cardi B"))
+#print(search("Thank you, next", "Ariana Grande"))
