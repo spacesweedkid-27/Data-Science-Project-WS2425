@@ -8,8 +8,6 @@ import time
 def search(song, artist):
     ''' Queries ultimate-guitar.com for chords for a (artist, song) combination.
     '''
-    query = f'"{song}+{artist}'
-    url = f'https://ultimate-guitar.com/search.php?search_type=title&value={query}&type=300'
 
     # maybe this helps with getting ip-banned?
     headers = {
@@ -30,10 +28,40 @@ def search(song, artist):
         ])
     }
 
+    query = f'"{song}+{artist}'
+    url = f'https://ultimate-guitar.com/search.php?search_type=title&value={query}&type=300'
+    
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
         print(f'failed to fetch search results for {song} by {artist}')
-        # TODO remove "featuring artist2" from query and try again
+        # remove "featuring artist2" from query and try again
+        cleaned_artist = remove_featuring(artist)
+        print(f'cleaned artist {artist} to {cleaned_artist}')
+        # run again with cleaned artist:
+        if cleaned_artist != artist:
+            # This whole part is really not pretty to be honest, but I ran into
+            # some issues with recursive calls, so I wanna avoid that. The
+            # scraping process is slow enough as it is.
+            # See below for detailed comments about what each of these lines
+            # does.
+            query = f'"{song}+{cleaned_artist}'
+            url = f'https://ultimate-guitar.com/search.php?search_type=title&value={query}&type=300'
+
+            response = requests.get(url, headers=headers)
+            if response.status_code != 200:
+                print(f'failed to fetch search results during second try for {song} by {cleaned_artist}')
+                return None
+            
+            match = re.search(r'https://tabs\.ultimate-guitar\.com/tab/[^&]*',
+                    response.text)
+            if match:
+                if 'official' in match.group(0):
+                    warnings.warn(f'official found in link for {song} by {artist}')
+                    # return None
+                return match.group(0)
+                
+
+    
         return None
     
     # Ultimate Guitar hides the links within JSON structures on load, so instead
@@ -46,7 +74,7 @@ def search(song, artist):
     # about this right now. The next steps in the processing-workflow will
     # reveal if I need to refine a couple of things.
     match = re.search(r'https://tabs\.ultimate-guitar\.com/tab/[^&]*',
-                      response.text)
+                    response.text)
 
     if match:
         # print(match.group(0))  # debugging purposes
@@ -64,6 +92,11 @@ def search(song, artist):
     # if no match is found, return None so cell remains empty and can be skipped
     # in further processing
     return None
+
+def remove_featuring(artist):
+    ''' Removes 'featuring' and everything after that from the artist name, as
+    this might cause no results to appear on ultimate-guitar.com.'''
+    return re.split(r'\s+featuring\s+|\s+feat\.\.s+|\s+ft\.\s+', artist, flags=re.IGNORECASE)[0]
 
 def get_ug_links(input, output):
     ''' Reads (song, artist) information from svg files, calls search() for
