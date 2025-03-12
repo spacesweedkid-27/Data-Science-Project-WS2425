@@ -14,7 +14,7 @@ import pandas as pd
 # TODO path as input on call
 
 # not the final path, but I don't wanna mess with the "real" data at this point
-path = "data collection/scripts"
+# path = "data collection/scripts"
 
 def rename_files(path):
     ''' Automatically renames files to what we want our files to be named for
@@ -70,4 +70,4 @@ def fill_artists(path):
             print(f'updated {filename}')
 
 #rename_files(path)
-fill_artists(path)
+# fill_artists(path)
