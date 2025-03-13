@@ -6,6 +6,7 @@ import warnings
 import time
 import json
 import html
+import sys
 
 def search(song, artist):
     ''' Queries ultimate-guitar.com for chords for a (artist, song) combination.
@@ -103,11 +104,6 @@ def remove_featuring(artist):
     return re.split(r'\s+featuring\s+|\s+feat\.\.s+|\s+ft\.\s+', artist, flags=re.IGNORECASE)[0]
 
 
-def lowercase_song(song):
-    ''' Helper to turn a song-title into a url-appropriate format. '''
-    return song.replace(" ", "-").lower()
-
-
 def check_for_chords_type(response):
     ''' Checks, whether a found chord contains "chords" - a valid url usually
     contains the song-title and the chords, as well as the artist. Due to
@@ -193,7 +189,6 @@ def get_ug_links(input, output):
             writer.writeheader()
             writer.writerows(results)
         print(f'results saved for {output}')
-
 
 # it might be useful to add automation to this process as well
 # get_ug_links('data collection/scripts/billboard_2024.csv',
