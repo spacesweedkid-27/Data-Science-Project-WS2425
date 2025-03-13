@@ -62,29 +62,12 @@ def search(song, artist):
                 if 'official' in chords_url:
                     warnings.warn(f'official found in link for {song} by {artist}')
                     return None
-                # if lowercase_song(song) in chords_url:
-                 #   return chords_url
-                # return None
                 return chords_url
 
             print(f'no chords found for {song} by {artist}')
             return None
 
         return None
-
-    chords_url = check_for_chords_type(response.text)
-
-    if chords_url:
-        if 'official' in chords_url:
-            warnings.warn(f'official found in link for {song} by {artist}')
-            return None
-        # if lowercase_song(song) in chords_url:
-         #   return chords_url
-        # return None
-        return chords_url
-
-    print(f'no chords found for {song} by {artist}')
-    return None
 
     # Ultimate Guitar hides the links within JSON structures on load, so instead
     # of accessing them through their a href tag we'll need to look for the
@@ -95,32 +78,24 @@ def search(song, artist):
     # somewhere within the link, as it usually is, but I can't be 100% sure
     # about this right now. The next steps in the processing-workflow will
     # reveal if I need to refine a couple of things.
+    chords_url = check_for_chords_type(response.text)
 
-    # match = re.search(r'https://tabs\.ultimate-guitar\.com/tab/[^"}]+',
-    #                 response.text)
-    # match = re.search(r'https://tabs\.ultimate-guitar\.com/tab/[^&]*',
-    #               response.text)
+    if chords_url:
+        # Working under the assumption that if a tab is not online because of
+        # licensing, the official tab will be returned by UG, which usually
+        # contain the word "official" within the url. Filtering for that and
+        # raising a custom warning in the commandline, which might later be
+        # logged in a log-file. Currently not returning "not found" to the file,
+        # as I want to manually check occurrences for official tabs.
+        if 'official' in chords_url:
+            warnings.warn(f'official found in link for {song} by {artist}')
+            return None
+        return chords_url
 
-    # if match:
-    # print(match.group(0))  # debugging purposes
-    # Working under the assumption that if a tab is not online because of
-    # licensing, the official tab will be returned by UG, which usually
-    # contain the word "official" within the url. Filtering for that and
-    # raising a custom warning in the commandline, which might later be
-    # logged in a log-file. Currently not returning "not found" to the file,
-    # as I want to manually check occurrences for official tabs.
-    '''if 'official' in match.group(0):
-        warnings.warn(f'official found in link for {song} by {artist}')
-        return None
-    if lowercase_song(song) in match.group(0):
-        return match.group(0)
-    else:
-        warnings.warn(f'Might be the wrong chords for {song} by {artist}')
-        return match.group(0)'''
-
-    # if no match is found, return None so cell remains empty and can be skipped
-    # in further processing
-    # return None
+    print(f'no chords found for {song} by {artist}')
+    # if no match is found, return None so cell remains empty and can be
+    # skipped in further processing
+    return None
 
 
 def remove_featuring(artist):
@@ -130,47 +105,25 @@ def remove_featuring(artist):
 
 
 def lowercase_song(song):
+    ''' Helper to turn a song-title into a url-appropriate format. '''
     return song.replace(" ", "-").lower()
 
 
-def check_for_chords_type_old(response_text):
-    ''' Checks whether the url that was found contains the "chords"-type.'''
-    decoded = html.unescape(response_text)
-
-    match = re.search(r'(\[\{.*?\}\])', decoded, re.DOTALL)
-
-    if not match:
-        print('no json data in reponse')
-        return None
-    try:
-        # convert data to python list for easier search
-        # this is a shitton of chars
-        json_data = json.loads(match.group(1)[:5000])
-
-        tab_url = None  # initialize as None in case no chords are found
-
-        json_data = json_data.replace("\\'", "'")
-        json_data = json_data.replace("\\", "")
-
-        for item in json_data:
-            if item.get('type', '').lower() == 'chords':
-                tab_url = item.get('tab_url')
-                if 'pro/?app_utm_source' in tab_url:
-                    continue
-            return tab_url
-    except json.JSONDecodeError as e:
-        print(f'json decoding failed: {e}')
-        print(f'json segment: {match.group(1)[:500]}')
-    return None
-
-
 def check_for_chords_type(response):
-    '''Newer implementation to check if a URL contains chords.'''
+    ''' Checks, whether a found chord contains "chords" - a valid url usually
+    contains the song-title and the chords, as well as the artist. Due to
+    different formatting, we're only looking for the chords part, and filtering
+    out any url, that contains "pro" (these are always restricted).'''
+    
+    # Clean up a bit.
     clean_response = html.unescape(response)
     # debugging:
-    print(clean_response[:500])  # Print snippet
+    # print(clean_response[:500])  # Print snippet
 
-    matches = re.findall(r'https://tabs\.ultimate-guitar\.com/tab/[^"]*chords[^"]*', clean_response)
+    # We're assuming, every valid link contains "chords", but we know for
+    # certain, that the rest of the link is correct.
+    matches = re.findall(r'https://tabs\.ultimate-guitar\.com/tab/[^"]*chords[^"]*',
+                         clean_response)
     for url in matches:
         print(url)
         if "pro/?app_utm_source" not in url:  # Skip official/pro versions.
@@ -194,15 +147,17 @@ def get_ug_links(input, output):
             song_name = song['Title']
             artist_name = song['Artist']
 
-            # print(f'Searching for {song_name} by {artist_name}')
             # currently it looks like UG doesn't ban automatic queries as
             # quickly, but I haven't found reliable information about that yet
             # and have only tested with a small amount of queries (5-7 per test
             # run), which might also be the reason I haven't been banned yet.
             # A sleep timer might be a solution but for testing it just took
-            # too long.
+            # too long. - Update two days later: A random sleep timer is
+            # required. It looks like this timer and the random user agents
+            # are enough to avoid getting banned, so I'm not going to meddle in
+            # setting up proxies for this, if it's not strictly necessary.
 
-            # randomly sleep between queries to not get locked out
+            # Randomly sleep between queries to not get locked out.
             time.sleep(random.randint(1, 10))
             tab_url = search(song_name, artist_name)
 
