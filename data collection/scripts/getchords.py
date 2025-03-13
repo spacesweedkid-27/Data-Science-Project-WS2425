@@ -7,7 +7,6 @@ import time
 import json
 import html
 
-
 def search(song, artist):
     ''' Queries ultimate-guitar.com for chords for a (artist, song) combination.
     '''
@@ -41,7 +40,7 @@ def search(song, artist):
         print(f'failed to fetch search results for {song} by {artist}')
         # Remove "featuring artist2" from query and try again.
         cleaned_artist = remove_featuring(artist)
-        print(f'cleaned artist {artist} to {cleaned_artist}')
+        # print(f'cleaned artist {artist} to {cleaned_artist}')
         # Run again with cleaned artist.
         if cleaned_artist != artist:
             # This whole part is really not pretty to be honest, but I ran into
@@ -144,28 +143,48 @@ def get_ug_links(input, output):
         # results list to buffer title, artist and links
         results = []
         for song in songs:
-            song_name = song['Title']
-            artist_name = song['Artist']
+            # At this point in time, every chords-file already has a "UG_link"
+            # column, so we can use this to our advantage and do subsequent
+            # runs for any songs that don't already have a link.
+            # This is useful, because sometimes the results of the search differ
+            # and results are only found on the second or thirds try.
+            # This also means, input and output are the same files, which wasn't
+            # the case previously.
+            
+            # print(song.keys())
+            # print(song['UG_link'])
 
-            # currently it looks like UG doesn't ban automatic queries as
-            # quickly, but I haven't found reliable information about that yet
-            # and have only tested with a small amount of queries (5-7 per test
-            # run), which might also be the reason I haven't been banned yet.
-            # A sleep timer might be a solution but for testing it just took
-            # too long. - Update two days later: A random sleep timer is
-            # required. It looks like this timer and the random user agents
-            # are enough to avoid getting banned, so I'm not going to meddle in
-            # setting up proxies for this, if it's not strictly necessary.
+            if song['UG_link'] == 'not found':
+                song_name = song['Title']
+                artist_name = song['Artist']
 
-            # Randomly sleep between queries to not get locked out.
-            time.sleep(random.randint(1, 10))
-            tab_url = search(song_name, artist_name)
+                # currently it looks like UG doesn't ban automatic queries as
+                # quickly, but I haven't found reliable information about that yet
+                # and have only tested with a small amount of queries (5-7 per test
+                # run), which might also be the reason I haven't been banned yet.
+                # A sleep timer might be a solution but for testing it just took
+                # too long. - Update two days later: A random sleep timer is
+                # required. It looks like this timer and the random user agents
+                # are enough to avoid getting banned, so I'm not going to meddle in
+                # setting up proxies for this, if it's not strictly necessary.
 
-            results.append({
-                'Title': song_name,
-                'Artist': artist_name,
-                'UG_link': tab_url if tab_url else 'not found'
-            })
+                # Randomly sleep between queries to not get locked out.
+                time.sleep(random.randint(1, 10))
+                tab_url = search(song_name, artist_name)
+
+                results.append({
+                    'Title': song_name,
+                    'Artist': artist_name,
+                    'UG_link': tab_url if tab_url else 'not found'
+                })
+            # In case there already is a link in the appropriate field, just
+            # copy what's there, no need to change anything.
+            else:
+                results.append({
+                    'Title': song['Title'],
+                    'Artist': song['Artist'],
+                    'UG_link': song['UG_link']
+                })
 
         # write result into new csv
         with open(output, 'w', newline='', encoding='utf-8') as csvfile:
