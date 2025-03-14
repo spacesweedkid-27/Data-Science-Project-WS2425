@@ -77,56 +77,70 @@ def identify_key_2(chords: list[str]) -> str:
     # Initialize set of candidates and a map to their score.
     candidates = []
     score = {}
+    shrunk = [shrink_chord(c) for c in chords]
 
     # Pick every chord as a candidate and evaluate their score.
-    for key in [shrink_chord(c) for c in chords]:
+    for key in shrunk:
         if key not in candidates:
             candidates.append(key)
             score[key] = 0
         
-        # Do this by going through all other chords and
-        # increasing only if the chord is in the key.
-        for chord in [shrink_chord(c) for c in chords]:
-            pos = convert_letter_to_harmonic_position(key, chord)
-            # Enter major-mode.
-            if not is_minor(key):
-                # If the chord is the tonic chord,
-                # we want to score it with two points.
-                if pos == 1 and not is_minor(chord):
-                    score[key] += 2
-                # In the case that the chord is a scale
-                # degree chord, we want to add one point.
-                if pos == 2 and is_minor(chord) \
-                or pos == 3 and is_minor(chord) \
-                or pos == 4 and not is_minor(chord) \
-                or pos == 5 and not is_minor(chord) \
-                or pos == 6 and is_minor(chord) \
-                or pos == 7:
-                    score[key] += 1
-                elif pos == 0:
-                    score[key] -= 1
-                # Else the score does not increase.
-            # Else we have a major key
-            else:
-                # If the chord is the tonic chord,
-                # we want to score it with two points.
-                if pos == 1 and is_minor(chord):
-                    score[key] += 2
-                # In the case that the chord is a scale
-                # degree chord, we want to add one point.
-                if pos == 2 \
-                or pos == 3 and not is_minor(chord) \
-                or pos == 4 and is_minor(chord) \
-                or pos == 5 and is_minor(chord) \
-                or pos == 6 and not is_minor(chord) \
-                or pos == 7 and not is_minor(chord):
-                    score[key] += 1
-                elif pos == 0:
-                    score[key] -= 1
-                # Else the score does not increase.
+            # Do this by going through all chords and
+            # increasing only if the chord is in the key.
+            for chord in shrunk:
+                pos = convert_letter_to_harmonic_position(key, chord)
+                # Enter major-mode.
+                if not is_minor(key):
+                    # If the chord is the tonic chord,
+                    # we want to score it with two points.
+                    if pos == 1 and not is_minor(chord):
+                        score[key] += 2
+                    # In the case that the chord is a scale
+                    # degree chord, we want to add one point.
+                    if pos == 2 and is_minor(chord) \
+                    or pos == 3 and is_minor(chord) \
+                    or pos == 4 and not is_minor(chord) \
+                    or pos == 5 and not is_minor(chord) \
+                    or pos == 6 and is_minor(chord) \
+                    or pos == 7:
+                        score[key] += 1
+                    elif pos == 0:
+                        score[key] -= 1
+                    # Else the score does not increase.
+                # Else we have a major key
+                else:
+                    # If the chord is the tonic chord,
+                    # we want to score it with two points.
+                    if pos == 1 and is_minor(chord):
+                        score[key] += 2
+                    # In the case that the chord is a scale
+                    # degree chord, we want to add one point.
+                    if pos == 2 \
+                    or pos == 3 and not is_minor(chord) \
+                    or pos == 4 and is_minor(chord) \
+                    or pos == 5 and is_minor(chord) \
+                    or pos == 6 and not is_minor(chord) \
+                    or pos == 7 and not is_minor(chord):
+                        score[key] += 1
+                    elif pos == 0:
+                        score[key] -= 1
+                    # Else the score does not increase.
+        else:
+            # If we have already processed the chord, don't do it again!
+            pass
+    # In the case we only have one chord.
+    if len(candidates) == 1:
+        return candidates[0]
 
-    return max(candidates, key=lambda x: score[x])
-
+    # Else sort by the metric with descending metric.
+    candidates.sort(key=lambda x: -score[x])
+    print(score)
+    # Again, if the scores are too similar, just pick the first chord.
+    # The value of 1.75 was hand estimated
+    if float(score[candidates[0]] + 1) / float(score[candidates[1]] + 1) < 1.75:
+        return shrunk[0]
+    else:
+        return candidates[0]
 
 
 def convert_letter_to_harmonic_position(key: str, chord: str) -> int:
@@ -177,15 +191,17 @@ def identify_key(chords: list[str]) -> str:
     # and select the most frequent one.
     nums = {}
     # Calculates frequencies of all shrinked chords.
-    shrunk_chords = [shrink_chord(c) for c in chords]
-    for chord in shrunk_chords:
+    shrunk = [shrink_chord(c) for c in chords]
+    for chord in shrunk:
         if chord not in nums.keys():
             nums[chord] = 1
         else:
             nums[chord] += 1
     
+    # Filter out duplicates to gain individual keys.
+    res = list(dict.fromkeys(shrunk))
     # Search for chord with maximal occurrences.
-    res = sorted(shrunk_chords, key=lambda c: -nums[c])
+    res = sorted(shrunk, key=lambda c: -nums[c])
 
     # If the frequency does not matter, return the first chord.
     if nums[res[0]] == nums[res[1]]:
@@ -193,10 +209,9 @@ def identify_key(chords: list[str]) -> str:
     else:
         return res[0]
 
-
 def convert_song_to_harmony(chords: list[str]) -> list[int]:
     """Identifies the key and converts all chords to their harmonic according to that key."""
-    key = identify_key(chords)
+    key = identify_key_2(chords)
     return [convert_letter_to_harmonic_position(key, chord) for chord in chords]
 
 
@@ -242,5 +257,5 @@ def __test__():
     print(shrink_chord("A#min"))
     print(combinations_in_order([1, 1, 6, 4, 5, 1, 6, 4, 5, 1], 4))
 
-__test__()
+#__test__()
 
