@@ -35,7 +35,8 @@ def process_csv_to_chords(input_path: str, output_path: str) -> None:
 
             # Add random delay or whatever so that we don't get blacklisted...
             # THIS IS VERY IMPORTANT!
-            sleep(randint(10, 20))
+            if chords:
+                sleep(randint(1, 10))
 
     # Write result into new csv.
     with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:
@@ -115,5 +116,5 @@ def convert_all_chord_tables(super_path: str = '../../data') -> None:
 
 # Note: The following program was tested on the billboard of 2018,
 # it should work on the others too, but they should be corrected, before running this!
-# convert_all_chord_tables()
-# convert_all_url_tables()
+#convert_all_url_tables()
+#convert_all_chord_tables()
