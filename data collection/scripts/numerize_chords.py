@@ -67,6 +67,68 @@ def main_chord_to_transpose(key: str) -> int:
     return -(temp % 12)
 
 
+def identify_key_2(chords: list[str]) -> str:
+    """Identifies key of a song based on which key is the key
+       so that all chords in the song fit the best into this key.
+       This is calculated by picking the note of all chords for
+       a assumed correct key, and calculating a score for the key
+       that increases if the note is in the key.
+    """
+    # Initialize set of candidates and a map to their score.
+    candidates = []
+    score = {}
+
+    # Pick every chord as a candidate and evaluate their score.
+    for key in [shrink_chord(c) for c in chords]:
+        if key not in candidates:
+            candidates.append(key)
+            score[key] = 0
+        
+        # Do this by going through all other chords and
+        # increasing only if the chord is in the key.
+        for chord in [shrink_chord(c) for c in chords]:
+            pos = convert_letter_to_harmonic_position(key, chord)
+            # Enter major-mode.
+            if not is_minor(key):
+                # If the chord is the tonic chord,
+                # we want to score it with two points.
+                if pos == 1 and not is_minor(chord):
+                    score[key] += 2
+                # In the case that the chord is a scale
+                # degree chord, we want to add one point.
+                if pos == 2 and is_minor(chord) \
+                or pos == 3 and is_minor(chord) \
+                or pos == 4 and not is_minor(chord) \
+                or pos == 5 and not is_minor(chord) \
+                or pos == 6 and is_minor(chord) \
+                or pos == 7:
+                    score[key] += 1
+                elif pos == 0:
+                    score[key] -= 1
+                # Else the score does not increase.
+            # Else we have a major key
+            else:
+                # If the chord is the tonic chord,
+                # we want to score it with two points.
+                if pos == 1 and is_minor(chord):
+                    score[key] += 2
+                # In the case that the chord is a scale
+                # degree chord, we want to add one point.
+                if pos == 2 \
+                or pos == 3 and not is_minor(chord) \
+                or pos == 4 and is_minor(chord) \
+                or pos == 5 and is_minor(chord) \
+                or pos == 6 and not is_minor(chord) \
+                or pos == 7 and not is_minor(chord):
+                    score[key] += 1
+                elif pos == 0:
+                    score[key] -= 1
+                # Else the score does not increase.
+
+    return max(candidates, key=lambda x: score[x])
+
+
+
 def convert_letter_to_harmonic_position(key: str, chord: str) -> int:
     """Assuming a chord is played in the context of some key,
        returns the position on the corresponding harmonic scale,
@@ -169,16 +231,16 @@ def identify_main_harmony(song: list[int]) -> tuple[int, ...]:
 
 
 def __test__():
-    """returns: False, 1, 3, A#m, [1, 1, 6, 4, 5, 1, 6, 4, 5, 1],
-       [(1, 6, 4, 5), (6, 4, 5, 1), (1, 1, 6, 4), (4, 5, 1, 6), (5, 1, 6, 4)]"""
-
+    # This is totally not an example that broke identify_key, trust me ;)
+    song = ['A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm']
+    print(identify_key(song))
+    # Gives the correct result <3
+    print(identify_key_2(song))
     print(is_minor('Ddim'))
     print(convert_to_position_at_keyboard("C#"))
     print(convert_letter_to_harmonic_position("D", "F#"))
     print(shrink_chord("A#min"))
-    song = ["G","G","Em","C","D","G","Em","C","D","G"]
-    print(convert_song_to_harmony(song))
     print(combinations_in_order([1, 1, 6, 4, 5, 1, 6, 4, 5, 1], 4))
 
-#__test__()
+__test__()
 
