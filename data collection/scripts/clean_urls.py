@@ -4,6 +4,8 @@ import re
 import unicodedata
 import getchords
 
+# example call for this function (while being in root directory of venv):
+# python3 "data collection/scripts/clean_urls.py" "data/chords/billboard_2024.csv" "data/chords/logs/billboard_2024.csv"
 
 def compare_urls():
     ''' Commandline-tool that compares found urls to artist-names and
@@ -121,6 +123,3 @@ Title,Artist,UG_link
 """I Had Some Help""",Post Malone featuring Morgan Wallen,not found
 """Lovin on Me""",Jack Harlow,https://tabs.ultimate-guitar.com/tab/adele/lovin-on-me-chords-5037415
 '''
-
-# ../data/chords/billboard_2005.csv
-# ../data/chords/logs/billboard_2005.csv
