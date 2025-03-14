@@ -36,8 +36,8 @@ def compare_urls():
 
             if song_title not in url or artist_name not in url:
                 if url != 'not found':
-                    print(f'diff in link\n Artist: {song['Artist']}\n' +
-                          f'Song: {song['Title']}\n Link: {url}')
+                    print(f'diff in link\nArtist: {song['Artist']}\n' +
+                          f'Song: {song['Title']}\nLink: {url}')
                     accept = input('Accept? [y/n]\n')
                     if accept == 'y':
                         results.append({
@@ -54,6 +54,12 @@ def compare_urls():
                         # A change was made, needs to be logged, so append it to
                         # changes list to save later.
                         changes.append({
+                            'Title': song['Title'],
+                            'Artist': song['Artist'],
+                            'UG_link': song['UG_link']
+                        })
+                else:
+                    results.append({
                             'Title': song['Title'],
                             'Artist': song['Artist'],
                             'UG_link': song['UG_link']
@@ -115,3 +121,6 @@ Title,Artist,UG_link
 """I Had Some Help""",Post Malone featuring Morgan Wallen,not found
 """Lovin on Me""",Jack Harlow,https://tabs.ultimate-guitar.com/tab/adele/lovin-on-me-chords-5037415
 '''
+
+# ../data/chords/billboard_2005.csv
+# ../data/chords/logs/billboard_2005.csv
