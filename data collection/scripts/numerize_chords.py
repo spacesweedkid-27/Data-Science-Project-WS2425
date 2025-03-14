@@ -103,7 +103,7 @@ def shrink_chord(chord: str) -> str:
             return chord[:1 + has_flatsharp]
 
 
-def identify_key(chords: list[str], method: int = 0) -> str:
+def identify_key(chords: list[str]) -> str:
     """According to what chords are in a song, returns the key according to some method.
        Both methods may be wrong. For example: "Creep" by Radiohead is in G major,
        but the most frequent accord contains Cs. The first method counts C and Cm as different chords,
@@ -111,35 +111,66 @@ def identify_key(chords: list[str], method: int = 0) -> str:
        but in other songs it may be, that this is not the case.
        Additionally there are many songs that start with another chord and not the tonic chord.
     """
-    if method == 0:
-        # First method: Sort by occurrences of individual chords,
-        # and select the most frequent one.
-        nums = {}
-        # Calculates frequencies of all shrinked chords.
-        shrunk_chords = [shrink_chord(c) for c in chords]
-        for chord in shrunk_chords:
-            if chord not in nums.keys():
-                nums[chord] = 1
-            else:
-                nums[chord] += 1
-        
-        # Search for chord with maximal occurrences.
-        return max(shrunk_chords, key=lambda c: nums[c])
-    elif method == 1:
-        # Second method: Select first chord as tonic chord.
+    # First method: Sort by occurrences of individual chords,
+    # and select the most frequent one.
+    nums = {}
+    # Calculates frequencies of all shrinked chords.
+    shrunk_chords = [shrink_chord(c) for c in chords]
+    for chord in shrunk_chords:
+        if chord not in nums.keys():
+            nums[chord] = 1
+        else:
+            nums[chord] += 1
+    
+    # Search for chord with maximal occurrences.
+    res = sorted(shrunk_chords, key=lambda c: -nums[c])
+
+    # If the frequency does not matter, return the first chord.
+    if nums[res[0]] == nums[res[1]]:
         return shrink_chord(chords[0])
     else:
-        raise ValueError("Wrong argument for method parameter")
+        return res[0]
 
 
-def convert_song_to_harmony(chords: list[str], method: int = 0) -> list[int]:
+def convert_song_to_harmony(chords: list[str]) -> list[int]:
     """Identifies the key and converts all chords to their harmonic according to that key."""
-    key = identify_key(chords, method)
+    key = identify_key(chords)
     return [convert_letter_to_harmonic_position(key, chord) for chord in chords]
 
 
+def combinations_in_order(words: list, k: int) -> list[tuple]:
+    """For a list of some datapoints returns a list of k length combination
+       tuples that are seen in the list where the order matters.
+       This is a special case of the frequent itemset mining problem, where
+       we assume that the data is ordered and the order matters. For example
+       the itemset (1,2) and the itemset (2,1) are not equal!"""
+    # Initialize list combinations and frequency-hashmap.
+    combs = []
+    frequency = {}
+    
+    # Go through all cuts of the list.
+    for i in range(len(words) + 1 - k):
+        # Tuples can be hashed!
+        current = tuple(words[i:i + k])
+        if current not in combs:
+            combs.append(current)
+            frequency[current] = 0
+        else:
+            frequency[current] += 1
+
+    # Sort by decreasing frequency.
+    combs.sort(key=lambda x: -frequency[x])
+    return combs
+
+
+def identify_main_harmony(song: list[int]) -> tuple[int, ...]:
+    # Assuming that the main harmony repeats in 4 chords.
+    return combinations_in_order(song, 4)[0]
+
+
 def __test__():
-    """returns: False, 1, 3, A#m, [1, 1, 6, 4, 5, 1, 6, 4, 5, 1]"""
+    """returns: False, 1, 3, A#m, [1, 1, 6, 4, 5, 1, 6, 4, 5, 1],
+       [(1, 6, 4, 5), (6, 4, 5, 1), (1, 1, 6, 4), (4, 5, 1, 6), (5, 1, 6, 4)]"""
 
     print(is_minor('Ddim'))
     print(convert_to_position_at_keyboard("C#"))
@@ -147,6 +178,7 @@ def __test__():
     print(shrink_chord("A#min"))
     song = ["G","G","Em","C","D","G","Em","C","D","G"]
     print(convert_song_to_harmony(song))
+    print(combinations_in_order([1, 1, 6, 4, 5, 1, 6, 4, 5, 1], 4))
 
 #__test__()
 
