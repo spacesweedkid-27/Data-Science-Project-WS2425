@@ -1,0 +1,62 @@
+\input{../praeambel.tex}
+
+\title[Data Science Project: Week 2]{Data Science Project \\ \small Week 2}
+\date{March 14, 2025}
+
+\begin{document}
+    \maketitle
+    
+    \section{Main Question}
+    \begin{frame}{Main Question {\tiny for now\dots}}
+        \centering\huge
+        \textquote{How do various musical elements vary in the most popular songs of the last 20 years?}
+    \end{frame}
+    
+    \section{Aspects to analyze}
+    \begin{frame}[allowframebreaks]{Aspects to analyze {\tiny for now\dots}}
+        \begin{itemize}
+            \item What chord-progressions repeat most frequently? \alert{Nike \& Henri}
+            \item Do certain chord-progressions dominate specific genres? \alert{Mika \& Henri}
+            \item What chords and chord types (minor, major, \dots) dominate / how did the amount change? \alert{Nike \& Henri}
+            \item What key signatures dominate? \alert{Sena}
+        \framebreak
+            \item How did song\dots
+                \begin{itemize}
+                    \item \dots duration \alert{Sena}
+                    \item \dots tempo \alert{Sena}
+                    \item \dots polarity \alert{Mika}
+                    \item \dots metrics on Spotify (e.g. \textit{\textquote{danceability}}) \alert{Sena}
+                \end{itemize}
+                \dots vary and change over the years? Do they correlate?
+            \item Which words and combinations are the most frequent? \alert{Mika}
+        \end{itemize}
+    \end{frame}
+
+    \section{Datasets and Apis}
+    \begin{frame}{Datasets and Apis}{\itshape What we have\dots}
+        \begin{itemize}
+            \item \textbf{Main source:} \textquote{Hot 100 Songs} from the Billboard Year-End of 2005 up to 2024 \alert{Nike}
+            \item \textbf{Refined sources using songs from the main source:}
+                \begin{itemize}
+                    \item Ultimate-Guitar Webscraping links for tabs \alert{Nike}
+                    \item Ultimate-Guitar Webscraping tabs-links to chords \alert{Henri}
+                    \item Spotify-Api for features \alert{Sena}
+                    \item Last.fm API for \textquote{topTags} (genres) \alert{Mika}
+                    \item azapi API \& Genius API for lyrics \alert{Mika}
+                \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \section{Plans}
+    \begin{frame}{Plans}{\it What we do with it\dots}
+        \begin{itemize}
+            \item Clean collected URLs for chords to filter out wrong results \alert{Nike}
+            \item Finalize and clean chords dataset from URLs \alert{Henri}
+            \item Identify main harmonies of songs by determining key signatures from chords \alert{Henri}
+            \item Extract relevant metrics and lyrics from Spotify, Last.fm, azapi/Genius \alert{Sena \& Mika}
+            \item Implement algorithms for the concrete data analysis \alert{Nike, Henri, Sena \& Mika}
+        \end{itemize}
+    \end{frame}
+
+    \frame{\centering\huge Questions?}
+\end{document}
