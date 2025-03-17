@@ -28,7 +28,10 @@ def combinations_in_order(words: list, k: int) -> tuple[list[tuple], dict[list, 
 
 def identify_main_harmony(song: list[int]) -> tuple[int, ...]:
     """Deprecated method that returns most frequent 4-length chord repetition."""
-    return combinations_in_order(song, 4)[0][0]
+    if len(song) <= 4:
+        return tuple(song)
+    else:
+        return combinations_in_order(song, 4)[0][0]
 
 
 def defining_subset(lst: list) -> list | None:
@@ -45,7 +48,7 @@ def defining_subset(lst: list) -> list | None:
     return None
 
 
-def identify_main_harmony_2(song: list[int]) -> tuple[int, ...] | None:
+def identify_main_harmony_2(song: list[int]) -> tuple[int, ...]:
     """We define the main harmony or dominating harmony of a song the main leitmotiv
        of the harmonic progressions, that repeats most in the song. This algorithm
        finds the minimal progression that does not contain a subset of itself and
@@ -72,6 +75,11 @@ def identify_main_harmony_2(song: list[int]) -> tuple[int, ...] | None:
                     curr_frequency[char] = 1
                 else:
                     curr_frequency[char] += 1
+        # It can happen that the leitmotiv does not repeat directly after itself.
+        # In that case just return the most frequent 4-bar leitmotiv which may
+        # be inaccurate, but works for most songs.
+        if curr_candidates == []:
+            return identify_main_harmony(song)
         # When all progressions with length k have been progressed, we pick
         # the maximal occurring combination as part of the main progression.
         temp = max(curr_candidates, key=lambda x: curr_frequency[x])
@@ -81,7 +89,9 @@ def identify_main_harmony_2(song: list[int]) -> tuple[int, ...] | None:
         sublist = defining_subset(temp)
         if sublist and (len(sublist) != 1 or temp.count(temp[0]) == len(temp)):
             return tuple(sublist)
-    return None
+    # In this edge case where nothing was found,
+    # just return the most frequent 4-bar repetition.
+    return identify_main_harmony(song)
 
 
 def __test__():
