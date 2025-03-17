@@ -79,6 +79,7 @@ def identify_main_harmony_2(song: list[int]) -> tuple[int, ...]:
         # In that case just return the most frequent 4-bar leitmotiv which may
         # be inaccurate, but works for most songs.
         if curr_candidates == []:
+            print("edgecase 1 detected")
             return identify_main_harmony(song)
         # When all progressions with length k have been progressed, we pick
         # the maximal occurring combination as part of the main progression.
@@ -89,8 +90,9 @@ def identify_main_harmony_2(song: list[int]) -> tuple[int, ...]:
         sublist = defining_subset(temp)
         if sublist and (len(sublist) != 1 or temp.count(temp[0]) == len(temp)):
             return tuple(sublist)
-    # In this edge case where nothing was found,
+    # In this edge case where nothing directly repeating was found,
     # just return the most frequent 4-bar repetition.
+    print("edgecase 2 detected")
     return identify_main_harmony(song)
 
 
