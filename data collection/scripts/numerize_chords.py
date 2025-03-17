@@ -215,35 +215,6 @@ def convert_song_to_harmony(chords: list[str]) -> list[int]:
     return [convert_letter_to_harmonic_position(key, chord) for chord in chords]
 
 
-def combinations_in_order(words: list, k: int) -> list[tuple]:
-    """For a list of some datapoints returns a list of k length combination
-       tuples that are seen in the list where the order matters.
-       This is a special case of the frequent itemset mining problem, where
-       we assume that the data is ordered and the order matters. For example
-       the itemset (1,2) and the itemset (2,1) are not equal!"""
-    # Initialize list combinations and frequency-hashmap.
-    combs = []
-    frequency = {}
-    
-    # Go through all cuts of the list.
-    for i in range(len(words) + 1 - k):
-        # Tuples can be hashed!
-        current = tuple(words[i:i + k])
-        if current not in combs:
-            combs.append(current)
-            frequency[current] = 0
-        else:
-            frequency[current] += 1
-
-    # Sort by decreasing frequency.
-    combs.sort(key=lambda x: -frequency[x])
-    return combs
-
-
-def identify_main_harmony(song: list[int]) -> tuple[int, ...]:
-    # Assuming that the main harmony repeats in 4 chords.
-    return combinations_in_order(song, 4)[0]
-
 
 def __test__():
     # This is totally not an example that broke identify_key, trust me ;)
@@ -255,7 +226,6 @@ def __test__():
     print(convert_to_position_at_keyboard("C#"))
     print(convert_letter_to_harmonic_position("D", "F#"))
     print(shrink_chord("A#min"))
-    print(combinations_in_order([1, 1, 6, 4, 5, 1, 6, 4, 5, 1], 4))
 
 #__test__()
 
