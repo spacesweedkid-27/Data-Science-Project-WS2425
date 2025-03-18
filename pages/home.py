@@ -4,6 +4,11 @@ import dash
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
+
+from pages.chords import layout as chords_layout
+from pages.lyrics import layout as lyrics_layout
+from pages.tempo import layout as tempo_layout
+
 dash.register_page(__name__, path='/')
 
 chord_data = pd.read_csv('data/chords_extracted/billboard_2005.csv')
@@ -29,12 +34,12 @@ misc_information = [
 ]
 
 button_row = dbc.Stack([
-    dbc.Button('Button', color='primary', class_name='me-3'),
-    dbc.Button('Button', color='secondary', class_name='me-3'),
-    dbc.Button('Button', color='danger', class_name='me-3')],
+    dbc.Button('chords', color='primary', class_name='me-3', id='chords-trigger'),
+    dbc.Button('lyrics', color='secondary', class_name='me-3', id='lyrics-trigger'),
+    dbc.Button('tempo', color='danger', class_name='me-3', id='tempo-trigger')],
     class_name='d-grid gap-2 d-md-block mb-3')
 
-table = dbc.Table.from_dataframe(chord_data, striped=True, bordered=True, hover=True)
+table = dbc.Table.from_dataframe(chord_data, striped=True, bordered=True, hover=True, id='dynamic-content')
 
 container = dbc.Container(
     [
@@ -54,4 +59,33 @@ container = dbc.Container(
     fluid=True,
     className='d-flex flex-wrap align-items-start align-items-center vw-100 justify-content-center mb-2')
 
-layout = html.Div([container, table])
+layout = html.Div([
+    dcc.Location(id='url', refresh=False),
+    container,
+    table])
+
+###################################
+# Callbacks
+###################################
+
+@dash.callback(
+    Output('dynamic-content', 'children'),
+    [Input('chords-trigger', 'n_clicks'),
+     Input('lyrics-trigger', 'n_clicks'),
+     Input('tempo-trigger', 'n_clicks')]
+)
+def buttons_clicks(chords_clicks, lyrics_clicks, tempo_clicks):
+    ctx = dash.callback_context
+    if not ctx.triggered:
+        return table #  TODO proper msg
+    
+    button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if button_id == 'chords-trigger':
+        return chords_layout
+    elif button_id == 'lyrics-trigger':
+        return lyrics_layout
+    elif button_id == 'tempo-trigger':
+        return tempo_layout
+    
+    return table # TODO proper msg
