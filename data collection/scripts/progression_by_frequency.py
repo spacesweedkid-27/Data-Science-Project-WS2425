@@ -44,6 +44,5 @@ def get_all_main_harmonies(input_path: str, current: dict[tuple[int, ...], int])
                 results[tuple()] += 1
     return results
 
+convert_all_harmony_tables()
 
-def __main__():
-    convert_all_harmony_tables()

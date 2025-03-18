@@ -1,101 +1,101 @@
 Title,Artist,Main_Harmony,Main_Interval_Harmony
-"""Bad Day""",Daniel Powter,"(5, 1, 4, 2)","(7, -5, 3, -5)"
-"""Temperature""",Sean Paul,"(1, 2, 1, 7)","(10, -10, 2, -2)"
-"""Promiscuous""",Nelly Furtado featuring Timbaland,"(1, 4)","(7, -7)"
-"""You're Beautiful""",James Blunt,"(4, 5, 1)","(-2, 7, -5)"
-"""Hips Don't Lie""",Shakira featuring Wyclef Jean,"(1, 4, 7, 5)","(7, -5, 3, -1)"
-"""Unwritten""",Natasha Bedingfield,"(1, 6, 2, 4)","(-5, -3, 5, 3)"
-"""Crazy""",Gnarls Barkley,"(5, 5, 1, 3, 6)","(0, 7, -3, -5, 1)"
-"""Ridin'""",Chamillionaire featuring Krayzie Bone,"(1, 5, 6, 4)","(5, -2, 4, -7)"
+"""Bad Day""",Daniel Powter,"(5, 1, 4, 2)","(5, 5, -3, 5)"
+"""Temperature""",Sean Paul,"(1, 2, 1, 7)","(2, -2, -2, 2)"
+"""Promiscuous""",Nelly Furtado featuring Timbaland,"(1, 4)","(-5, 5)"
+"""You're Beautiful""",James Blunt,"(4, 5, 1)","(2, 5, 5)"
+"""Hips Don't Lie""",Shakira featuring Wyclef Jean,"(1, 4, 7, 5)","(5, 5, -3, 1)"
+"""Unwritten""",Natasha Bedingfield,"(1, 6, 2, 4)","(5, 3, -5, -3)"
+"""Crazy""",Gnarls Barkley,"(5, 5, 1, 3, 6)","(3, 5, -1, 0)"
+"""Ridin'""",Chamillionaire featuring Krayzie Bone,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
 """SexyBack""",Justin Timberlake featuring Timbaland,"(4, 4, 4, 4)","(0, 0, 0, 0)"
 """Check on It""",Beyoncé featuring Slim Thug and Bun B,not found,not found
 """Be Without You""",Mary J. Blige,not found,not found
 """Grillz""",Nelly featuring Paul Wall and Ali & Gipp,not found,not found
-"""Over My Head (Cable Car)""",The Fray,"(5, 1, 3)","(-3, 7, -4)"
+"""Over My Head (Cable Car)""",The Fray,"(5, 1, 3)","(3, 5, 4)"
 """Me & U""",Cassie,not found,not found
-"""Buttons""",Pussycat Dolls featuring Snoop Dogg,"(6, 3)","(-7, 7)"
+"""Buttons""",Pussycat Dolls featuring Snoop Dogg,"(6, 3)","(-5, 5)"
 """Run It!""",Chris Brown featuring Juelz Santana,not found,not found
-"""So Sick""",Ne-Yo,"(6, 4, 7, 1)","(-8, 3, 7, -2)"
+"""So Sick""",Ne-Yo,"(6, 4, 7, 1)","(-4, -3, 5, 2)"
 """It's Goin' Down""",Yung Joc featuring Nitti,not found,not found
-"""SOS""",Rihanna,"(1, 0, 0, 0)","(-3, 7, -7, 3)"
-"""I Write Sins Not Tragedies""",Panic! at the Disco,"(1, 4, 6, 7)","(-2, -2, 7, -3)"
+"""SOS""",Rihanna,"(1, 0, 0, 0)","(3, 5, -5, -3)"
+"""I Write Sins Not Tragedies""",Panic! at the Disco,"(1, 4, 6, 7)","(2, 2, 5, 3)"
 """Move Along""",The All-American Rejects,not found,not found
 """London Bridge""",Fergie,not found,not found
-"""Dani California""",Red Hot Chili Peppers,"(4, 7, 6, 3)","(5, -2, -5, 2)"
+"""Dani California""",Red Hot Chili Peppers,"(4, 7, 6, 3)","(-5, 2, 5, -2)"
 """Snap Yo Fingers""",Lil Jon featuring E-40 and Sean Paul,not found,not found
 """Lean wit It, Rock wit It""",Dem Franchize Boyz featuring Peanut and Charlay,not found,not found
 """What Hurts the Most""",Rascal Flatts,not found,not found
-"""How to Save a Life""",The Fray,"(5, 6, 5, 1)","(-2, 2, -5, 5)"
-"""Unfaithful""",Rihanna,"(1, 6, 4, 7)","(3, -5, 10, -8)"
-"""Chasing Cars""",Snow Patrol,"(1, 5, 4, 1)","(5, 2, -7, 0)"
-"""Lips of an Angel""",Hinder,"(0, 4, 1, 2)","(-7, -2, 4, 5)"
-"""Everytime We Touch""",Cascada,"(7, 1, 6, 3, 7, 1, 3, 7, 6, 7, 1, 6)","(-2, 4, -7, 5, -2, -3, 5, 2, -2, -2, 4, -2)"
-"""Ain't No Other Man""",Christina Aguilera,"(1, 4)","(5, -5)"
-"""Dance, Dance""",Fall Out Boy,"(3, 6, 5, 1)","(-5, 1, -5, 9)"
-"""Gold Digger""",Kanye West featuring Jamie Foxx,"(1, 4)","(7, -7)"
+"""How to Save a Life""",The Fray,"(5, 6, 5, 1)","(2, -2, 5, -5)"
+"""Unfaithful""",Rihanna,"(1, 6, 4, 7)","(5, 5, -5, 5, 3, -3, 3, -1)"
+"""Chasing Cars""",Snow Patrol,"(1, 5, 4, 1)","(-5, -2, -5, 0)"
+"""Lips of an Angel""",Hinder,"(0, 4, 1, 2)","(-5, -5, 2, -4)"
+"""Everytime We Touch""",Cascada,"(7, 1, 6, 3, 7, 1, 3, 7, 6, 7, 1, 6)","(2, -4, -5, -5, 2, 3, -5, -2, 2, 2, -4, 2)"
+"""Ain't No Other Man""",Christina Aguilera,"(1, 4)","(-5, 5)"
+"""Dance, Dance""",Fall Out Boy,"(3, 6, 5, 1)","(5, -1, 5, 3)"
+"""Gold Digger""",Kanye West featuring Jamie Foxx,"(1, 4)","(5, -5)"
 """Money Maker""",Ludacris featuring Pharrell,not found,not found
 """Ms. New Booty""",Bubba Sparxxx featuring Ying Yang Twins,not found,not found
 """(When You Gonna) Give It Up to Me""",Sean Paul featuring Keyshia Cole,not found,not found
-"""Photograph""",Nickelback,"(1, 5, 0, 4)","(-7, 4, -2, 5)"
-"""Because of You""",Kelly Clarkson,"(7, 3, 5, 1)","(0, 2, -5, -4, 7)"
-"""Stickwitu""",Pussycat Dolls,"(5, 1, 5, 2)","(7, -7, 5, -5)"
+"""Photograph""",Nickelback,"(1, 5, 0, 4)","(-5, -4, 2, -5)"
+"""Because of You""",Kelly Clarkson,"(7, 3, 5, 1)","(0, -2, 5, 4, 5)"
+"""Stickwitu""",Pussycat Dolls,"(5, 1, 5, 2)","(5, -5, -5, 5)"
 """I'm 'n Luv (wit a Stripper)""",T-Pain featuring Mike Jones,not found,not found
 """My Humps""",The Black Eyed Peas,not found,not found
-"""Where'd You Go""",Fort Minor featuring Holly Brook and Jonah Matranga,"(6, 4)","(-8, 8)"
-"""Yo (Excuse Me Miss)""",Chris Brown,"(3, 3, 3, 3, 1, 1, 6, 6)","(0, 0, 0, 4, 0, 3, 0, -7)"
-"""Walk Away""",Kelly Clarkson,"(1, 0, 4)","(-7, -3, 10)"
+"""Where'd You Go""",Fort Minor featuring Holly Brook and Jonah Matranga,"(6, 4)","(-5, 2, -4, -5)"
+"""Yo (Excuse Me Miss)""",Chris Brown,"(3, 3, 3, 3, 1, 1, 6, 6)","(0, 0, 0, -4, 0, -3, 0, -5)"
+"""Walk Away""",Kelly Clarkson,"(1, 0, 4)","(-5, 3, 2)"
 """Laffy Taffy""",D4L,not found,not found
-"""What You Know""",T.I.,"(1, 5, 2, 6)","(-7, 5)"
-"""Dirty Little Secret""",The All-American Rejects,"(1, 6, 1, 5)","(3, -3, 5, -5)"
-"""Savin' Me""",Nickelback,"(1, 4, 5, 3, 1, 5, 3)","(3, -5, 10, -8, 3, 5, -8)"
+"""What You Know""",T.I.,"(1, 5, 2, 6)","(-5, -5, -5, -5)"
+"""Dirty Little Secret""",The All-American Rejects,"(1, 6, 1, 5)","(-3, 3, -5, 5)"
+"""Savin' Me""",Nickelback,"(1, 4, 5, 3, 1, 5, 3)","(-3, 5, 2, -4, -3, -5, -4)"
 """Don't Forget About Us""",Mariah Carey,not found,not found
 """Sexy Love""",Ne-Yo,not found,not found
 """U and Dat""",E-40 featuring T-Pain and Kandi Girl,not found,not found
-"""Far Away""",Nickelback,"(5, 6, 4, 1)","(-2, 4, 5, 0, -7)"
-"""What's Left of Me""",Nick Lachey,"(2, 6, 7, 6)","(-7, -2, 2, 7, 0)"
+"""Far Away""",Nickelback,"(5, 6, 4, 1)","(-5, 2, -4, -5, 0)"
+"""What's Left of Me""",Nick Lachey,"(2, 6, 7, 6)","(-5, 2, -2, 5, 0)"
 """So What""",Field Mob featuring Ciara,not found,not found
 """Do It to It""",Cherish featuring Sean Paul of the YoungBloodZ,not found,not found
-"""Black Horse and the Cherry Tree""",KT Tunstall,"(1, 1, 5)","(0, 2)"
+"""Black Horse and the Cherry Tree""",KT Tunstall,"(1, 1, 5)","(0, -2)"
 """There It Go (The Whistle Song)""",Juelz Santana,not found,not found
 """Shoulder Lean""",Young Dro featuring T.I.,not found,not found
 """Unpredictable""",Jamie Foxx featuring Ludacris,not found,not found
-"""My Love""",Justin Timberlake featuring T.I.,"(5, 4, 1, 5)","(-7, 0, 2, 5)"
-"""Shake That""",Eminem featuring Nate Dogg,"(5, 2, 5, 1)","(5, -7, 7, -5)"
+"""My Love""",Justin Timberlake featuring T.I.,"(5, 4, 1, 5)","(-5, -5, 0, -2)"
+"""Shake That""",Eminem featuring Nate Dogg,"(5, 2, 5, 1)","(-5, -5, 5, 5)"
 """Pullin' Me Back""",Chingy featuring Tyrese,not found,not found
 """Bossy""",Kelis featuring Too Short,not found,not found
 """Chain Hang Low""",Jibbs,not found,not found
-"""Smack That""",Akon featuring Eminem,"(7, 6, 7, 1)","(1, -10, 10, -1)"
+"""Smack That""",Akon featuring Eminem,"(7, 6, 7, 1)","(-1, -2, 2, 1)"
 """One Wish""",Ray J,not found,not found
-"""Sugar, We're Goin Down""",Fall Out Boy,"(4, 6, 4, 1)","(4, 5, -5, -4)"
+"""Sugar, We're Goin Down""",Fall Out Boy,"(4, 6, 4, 1)","(-4, -5, 5, 4)"
 """Gimme That""",Chris Brown featuring Lil Wayne,not found,not found
 """I Know You See It""",Yung Joc,not found,not found
-"""Who Says You Can't Go Home""",Bon Jovi featuring Jennifer Nettles,"(3, 1, 3, 7, 3, 4, 7)","(7, -9, 9, -7, 7, -2, -5)"
-"""Too Little Too Late""",JoJo,"(2, 1, 2, 5)","(-7, 2, -2, 7)"
+"""Who Says You Can't Go Home""",Bon Jovi featuring Jennifer Nettles,"(3, 1, 3, 7, 3, 4, 7)","(5, -3, 3, -5, 5, 2, 5)"
+"""Too Little Too Late""",JoJo,"(2, 1, 2, 5)","(-5, -2, 2, 5)"
 """Touch It""",Busta Rhymes,not found,not found
-"""Rompe""",Daddy Yankee,"(1, 3)","(-3, 3)"
+"""Rompe""",Daddy Yankee,"(1, 3)","(3, -3)"
 """Déjà Vu""",Beyoncé featuring Jay-Z,not found,not found
-"""Life Is a Highway""",Rascal Flatts,"(3, 7, 6, 3, 7, 1, 7, 6, 3, 3, 6)","(5, 5, -10, 5, 5, -2, 2, -10, 5, 0, -5)"
+"""Life Is a Highway""",Rascal Flatts,"(3, 7, 6, 3, 7, 1, 7, 6, 3, 3, 6)","(-5, -5, -2, -5, -5, 2, -2, -2, -5, 0, 5)"
 """Call Me When You're Sober""",Evanescence,"(1, 1, 1, 1)","(0, 0, 0, 0)"
-"""Jesus, Take the Wheel""",Carrie Underwood,"(5, 1, 5, 6)","(-7, -2, 2, 7)"
+"""Jesus, Take the Wheel""",Carrie Underwood,"(5, 1, 5, 6)","(-5, -5, -5, -2, 5)"
 """Show Stopper""",Danity Kane featuring Yung Joc,not found,not found
 """Get Up""",Ciara featuring Chamillionaire,not found,not found
-"""We Be Burnin'""",Sean Paul,"(1, 4)","(-5, 5)"
-"""Hate Me""",Blue October,"(6, 4, 5, 1)","(3, 4, -2, -5)"
-"""You and Me""",Lifehouse,"(1, 6, 5, 4, 1, 4, 1)","(2, 2, -7, 7, -7, 0, 3)"
+"""We Be Burnin'""",Sean Paul,"(1, 4)","(5, -5)"
+"""Hate Me""",Blue October,"(6, 4, 5, 1)","(-3, -4, 2, 5)"
+"""You and Me""",Lifehouse,"(1, 6, 5, 4, 1, 4, 1)","(-2, -2, -5, 5, -5, 0, -3)"
 """Beep""",Pussycat Dolls featuring will.i.am,not found,not found
 """I Think They Like Me""","Dem Franchize Boyz featuring Jermaine Dupri, Da Brat and Bow Wow",not found,not found
-"""Say Goodbye""",Chris Brown,"(1, 6, 3, 7)","(4, 5, -7, -2)"
-"""Waiting on the World to Change""",John Mayer,"(1, 1, 6, 4, 1, 5, 6, 4)","(4, 5, -7, -2, 4, 5, 0, -9)"
-"""Soul Survivor""",Young Jeezy featuring Akon,"(6, 1)","(-4, 4)"
+"""Say Goodbye""",Chris Brown,"(1, 6, 3, 7)","(-4, -5, -5, 2)"
+"""Waiting on the World to Change""",John Mayer,"(1, 1, 6, 4, 1, 5, 6, 4)","(-5, -5, 2, -4, -5, 0, -3, -4)"
+"""Soul Survivor""",Young Jeezy featuring Akon,"(6, 1)","(4, -4)"
 """Pump It""",The Black Eyed Peas,not found,not found
-"""When I'm Gone""",Eminem,"(3, 1, 3, 2, 1, 2)","(-2, -2, 4, -4, 2, 2)"
-"""Hung Up""",Madonna,"(1, 3)","(-3, 3)"
+"""When I'm Gone""",Eminem,"(3, 1, 3, 2, 1, 2)","(2, 2, -4, 4, -2, -2)"
+"""Hung Up""",Madonna,"(1, 3)","(3, -3)"
 """Stay Fly""",Three 6 Mafia featuring Young Buck and 8Ball & MJG,not found,not found
-"""Love""",Keyshia Cole,"(1, 1, 2, 4)","(0, -2, 9, -7)"
+"""Love""",Keyshia Cole,"(1, 1, 2, 4)","(0, 2, 3, -5)"
 """When You're Mad""",Ne-Yo,not found,not found
-"""Why You Wanna""",T.I.,"(1, 6)","(-5, 0, 3, -3)"
-"""Stupid Girls""",Pink,"(1, 6)","(4, -4)"
-"""Feel Good Inc.""",Gorillaz,"(0, 0, 0, 0)","(1, 2, -3, 1, -8, 3, 0, -2, -1, 7)"
+"""Why You Wanna""",T.I.,"(1, 6)","(5, 0, -3, 3)"
+"""Stupid Girls""",Pink,"(1, 6)","(-4, 4)"
+"""Feel Good Inc.""",Gorillaz,"(0, 0, 0, 0)","(-1, -2, 3, -1, -4, -3, 0, 2, 1, 5)"
 """I'm Sprung""",T-Pain,not found,not found
 """Do I Make You Proud""",Taylor Hicks,not found,not found
 """For You I Will (Confidence)""",Teddy Geiger,not found,not found

@@ -1,101 +1,101 @@
 Title,Artist,Main_Harmony,Main_Interval_Harmony
 """Irreplaceable""",Beyoncé,not found,not found
-"""Umbrella""",Rihanna featuring Jay-Z,"(1, 5, 7, 3)","(5, -4, -5, 4)"
+"""Umbrella""",Rihanna featuring Jay-Z,"(1, 5, 7, 3)","(-5, 4, 5, -4)"
 """The Sweet Escape""",Gwen Stefani featuring Akon,not found,not found
 """Big Girls Don't Cry""",Fergie,not found,not found
 """Buy U a Drank (Shawty Snappin')""",T-Pain featuring Yung Joc,not found,not found
-"""Before He Cheats""",Carrie Underwood,"(6, 5, 1, 7)","(2, 2, 1, -5)"
-"""Hey There Delilah""",Plain White T's,"(1, 6)","(4, -2, -2, 2)"
+"""Before He Cheats""",Carrie Underwood,"(6, 5, 1, 7)","(-2, -2, -1, 5)"
+"""Hey There Delilah""",Plain White T's,"(1, 6)","(-4, 2, 2, -2)"
 """I Wanna Love You""",Akon featuring Snoop Dogg,not found,not found
 """Say It Right""",Nelly Furtado,not found,not found
-"""Glamorous""",Fergie featuring Ludacris,"(1, 6, 3, 7)","(4, 5, -7, -2)"
-"""Don't Matter""",Akon,"(1, 5, 6, 4)","(5, -2, 4, -7)"
-"""Girlfriend""",Avril Lavigne,"(1, 5, 6, 4)","(5, -7, -2, 4)"
-"""Makes Me Wonder""",Maroon 5,"(7, 6, 4, 7)","(2, 3, -5, -2)"
+"""Glamorous""",Fergie featuring Ludacris,"(1, 6, 3, 7)","(-5, -5, 2, -4)"
+"""Don't Matter""",Akon,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Girlfriend""",Avril Lavigne,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Makes Me Wonder""",Maroon 5,"(7, 6, 4, 7)","(-2, -3, 5, 2)"
 """Party Like a Rockstar""",Shop Boyz,not found,not found
-"""Smack That""",Akon featuring Eminem,"(7, 6, 7, 1)","(1, -10, 10, -1)"
+"""Smack That""",Akon featuring Eminem,"(7, 6, 7, 1)","(-1, -2, 2, 1)"
 """This Is Why I'm Hot""",Mims,not found,not found
-"""It's Not Over""",Daughtry,"(0, 1, 2, 1)","(-2, -2, 2, 2)"
-"""The Way I Are""",Timbaland featuring Keri Hilson,"(1, 7)","(2, -2)"
-"""Fergalicious""",Fergie featuring will.i.am,"(1, 4)","(-7, 7)"
-"""Crank That (Soulja Boy)""",Soulja Boy Tell 'Em,"(0, 7, 3, 6, 0)","(7, -5, 7, -4, -5)"
-"""Give It to Me""",Timbaland featuring Nelly Furtado and Justin Timberlake,"(1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 4, 1, 3, 4, 1, 3, 4, 1, 3, 4, 1)","(0, 0, 0, 0, 0, 0, 0, 0, -3, 10, -7, -3, 10, -7, -3, 10, -7, -3, 10, -7, 0)"
-"""What Goes Around... Comes Around""",Justin Timberlake,"(1, 3, 7, 4)","(-7, 9, -7, 5)"
-"""Cupid's Chokehold""",Gym Class Heroes featuring Patrick Stump,"(7, 3, 6, 1)","(-10, 7, -5, 8)"
-"""How to Save a Life""",The Fray,"(5, 6, 5, 1)","(-2, 2, -5, 5)"
-"""Home""",Daughtry,"(4, 1)","(2, 2, -4)"
+"""It's Not Over""",Daughtry,"(0, 1, 2, 1)","(2, 2, -2, -2)"
+"""The Way I Are""",Timbaland featuring Keri Hilson,"(1, 7)","(-2, 2)"
+"""Fergalicious""",Fergie featuring will.i.am,"(1, 4)","(-5, 5)"
+"""Crank That (Soulja Boy)""",Soulja Boy Tell 'Em,"(0, 7, 3, 6, 0)","(5, 5, 5, 4, 5)"
+"""Give It to Me""",Timbaland featuring Nelly Furtado and Justin Timberlake,"(1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 4, 1, 3, 4, 1, 3, 4, 1, 3, 4, 1)","(0, 0, 0, 0, 0, 0, 0, 0, 3, 2, -5, 3, 2, -5, 3, 2, -5, 3, 2, -5, 0)"
+"""What Goes Around... Comes Around""",Justin Timberlake,"(1, 3, 7, 4)","(-5, -5, -5, 3)"
+"""Cupid's Chokehold""",Gym Class Heroes featuring Patrick Stump,"(7, 3, 6, 1)","(-2, 5, 5, 4)"
+"""How to Save a Life""",The Fray,"(5, 6, 5, 1)","(2, -2, 5, -5)"
+"""Home""",Daughtry,"(4, 1)","(-2, -2, 4)"
 """My Love""",Justin Timberlake featuring T.I.,not found,not found
-"""Stronger""",Kanye West,"(1, 7, 4, 0)","(2, -7, 8, -8)"
+"""Stronger""",Kanye West,"(1, 7, 4, 0)","(-2, -5, 4, -4)"
 """We Fly High""",Jim Jones,not found,not found
-"""U + Ur Hand""",Pink,"(0, 0, 1)","(5, -2, -3)"
+"""U + Ur Hand""",Pink,"(0, 0, 1)","(-5, 2, 3)"
 """Walk It Out""",Unk,not found,not found
-"""Beautiful Girls""",Sean Kingston,"(1, 6, 4, 5, 1)","(3, 4, -2, -5, 0)"
-"""This Ain't a Scene, It's an Arms Race""",Fall Out Boy,"(5, 1)","(-5, 4, 5, -4)"
+"""Beautiful Girls""",Sean Kingston,"(1, 6, 4, 5, 1)","(-3, -4, 2, 5, 0)"
+"""This Ain't a Scene, It's an Arms Race""",Fall Out Boy,"(5, 1)","(5, -4, -5, 4)"
 """Bartender""",T-Pain featuring Akon,not found,not found
 """Pop, Lock & Drop It""",Huey,not found,not found
 """Runaway Love""",Ludacris featuring Mary J. Blige,not found,not found
-"""Rockstar""",Nickelback,"(0, 1, 0, 4)","(-3, 10, -3, -2)"
+"""Rockstar""",Nickelback,"(0, 1, 0, 4)","(2, 3)"
 """Thnks fr th Mmrs""",Fall Out Boy,not found,not found
-"""What I've Done""",Linkin Park,"(7, 4, 1, 3)","(5, 5, -7, -3)"
-"""Summer Love""",Justin Timberlake,"(1, 6)","(-8, 8)"
-"""You""",Lloyd featuring Lil Wayne,"(1, 7, 4, 5)","(2, -7, 10, -5)"
-"""Wait for You""",Elliott Yamin,"(1, 2, 3)","(-2, -2, 4)"
+"""What I've Done""",Linkin Park,"(7, 4, 1, 3)","(-5, -5, 3, -5)"
+"""Summer Love""",Justin Timberlake,"(1, 6)","(4, -4)"
+"""You""",Lloyd featuring Lil Wayne,"(1, 7, 4, 5)","(-2, -5, 2, 5)"
+"""Wait for You""",Elliott Yamin,"(1, 2, 3)","(2, 2, -4)"
 """Last Night""",Diddy featuring Keyshia Cole,not found,not found
-"""Make It Rain""",Fat Joe featuring Lil Wayne,"(1, 3, 7, 1)","(-3, 5, -2, 0)"
+"""Make It Rain""",Fat Joe featuring Lil Wayne,"(1, 3, 7, 1)","(3, -5, 2, 0)"
 """Make Me Better""",Fabolous featuring Ne-Yo,not found,not found
-"""Ice Box""",Omarion,"(6, 4, 1, 3)","(-4, -5, 4, 5)"
-"""Lips of an Angel""",Hinder,"(0, 4, 1, 2)","(-7, -2, 4, 5)"
-"""Waiting on the World to Change""",John Mayer,"(1, 1, 6, 4, 1, 5, 6, 4)","(4, 5, -7, -2, 4, 5, 0, -9)"
-"""Lost Without U""",Robin Thicke,"(4, 7, 7, 3, 4, 0, 5, 1, 1, 4)","(0, -5, 0, 7, 0, -5, -2, -1, -1, 7)"
+"""Ice Box""",Omarion,"(6, 4, 1, 3)","(5, -4, -5, 4)"
+"""Lips of an Angel""",Hinder,"(0, 4, 1, 2)","(-5, -5, 2, -4)"
+"""Waiting on the World to Change""",John Mayer,"(1, 1, 6, 4, 1, 5, 6, 4)","(-5, -5, 2, -4, -5, 0, -3, -4)"
+"""Lost Without U""",Robin Thicke,"(4, 7, 7, 3, 4, 0, 5, 1, 1, 4)","(5, 0)"
 """I'm a Flirt""",R. Kelly featuring T.I. and T-Pain,not found,not found
-"""If Everyone Cared""",Nickelback,"(1, 6, 3, 7)","(5, -2, 4, -7)"
+"""If Everyone Cared""",Nickelback,"(1, 6, 3, 7)","(-5, 2, -4, -5)"
 """Get It Shawty""",Lloyd,not found,not found
 """Face Down""",The Red Jumpsuit Apparatus,not found,not found
 """The Way I Live""",Baby Boy da Prince,not found,not found
 """Shortie Like Mine""",Bow Wow featuring Chris Brown and Johntá Austin,not found,not found
 """It Ends Tonight""",The All-American Rejects,not found,not found
 """A Bay Bay""",Hurricane Chris,not found,not found
-"""Because of You""",Ne-Yo,"(1, 2, 3)","(-2, -2, 4)"
+"""Because of You""",Ne-Yo,"(1, 2, 3)","(2, 2, -4)"
 """I Tried""",Bone Thugs-n-Harmony featuring Akon,not found,not found
-"""Welcome To The Black Parade""",My Chemical Romance,"(5, 6, 5, 4, 1, 2, 5, 1)","(-2, 2, 2, -7, -2, 7, -5, 5)"
+"""Welcome To The Black Parade""",My Chemical Romance,"(5, 6, 5, 4, 1, 2, 5, 1)","(-5, 2, -2, -2, -5, 2, 5, 5)"
 """Shawty""",Plies featuring T-Pain,not found,not found
-"""Chasing Cars""",Snow Patrol,"(1, 5, 4, 1)","(5, 2, -7, 0)"
+"""Chasing Cars""",Snow Patrol,"(1, 5, 4, 1)","(-5, -2, -5, 0)"
 """Beautiful Liar""",Beyoncé and Shakira,not found,not found
 """SexyBack""",Justin Timberlake featuring Timbaland,"(4, 4, 4, 4)","(0, 0, 0, 0)"
-"""Keep Holding On""",Avril Lavigne,"(6, 4, 1, 5)","(4, -7, 5, -2)"
+"""Keep Holding On""",Avril Lavigne,"(6, 4, 1, 5)","(-5, 2, -4, -5)"
 """Let It Go""",Keyshia Cole featuring Missy Elliott and Lil' Kim,not found,not found
-"""Apologize""",OneRepublic,"(1, 6, 3, 7)","(4, 5, -7, -2)"
-"""Bubbly""",Colbie Caillat,"(1, 1, 4, 1)","(0, 7, -7, 0)"
-"""Like a Boy""",Ciara,"(1, 6, 7, 4)","(4, -2, 5, -7)"
-"""Who Knew""",Pink,"(5, 6, 1, 4)","(-2, -2, -3, 7)"
-"""Never Again""",Kelly Clarkson,"(1, 3)","(2, -2, 9, -9)"
+"""Apologize""",OneRepublic,"(1, 6, 3, 7)","(-5, -5, 2, -4)"
+"""Bubbly""",Colbie Caillat,"(1, 1, 4, 1)","(0, 5, -5, 0)"
+"""Like a Boy""",Ciara,"(1, 6, 7, 4)","(-5, -5, -4, 2)"
+"""Who Knew""",Pink,"(5, 6, 1, 4)","(2, 2, 3, 5)"
+"""Never Again""",Kelly Clarkson,"(1, 3)","(-2, 2, 3, -3)"
 """Promise""",Ciara,not found,not found
 """Bed""",J. Holiday,not found,not found
 """Throw Some D's""",Rich Boy featuring Polow da Don,not found,not found
-"""Rehab""",Amy Winehouse,"(4, 1)","(0, -7, 2, 5)"
+"""Rehab""",Amy Winehouse,"(4, 1)","(0, -5, -2, -5)"
 """Big Shit Poppin' (Do It)""",T.I.,not found,not found
-"""No One""",Alicia Keys,"(1, 5, 6, 4)","(5, -7, 10, -8)"
-"""The Great Escape""",Boys Like Girls,"(1, 5, 6, 4)","(5, -7, 10, -8)"
+"""No One""",Alicia Keys,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""The Great Escape""",Boys Like Girls,"(1, 5, 6, 4)","(-5, -5, 2, -4)"
 """2 Step""",Unk,not found,not found
 """Walk Away (Remember Me)""",Paula DeAnda featuring The D.E.Y.,not found,not found
 """Go Getta""",Young Jeezy featuring R. Kelly,not found,not found
-"""Here (In Your Arms)""",Hellogoodbye,"(5, 6, 4, 1, 5, 6, 5, 1)","(5, -2, -8, 5, 5, -2, 2, -5)"
+"""Here (In Your Arms)""",Hellogoodbye,"(5, 6, 4, 1, 5, 6, 5, 1)","(-5, 2, -4, -5, -5, 2, -2, 5)"
 """On the Hotline""",Pretty Ricky,not found,not found
-"""Wind It Up""",Gwen Stefani,"(0, 2)","(-5, 5)"
+"""Wind It Up""",Gwen Stefani,"(0, 2)","(-5, 5, -5, 5)"
 """Cyclone""",Baby Bash featuring T-Pain,not found,not found
 """Break It Off""",Rihanna featuring Sean Paul,not found,not found
-"""First Time""",Lifehouse,"(2, 5, 2, 6, 1)","(-2, 7, -7, 5, -3)"
-"""Ayo Technology""",50 Cent featuring Justin Timberlake and Timbaland,"(1, 5, 4)","(5, 2, -7)"
+"""First Time""",Lifehouse,"(2, 5, 2, 6, 1)","(2, 5, -5, -5, 3)"
+"""Ayo Technology""",50 Cent featuring Justin Timberlake and Timbaland,"(1, 5, 4)","(-5, -2, -5)"
 """Outta My System""",Bow Wow featuring T-Pain and Johntá Austin,not found,not found
-"""Teardrops on My Guitar""",Taylor Swift,"(1, 5, 6, 4)","(-2, 4, -7, 5)"
-"""Shut Up and Drive""",Rihanna,"(5, 6, 2, 5, 6, 1)","(-5, -5, 10, -3, -7, 10)"
-"""Snow (Hey Oh)""",Red Hot Chili Peppers,"(3, 7, 1, 6)","(-7, 5, -2, 4)"
+"""Teardrops on My Guitar""",Taylor Swift,"(1, 5, 6, 4)","(2, -4, -5, -5)"
+"""Shut Up and Drive""",Rihanna,"(5, 6, 2, 5, 6, 1)","(5, 5, 2, 3, -5, 2)"
+"""Snow (Hey Oh)""",Red Hot Chili Peppers,"(3, 7, 1, 6)","(-5, -5, 2, -4)"
 """Money Maker""",Ludacris featuring Pharrell,not found,not found
-"""Kiss Kiss""",Chris Brown featuring T-Pain,"(1, 6)","(4, -4)"
-"""Far Away""",Nickelback,"(5, 6, 4, 1)","(-2, 4, 5, 0, -7)"
+"""Kiss Kiss""",Chris Brown featuring T-Pain,"(1, 6)","(-4, 4)"
+"""Far Away""",Nickelback,"(5, 6, 4, 1)","(-5, 2, -4, -5, 0)"
 """Rock Yo Hips""",Crime Mob and Lil' Scrappy,not found,not found
-"""LoveStoned""",Justin Timberlake,"(4, 3, 7, 4, 3, 5)","(2, 2, -7, 5, 2, -4)"
-"""Better than Me""",Hinder,"(0, 1, 0)","(8, 2, -10)"
-"""Paralyzer""",Finger Eleven,"(1, 4, 3)","(2, 3, -5, 2, 3, 0, -5)"
+"""LoveStoned""",Justin Timberlake,"(4, 3, 7, 4, 3, 5)","(-2, -2, -5, -5, -2, 4)"
+"""Better than Me""",Hinder,"(0, 1, 0)","(-2, 4, -2)"
+"""Paralyzer""",Finger Eleven,"(1, 4, 3)","(-2, -3, 5, -2, -3, 0, 5)"
 """That's That""",Snoop Dogg featuring R. Kelly,not found,not found
 """Same Girl""",R. Kelly featuring Usher,not found,not found

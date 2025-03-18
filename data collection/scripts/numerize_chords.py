@@ -223,10 +223,13 @@ def convert_song_to_interval_difference(chords: list[str]) -> list[int]:
     """
     temp = []
     for i in range(len(chords) - 1):
-        temp.append(
-                convert_to_position_at_keyboard(chords[i]) -
-                convert_to_position_at_keyboard(chords[i + 1])
-            )
+        # The inner distance vector.
+        iv = convert_to_position_at_keyboard(chords[i + 1]) - \
+                    convert_to_position_at_keyboard(chords[i])
+        # The normalized distance vector.
+        nv = (iv + 6) % 12 - 6
+        # Take the minimal absolute left/right distance.
+        temp.append(nv)
     return temp
 
 
@@ -250,6 +253,7 @@ def variance_of_intervals(chords: list[str]) -> float:
 def __test__():
     # This is totally not an example that broke identify_key, trust me ;)
     song = ['A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm']
+    print(song)
     print(convert_song_to_interval_difference(song))
     print(variance_of_intervals(song))
     print(identify_key(song))
@@ -262,5 +266,4 @@ def __test__():
 
 
 #__test__()
-
 
