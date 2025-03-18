@@ -4,12 +4,15 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import time
+import re
+import unicodedata
 
-# Funktion zum Entfernen von 'featuring' oder 'feat.' im Künstlernamen
+
 def remove_featuring(artist):
     """
-    Entfernt 'featuring', 'feat.', oder 'feat' aus dem Künstlernamen.
-    Gibt nur den ersten Künstler zurück.
+    Remove 'featuring', 'feat.', or 'feat'
+    
+    from artist name.
     """
     if "featuring" in artist.lower():
         return artist.split("featuring")[0].strip()
@@ -19,37 +22,87 @@ def remove_featuring(artist):
         return artist.split("feat")[0].strip()
     return artist
 
-# Funktion zum Ersetzen von Zahlen und Sonderzeichen im Songtitel
-def replace_numbers_and_special_chars(text):
-    num_dict = {
-        "1": "one",
-        "2": "two",
-        "3": "three",
-        "4": "four",
-        "5": "five",
-        "6": "six",
-        "7": "seven",
-        "8": "eight",
-        "9": "nine",
-        "0": "zero",
-        ",": "",  # Entferne Komma
-        "&": "and",  # Ersetze '&' durch 'and'
-        ".": "",  # Entferne Punkte  "Mr." -> "mr"
-        "'": "",  # Entferne Apostrophen nur für Songtitel und Künstlernamen
-        "don't": "dont",  # Ersetze don't in Songtiteln
-        "I'm": "i-m",  # Ersetze I'm in Songtiteln
-    }
+def replace_apostrophes(text):
+    """
+    Replaces apostophes with a -.
+    """
+    # Regex for words with apostrophe.
+    return re.sub(r"(\w+)'(\w+)", r"\1-\2", text)
 
-    for key, value in num_dict.items():
-        text = text.replace(key, value)
+
+def replace_special_characters(text):
+    """
+    Removes or replaces special characters
     
-    # Apostrophen nur bei "I'm" behandeln und den Bindestrich einfügen
-    text = text.replace("I'm", "i-m")
+    and puts into a URL-friendly format.
+    """
+    # Changes special characters.
+    text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('ascii')
+    
+    # Replaces all special characters with a -.
+    text = re.sub(r'[^\w\s-]', '-', text)  
+    
+    
+    text = text.replace(" ", "-").lower()
     
     return text
 
 
+def replace_numbers_and_special_chars(text):
+    """
+    Replaces special characters in title.
+    """
+    num_dict = {
+        "1": "one", "2": "two", "3": "three", "4": "four", "5": "five", 
+        "6": "six", "7": "seven", "8": "eight", "9": "nine", "0": "zero",
+        ",": "", ".": "", "'": "", "(": "", ")": "", "!": "", "&": "-"
+    }
+
+    text = replace_apostrophes(text)
+
+    for key, value in num_dict.items():
+        text = text.replace(key, value)
+
+    
+    # Replace double --.
+    text = re.sub(r'--+', '-', text)  
+    
+    return text
+
+def clean_artist_name(artist):
+    """
+    Cleans up the artist name.
+    Uses remove_featuring, replace_sepcial_character
+    and replaces . with a -. 
+    """
+    
+    artist = remove_featuring(artist)
+
+    # Remove the "and".
+    if " and " in artist.lower():
+        artist = artist.split(" and ")[0].strip()
+
+    artist = replace_special_characters(artist)
+    
+    
+    artist = re.sub(r'\.','-', artist)
+    
+    
+    artist = re.sub(r'--+', '-', artist)
+    
+    return artist
+
 def get_song_tempo(artist, song):
+    """
+    Looksup the tempo of a song using songbpm.com.
+    
+    Args:
+        artist (str): Artist name
+        song (str): song title
+
+    Returns:
+        str: BPM, if found, else "NOT FOUND".
+    """
     headers = {
         'User-Agent': random.choice([
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -58,34 +111,46 @@ def get_song_tempo(artist, song):
         ])
     }
 
-    # Entferne "featuring", "feat." und "feat" aus dem Künstlernamen
-    artist = remove_featuring(artist).replace(' ', '-').lower()  # Künstlername
-    song = song.strip()  # Songtitel ohne Veränderung
-    song = replace_numbers_and_special_chars(song).replace(' ', '-').lower()  # Songtitel
+    # Cleans up artist name and song title
+    clean_artist = clean_artist_name(artist).replace(' ', '-').lower()
+    clean_song = replace_numbers_and_special_chars(song).replace(' ', '-').lower()
 
+    url = f'https://songbpm.com/@{clean_artist}/{clean_song}'
     
-    url = f'https://songbpm.com/@{artist}/{song}'
-    
-    print(f"Versuche URL: {url}")  
+    print(f"Trying URL: {url}")  
     
     response = requests.get(url, headers=headers)
-    if response.status_code != 200:
-        print(response.status_code)
-        return None
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, "html.parser")
+        tempo = [i.text for i in soup.select("span.bg-red-100, span[style='display-style']")]
+        if tempo:
+            return tempo[0]  # Returns tempo
     
-    soup = BeautifulSoup(response.text, "html.parser")
+    print(f"404 Error: {response.status_code} - Not Found, versuche 'don-t' Version...")
 
+    modified_song = replace_numbers_and_special_chars(clean_song.replace("don't", "don-t"))
+    print(f"Trying modified song title with 'don-t': {modified_song}")
     
-    tempo = [i.text for i in soup.select("span.bg-red-100, span[style='display-style']")]
+    url = f'https://songbpm.com/@{clean_artist}/{modified_song}'
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, "html.parser")
+        tempo = [i.text for i in soup.select("span.bg-red-100, span[style='display-style']")]
+        if tempo:
+            return tempo[0]
 
-    if tempo:
-        return tempo[0]  # Gib das erste Tempo zurück
-    else:
-        print(f"Tempo für {artist} - {song} konnte nicht gefunden werden.")
-        return None
+    return "NOT FOUND"
+
+def clean_title(title):
+    """
+    Removes ".
+    """
+    return title.strip('"')
 
 
+# Got this part from preprocessing.py and adjusted it.
 def process_csv(path: str) -> list:
+    
     results = []
 
     with open(path, newline='', encoding='utf-8') as csvfile:
@@ -94,27 +159,27 @@ def process_csv(path: str) -> list:
 
         for song in songs:
             artist = song['Artist']
-            title = song['Title']
+            title = clean_title(song['Title'])
             print(f"Searching for BPM: {artist} - {title}")
-            
             
             tempo = get_song_tempo(artist, title)
             
             
-            if tempo:
-                results.append({
-                    'Title': title,
-                    'Artist': artist,
-                    'Tempo': tempo
-                })
+            result = song.copy()
+            result['Tempo'] = tempo
+            results.append(result)
             
-            time.sleep(1.4) 
+            time.sleep(1.4)  
     
     return results
 
 
+
+# Defining a list of input CSV files.
 csv_files = [
     "..",
+
+    
     
 ]
 
@@ -125,9 +190,13 @@ for file in csv_files:
     
     output_filename = f"../{os.path.basename(file).replace('.csv', '_with_bpm.csv')}"
     
+    # Get all fieldnames from the first result (which should have all original columns and Tempo)
+    if results:
+        fieldnames = list(results[0].keys())
+    else:
+        fieldnames = ['No.', 'Title', 'Artist', 'Tempo']  # Fallback if no results
     
     with open(output_filename, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['Title', 'Artist', 'Tempo']  
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(results)
