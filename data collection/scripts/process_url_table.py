@@ -2,7 +2,7 @@
 
 import csv
 from extract_chords_from_url import get_chords
-from numerize_chords import convert_song_to_harmony
+from numerize_chords import convert_song_to_harmony, convert_song_to_interval_difference, variance_of_intervals
 from process_harmonies import identify_main_harmony_2
 from time import sleep
 from random import randint
@@ -51,8 +51,8 @@ def process_csv_to_chords(input_path: str, output_path: str) -> None:
 
 def process_csv_to_harmonies(input_path: str, output_path: str) -> None:
     """Takes in a path to a csv in Title|Artist|Chords-format and writes to
-       the output path a csv in format Title|Artist|Harmonies. If there are no
-       chords for a song the Harmony-section is filled with 'not found'
+       the output path a csv in format Title|Artist|Harmonies|Intervals|Interval_Variance.
+       If there are no chords for a song the later sections are filled with 'not found'.
     """
     results = []
     with open(input_path, newline='', encoding='utf-8') as csvfile:
@@ -70,21 +70,28 @@ def process_csv_to_harmonies(input_path: str, output_path: str) -> None:
             else:
                 chords = eval(song['Chords'])
 
+
             # If chords is not None, then we can use them,
             # else we set harmony to the mentioned string.
             harmony = convert_song_to_harmony(
                 chords) if chords else 'not found'
+            # Do the same for the interval distances.
+            intervals = convert_song_to_interval_difference(
+                chords) if chords else 'not found'
+            iv = variance_of_intervals(chords) if chords else 'not found'
 
-            print(f'"""{song_name}""",{artist_name},{harmony}')
+            print(f'"""{song_name}""",{artist_name},{harmony},{intervals}')
             results.append({
                 'Title': song_name,
                 'Artist': artist_name,
-                'Harmony': harmony
+                'Harmony': harmony,
+                'Intervals': intervals,
+                'Interval_Variance': iv
             })
 
     # ...
     with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['Title', 'Artist', 'Harmony']
+        fieldnames = ['Title', 'Artist', 'Harmony', 'Intervals', 'Interval_Variance']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(results)
@@ -110,21 +117,27 @@ def extract_csv_main_harmony(input_path: str, output_path: str) -> None:
                 harmony = None
             else:
                 harmony = eval(song['Harmony'])
+            if song['Intervals'] == 'not found':
+                intervals = None
+            else:
+                intervals = eval(song['Intervals'])
 
             # If chords is not None, then we can use them,
             # else we set harmony to the mentioned string.
             m_harmony = identify_main_harmony_2(harmony) if harmony else 'not found'
+            m_interval_harmony = identify_main_harmony_2(intervals) if intervals else 'not found'
 
-            print(f'"""{song_name}""",{artist_name},{m_harmony}')
+            print(f'"""{song_name}""",{artist_name},{m_harmony},{m_interval_harmony}')
             results.append({
                 'Title': song_name,
                 'Artist': artist_name,
-                'Main_Harmony': m_harmony
+                'Main_Harmony': m_harmony,
+                'Main_Interval_Harmony': m_interval_harmony
             })
 
     # ...
     with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['Title', 'Artist', 'Main_Harmony']
+        fieldnames = ['Title', 'Artist', 'Main_Harmony', 'Main_Interval_Harmony']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(results)
@@ -170,5 +183,5 @@ def convert_all_harmony_tables(super_path: str = '../../data') -> None:
 # it should work on the others too, but they should be corrected, before running this!
 #convert_all_url_tables()
 #convert_all_chord_tables()
-convert_all_harmony_tables()
+#convert_all_harmony_tables()
 

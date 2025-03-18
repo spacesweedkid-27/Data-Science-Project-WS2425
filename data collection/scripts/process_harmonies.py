@@ -49,10 +49,10 @@ def defining_subset(lst: list) -> list | None:
 
 
 def identify_main_harmony_2(song: list[int]) -> tuple[int, ...]:
-    """We define the main harmony or dominating harmony of a song the main leitmotiv
-       of the harmonic progressions, that repeats most in the song. This algorithm
-       finds the minimal progression that does not contain a subset of itself and
-       is repeated maximally.
+    """We define the main dominating harmony/interval progression of a song the main leitmotiv
+       of the harmonic/interval progressions, that repeats most in the song.
+       This algorithm finds the minimal progression that does not contain a subset
+       that, when repeated forms the progression and is repeated maximally.
     """
     temp = tuple()
 
@@ -86,9 +86,9 @@ def identify_main_harmony_2(song: list[int]) -> tuple[int, ...]:
         temp = max(curr_candidates, key=lambda x: curr_frequency[x])
         # Retrieve a defining subset and return it if there is one,
         # but if the solution is trivial, we continue the search,
-        # except in the case of the same chord just repeating, where we also return.
+        # since then it could be wrong.
         sublist = defining_subset(temp)
-        if sublist and (len(sublist) != 1 or temp.count(temp[0]) == len(temp)):
+        if sublist and (len(sublist) != 1):# or temp.count(sublist[0]) == len(temp)):
             return tuple(sublist)
     # In this edge case where nothing directly repeating was found,
     # just return the most frequent 4-bar repetition.
@@ -113,3 +113,6 @@ def __test__():
     # (1, 7, 3)
     # (1, 3, 7, 4)
     # (1,)
+
+#__test__()
+

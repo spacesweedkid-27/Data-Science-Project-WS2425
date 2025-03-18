@@ -1,102 +1,102 @@
-Title,Artist,Main_Harmony
-"""Heat Waves""",Glass Animals,"(5, 4, 1, 7, 5, 4, 3, 7)"
-"""As It Was""",Harry Styles,"(1, 4, 7, 3)"
-"""Stay""",The Kid Laroi and Justin Bieber,"(1,)"
-"""Easy on Me""",Adele,"(1, 6, 3, 4)"
-"""Shivers""",Ed Sheeran,"(1, 6, 3, 7)"
-"""First Class""",Jack Harlow,"(6,)"
-"""Big Energy""",Latto,"(1, 2, 6)"
-"""Ghost""",Justin Bieber,"(6, 3, 7, 1)"
-"""Super Gremlin""",Kodak Black,not found
-"""Cold Heart (Pnau Remix)""",Elton John and Dua Lipa,"(6, 5, 1, 4)"
-"""Wait for U""",Future featuring Drake and Tems,not found
-"""About Damn Time""",Lizzo,"(1, 7, 0)"
-"""Bad Habits""",Ed Sheeran,"(1, 3, 6, 7, 1, 3, 4, 6)"
-"""Thats What I Want""",Lil Nas X,"(5, 7, 1)"
-"""Enemy""",Imagine Dragons and JID,"(1, 7)"
-"""Industry Baby""",Lil Nas X and Jack Harlow,"(5,)"
-"""ABCDEFU""",Gayle,"(1, 3, 6, 4)"
-"""Need to Know""",Doja Cat,"(7, 1, 1, 7)"
-"""Wasted on You""",Morgan Wallen,"(0, 4, 1, 0, 2)"
-"""Me Porto Bonito""",Bad Bunny and Chencho Corleone,not found
-"""Woman""",Doja Cat,"(2, 1)"
-"""Tití Me Preguntó""",Bad Bunny,not found
-"""Running Up That Hill (A Deal with God)""",Kate Bush,not found
+Title,Artist,Main_Harmony,Main_Interval_Harmony
+"""Heat Waves""",Glass Animals,"(5, 4, 1, 7, 5, 4, 3, 7)","(2, 5, -10, 3, 2, 2, -7, 3)"
+"""As It Was""",Harry Styles,"(1, 4, 7, 3)","(7, -5, 7, -9)"
+"""Stay""",The Kid Laroi and Justin Bieber,"(1, 1, 2, 3, 7, 1)","(-2, -2, 5, -1, 0, 0)"
+"""Easy on Me""",Adele,"(1, 6, 3, 4)","(-9, 2, 3, 2)"
+"""Shivers""",Ed Sheeran,"(1, 6, 3, 7)","(4, 5, -7, -2)"
+"""First Class""",Jack Harlow,"(6, 6, 1, 1)","(-4, 0, 4, 0)"
+"""Big Energy""",Latto,"(1, 2, 6)","(-2, 5, -3)"
+"""Ghost""",Justin Bieber,"(6, 3, 7, 1)","(5, -7, -2, 4)"
+"""Super Gremlin""",Kodak Black,not found,not found
+"""Cold Heart (Pnau Remix)""",Elton John and Dua Lipa,"(6, 5, 1, 4)","(7, -3, 1, -5)"
+"""Wait for U""",Future featuring Drake and Tems,not found,not found
+"""About Damn Time""",Lizzo,"(1, 7, 0)","(2, -2)"
+"""Bad Habits""",Ed Sheeran,"(1, 3, 6, 7, 1, 3, 4, 6)","(-2, -2, 9, -2, -3, -4, 9, -5)"
+"""Thats What I Want""",Lil Nas X,"(5, 7, 1)","(-7, -3, 10)"
+"""Enemy""",Imagine Dragons and JID,"(1, 7)","(1, -1)"
+"""Industry Baby""",Lil Nas X and Jack Harlow,"(5, 5, 1, 2)","(-2, 7, 0, -5)"
+"""ABCDEFU""",Gayle,"(1, 3, 6, 4)","(-4, 7, -8, 5)"
+"""Need to Know""",Doja Cat,"(7, 1, 1, 7)","(0, -1, 0, 1)"
+"""Wasted on You""",Morgan Wallen,"(0, 4, 1, 0, 2)","(-1, -1, 4, 5, -7)"
+"""Me Porto Bonito""",Bad Bunny and Chencho Corleone,not found,not found
+"""Woman""",Doja Cat,"(2, 1)","(-2, 2)"
+"""Tití Me Preguntó""",Bad Bunny,not found,not found
+"""Running Up That Hill (A Deal with God)""",Kate Bush,not found,not found
 """We Don't Talk About Bruno""","Carolina Gaitán, Mauro Castillo, Adassa, Rhenzy Feliz, Diane Guerrero, Stephanie 
-Beatriz and the *Encanto* cast",not found
-"""Late Night Talking""",Harry Styles,"(4, 3)"
-"""I Like You (A Happier Song)""",Post Malone featuring Doja Cat,"(5, 1, 2)"
-"""You Proof""",Morgan Wallen,"(5, 1, 3)"
-"""Bad Habit""",Steve Lacy,"(2, 1, 2, 6)"
-"""Sunroof""",Nicky Youre and Dazy,"(1, 5, 2, 3)"
-"""One Right Now""",Post Malone and the Weeknd,"(1, 3, 5, 1)"
-"""Good 4 U""",Olivia Rodrigo,"(7, 1, 7, 6, 3)"
-"""Numb Little Bug""",Em Beihold,"(1, 2, 3)"
-"""Jimmy Cooks""",Drake featuring 21 Savage,not found
-"""'Til You Can't""",Cody Johnson,"(1,)"
-"""Fancy Like""",Walker Hayes,"(1,)"
-"""The Kind of Love We Make""",Luke Combs,"(1, 3)"
-"""I Ain't Worried""",OneRepublic,"(1, 6, 3, 5)"
-"""Break My Soul""",Beyoncé,not found
-"""Something in the Orange""",Zach Bryan,"(1, 6, 3, 7)"
-"""Save Your Tears""",The Weeknd and Ariana Grande,not found
-"""Smokin out the Window""",Silk Sonic (Bruno Mars and Anderson .Paak),not found
-"""Levitating""",Dua Lipa,"(1, 5, 4, 1)"
-"""In a Minute""",Lil Baby,not found
-"""Moscow Mule""",Bad Bunny,"(3, 1, 6, 3)"
-"""You Right""",Doja Cat and the Weeknd,"(6, 5, 6, 1)"
-"""She Had Me at Heads Carolina""",Cole Swindell,"(5, 4, 5, 1)"
-"""Vegas""",Doja Cat,not found
-"""Pushin P""",Gunna and Future featuring Young Thug,not found
-"""Buy Dirt""",Jordan Davis and Luke Bryan,not found
-"""I Hate U""",SZA,"(1, 2, 5, 1, 7)"
-"""Boyfriend""",Dove Cameron,"(1, 6, 4, 5, 3, 1, 6, 4)"
-"""Glimpse of Us""",Joji,"(4, 7, 4, 5, 1)"
-"""Surface Pressure""",Jessica Darrow,not found
-"""Fall in Love""",Bailey Zimmerman,"(3, 7, 4, 1)"
-"""Love Nwantiti (Ah Ah Ah)""",CKay,not found
-"""Super Freaky Girl""",Nicki Minaj,"(1, 0, 1, 4)"
-"""Hrs and Hrs""",Muni Long,not found
-"""Sand in My Boots""",Morgan Wallen,"(1, 4)"
-"""Mamiii""",Becky G and Karol G,"(1, 4, 7, 1)"
-"""Knife Talk""",Drake featuring 21 Savage and Project Pat,not found
-"""AA""",Walker Hayes,"(1,)"
-"""Sweetest Pie""",Megan Thee Stallion and Dua Lipa,not found
-"""Provenza""",Karol G,"(1, 6, 7, 3)"
-"""Essence""",Wizkid featuring Justin Bieber and Tems,not found
-"""All I Want for Christmas Is You""",Mariah Carey,not found
-"""Bam Bam""",Camila Cabello featuring Ed Sheeran,"(1, 6, 4, 5)"
-"""5 Foot 9""",Tyler Hubbard,"(4, 1, 1)"
-"""Get Into It (Yuh)""",Doja Cat,"(1, 7)"
-"""Efecto""",Bad Bunny,"(1, 6, 3, 5, 1, 6, 3, 2)"
-"""Rock and a Hard Place""",Bailey Zimmerman,"(3, 6, 3, 1, 3, 6, 1)"
-"""Doin' This""",Luke Combs,"(1,)"
-"""Oh My God""",Adele,"(7,)"
-"""Better Days""","Neiked, Mae Muller and Polo G","(1, 4, 7, 5)"
-"""Meet Me at Our Spot""",The Anxiety: Willow and Tyler Cole,"(5, 4, 5, 1, 6)"
-"""Fingers Crossed""",Lauren Spencer-Smith,not found
-"""All Too Well (Taylor's Version)""",Taylor Swift,"(5, 6, 4, 1)"
-"""Party""",Bad Bunny and Rauw Alejandro,"(1, 7, 3, 2)"
-"""Después de la Playa""",Bad Bunny,"(1, 6, 4)"
-"""You Should Probably Leave""",Chris Stapleton,"(3, 6, 3, 1)"
-"""Rockin' Around the Christmas Tree""",Brenda Lee,"(5, 1, 5, 5)"
-"""Broadway Girls""",Lil Durk featuring Morgan Wallen,"(1, 7)"
-"""Take My Name""",Parmalee,"(5, 2, 3, 1, 5, 2, 5, 1, 5, 2, 3, 1, 5, 2, 3, 1, 5, 2, 3, 1, 5, 2, 1)"
-"""What Happened to Virgil""",Lil Durk featuring Gunna,not found
-"""Puffin on Zootiez""",Future,not found
-"""Like I Love Country Music""",Kane Brown,"(1,)"
-"""Jingle Bell Rock""",Bobby Helms,"(5, 2)"
-"""Ojitos Lindos""",Bad Bunny and Bomba Estéreo,"(1, 3, 2, 6)"
-"""Trouble with a Heartbreak""",Jason Aldean,"(7,)"
-"""A Holly Jolly Christmas""",Burl Ives,not found
-"""Kiss Me More""",Doja Cat featuring SZA,"(1, 4, 7, 3, 2)"
-"""She Likes It""",Russell Dickerson featuring Jake Scott,"(1,)"
-"""Never Say Never""",Cole Swindell and Lainey Wilson,not found
-"""Damn Strait""",Scotty McCreery,"(4, 0)"
-"""She's All I Wanna Be""",Tate McRae,"(1, 7, 3, 6)"
-"""Last Night Lonely""",Jon Pardi,"(1, 7, 3)"
-"""Flower Shops""",Ernest featuring Morgan Wallen,"(5, 1, 5, 6, 2)"
-"""To the Moon""",Jnr Choi and Sam Tompkins,not found
-"""Unholy""",Sam Smith and Kim Petras,"(0,)"
-"""One Mississippi""",Kane Brown,"(6, 3, 7, 1, 6, 3, 7)"
-"""Circles Around This Town""",Maren Morris,"(4, 1, 4, 5)"
+Beatriz and the *Encanto* cast",not found,not found
+"""Late Night Talking""",Harry Styles,"(4, 3)","(7, -5, -5, 8)"
+"""I Like You (A Happier Song)""",Post Malone featuring Doja Cat,"(5, 1, 2)","(-5, 10, -5)"
+"""You Proof""",Morgan Wallen,"(5, 1, 3)","(-4, -3, 7)"
+"""Bad Habit""",Steve Lacy,"(2, 1, 2, 6)","(7, 2, -2, -7)"
+"""Sunroof""",Nicky Youre and Dazy,"(1, 5, 2, 3)","(-7, 5, -2, 4)"
+"""One Right Now""",Post Malone and the Weeknd,"(1, 3, 5, 1)","(9, -5, 0, -4)"
+"""Good 4 U""",Olivia Rodrigo,"(7, 1, 7, 6, 3)","(2, -7, 5)"
+"""Numb Little Bug""",Em Beihold,"(1, 2, 3)","(-2, -2, 4)"
+"""Jimmy Cooks""",Drake featuring 21 Savage,not found,not found
+"""'Til You Can't""",Cody Johnson,"(1, 1, 1, 1)","(0, 0, 0, 0)"
+"""Fancy Like""",Walker Hayes,"(1, 1, 1, 1)","(7, 0, 0, 0)"
+"""The Kind of Love We Make""",Luke Combs,"(1, 3)","(9, -9, 9, -9)"
+"""I Ain't Worried""",OneRepublic,"(1, 6, 3, 5)","(3, 5, -3, -5)"
+"""Break My Soul""",Beyoncé,not found,not found
+"""Something in the Orange""",Zach Bryan,"(1, 6, 3, 7)","(5, -2, 4, -7)"
+"""Save Your Tears""",The Weeknd and Ariana Grande,not found,not found
+"""Smokin out the Window""",Silk Sonic (Bruno Mars and Anderson .Paak),not found,not found
+"""Levitating""",Dua Lipa,"(1, 5, 4, 1)","(5, 2, -7, 0)"
+"""In a Minute""",Lil Baby,not found,not found
+"""Moscow Mule""",Bad Bunny,"(3, 1, 6, 3)","(-9, 5, 0, 4)"
+"""You Right""",Doja Cat and the Weeknd,"(6, 5, 6, 1)","(1, -1, 8, -8)"
+"""She Had Me at Heads Carolina""",Cole Swindell,"(5, 4, 5, 1)","(2, -2, -5, 5)"
+"""Vegas""",Doja Cat,not found,not found
+"""Pushin P""",Gunna and Future featuring Young Thug,not found,not found
+"""Buy Dirt""",Jordan Davis and Luke Bryan,not found,not found
+"""I Hate U""",SZA,"(1, 2, 5, 1, 7)","(-2, -5, 7, -10, 10)"
+"""Boyfriend""",Dove Cameron,"(1, 6, 4, 5, 3, 1, 6, 4)","(4, 3, -2, -8)"
+"""Glimpse of Us""",Joji,"(4, 7, 4, 5, 1)","(-5, 7, -5, 5, -2)"
+"""Surface Pressure""",Jessica Darrow,not found,not found
+"""Fall in Love""",Bailey Zimmerman,"(3, 7, 4, 1)","(-7, 5, -7, 9)"
+"""Love Nwantiti (Ah Ah Ah)""",CKay,not found,not found
+"""Super Freaky Girl""",Nicki Minaj,"(1, 0, 1, 4)","(7, -7, 2, -2)"
+"""Hrs and Hrs""",Muni Long,not found,not found
+"""Sand in My Boots""",Morgan Wallen,"(1, 4)","(-5, 5)"
+"""Mamiii""",Becky G and Karol G,"(1, 4, 7, 1)","(-5, 7, -2, 0)"
+"""Knife Talk""",Drake featuring 21 Savage and Project Pat,not found,not found
+"""AA""",Walker Hayes,"(5, 1, 1, 2)","(2, -2, -5, 0)"
+"""Sweetest Pie""",Megan Thee Stallion and Dua Lipa,not found,not found
+"""Provenza""",Karol G,"(1, 6, 7, 3)","(-9, -2, 7, 4)"
+"""Essence""",Wizkid featuring Justin Bieber and Tems,not found,not found
+"""All I Want for Christmas Is You""",Mariah Carey,not found,not found
+"""Bam Bam""",Camila Cabello featuring Ed Sheeran,"(1, 6, 4, 5)","(-5, 3, 4, -2)"
+"""5 Foot 9""",Tyler Hubbard,"(4, 1, 1)","(-5, 5, 0)"
+"""Get Into It (Yuh)""",Doja Cat,"(1, 7)","(1, -1)"
+"""Efecto""",Bad Bunny,"(1, 6, 3, 5, 1, 6, 3, 2)","(-7, 9, -5, 3, -7, 2, 2, 3)"
+"""Rock and a Hard Place""",Bailey Zimmerman,"(3, 6, 3, 1, 3, 6, 1)","(9, -5, 5, -9, 9, -5, -4)"
+"""Doin' This""",Luke Combs,"(6, 5, 4, 1)","(2, 2, 5, 0, -9)"
+"""Oh My God""",Adele,"(7, 7, 1, 1, 7, 7, 6, 6)","(0, -2, 0, 2, 0, 2, 0, -2)"
+"""Better Days""","Neiked, Mae Muller and Polo G","(1, 4, 7, 5)","(-5, 7, 3, -5)"
+"""Meet Me at Our Spot""",The Anxiety: Willow and Tyler Cole,"(5, 4, 5, 1, 6)","(2, 2, -2, 7, -9)"
+"""Fingers Crossed""",Lauren Spencer-Smith,not found,not found
+"""All Too Well (Taylor's Version)""",Taylor Swift,"(5, 6, 4, 1)","(-2, 4, 5, -7)"
+"""Party""",Bad Bunny and Rauw Alejandro,"(1, 7, 3, 2)","(2, 2, 1, -5)"
+"""Después de la Playa""",Bad Bunny,"(1, 6, 4)","(5, 4, -9)"
+"""You Should Probably Leave""",Chris Stapleton,"(3, 6, 3, 1)","(-7, 3, -3, 7)"
+"""Rockin' Around the Christmas Tree""",Brenda Lee,"(5, 1, 5, 5)","(-5, 7, -11, 7, -5, 7, -5, 5, 0)"
+"""Broadway Girls""",Lil Durk featuring Morgan Wallen,"(1, 7)","(2, -2)"
+"""Take My Name""",Parmalee,"(5, 2, 3, 1, 5, 2, 5, 1, 5, 2, 3, 1, 5, 2, 3, 1, 5, 2, 3, 1, 5, 2, 1)","(-7, 5, -2, 4, -7, 5, -5, 7, -7, 5, -2, 4, -7, 5, -2, 4, -7, 5, -2, 4, -7, 5, 2)"
+"""What Happened to Virgil""",Lil Durk featuring Gunna,not found,not found
+"""Puffin on Zootiez""",Future,not found,not found
+"""Like I Love Country Music""",Kane Brown,"(1, 1, 1, 1)","(0, 0, 0, 0)"
+"""Jingle Bell Rock""",Bobby Helms,"(5, 2)","(-5, 5)"
+"""Ojitos Lindos""",Bad Bunny and Bomba Estéreo,"(1, 3, 2, 6)","(-4, 2, 5, -3)"
+"""Trouble with a Heartbreak""",Jason Aldean,"(7, 7, 7, 7, 7, 7, 1, 3)","(0, 0, 0, 0, 0, -2, 9, -7)"
+"""A Holly Jolly Christmas""",Burl Ives,not found,not found
+"""Kiss Me More""",Doja Cat featuring SZA,"(1, 4, 7, 3, 2)","(7, -5, 7, -11, 2)"
+"""She Likes It""",Russell Dickerson featuring Jake Scott,"(1, 1, 1, 4, 4)","(0, 0, -5, 0, 5)"
+"""Never Say Never""",Cole Swindell and Lainey Wilson,not found,not found
+"""Damn Strait""",Scotty McCreery,"(4, 0)","(-7, 2, -2, 7)"
+"""She's All I Wanna Be""",Tate McRae,"(1, 7, 3, 6)","(-5, -5, 8, 2)"
+"""Last Night Lonely""",Jon Pardi,"(1, 7, 3)","(2, -5, 3)"
+"""Flower Shops""",Ernest featuring Morgan Wallen,"(5, 1, 5, 6, 2)","(-5, 5, -2, -5, 7)"
+"""To the Moon""",Jnr Choi and Sam Tompkins,not found,not found
+"""Unholy""",Sam Smith and Kim Petras,"(0, 0, 0, 0)","(-1, 1, -1, 1)"
+"""One Mississippi""",Kane Brown,"(6, 3, 7, 1, 6, 3, 7)","(5, -7, -2, 4)"
+"""Circles Around This Town""",Maren Morris,"(4, 1, 4, 5)","(5, -5, -2, 2)"
