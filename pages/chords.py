@@ -3,8 +3,15 @@ from dash import Dash, dash_table, dcc, html, clientside_callback, callback
 from dash.dependencies import Input, Output
 import dash
 import dash_bootstrap_components as dbc
+import plotly.graph_objects as go
+import ast
+import glob
+import os
+from dash_bootstrap_templates import load_figure_template
 
 dash.register_page(__name__)
+
+load_figure_template('morph')
 
 heading = dbc.Container('We got some information about chords here')
 main_content = dbc.Container('Some information about this project goes here. '
@@ -13,4 +20,91 @@ main_content = dbc.Container('Some information about this project goes here. '
 'being listed in the official requirements provided by CAU, it still holds a lot'
 'of value from a scientific standpoint.')
 
-layout = html.Div([heading, main_content])
+path = 'data/chords_extracted'
+files = glob.glob(os.path.join(path, 'billboard_*.csv'))
+
+# Store chord frequencies.
+count_per_year = {}
+for file in files: 
+    year = file.split('_')[-1].split('.')[0] #  get part of filename between _ and .
+
+    # Load data into dataframe
+    df = pd.read_csv(file)
+
+    # Holds count for every year
+    counts = []
+
+    # For each song, put 
+    for chords in df['Chords']:
+        try: #  Gracefully handle 'not found' instances
+            chord_list = ast.literal_eval(chords) #  String to List
+            counts.extend(chord_list)
+        except (KeyError, ValueError):
+            continue
+    
+    count_per_year[year] = counts
+
+all_chords = list(set([chord for year_data in count_per_year.values()
+                            for chord in year_data]))
+sorted_years = sorted(count_per_year.keys())
+
+chord_matrix = pd.DataFrame(columns=all_chords, index=sorted_years)
+
+#  simple chords
+
+for year, chords in count_per_year.items():
+    chord_counts = {chord: chords.count(chord) for chord in all_chords}
+    chord_matrix.loc[year] = chord_counts
+
+chord_matrix = chord_matrix.apply(pd.to_numeric, errors='coerce').fillna(0)
+def create_heatmap(chord_matrix):
+    heatmap = go.Figure(data=go.Heatmap(
+        z = chord_matrix.values,
+        x = chord_matrix.columns,
+        y = chord_matrix.index,
+        colorscale = 'Blues',
+        colorbar = dict(title='Chord Frequency'),
+        )
+    )
+        
+    heatmap.update_layout(
+        xaxis_title='Chords',
+        yaxis_title='Year',
+        autosize=True,
+        xaxis=dict(tickangle=45),
+        yaxis=dict(tickmode='linear')
+    )
+
+    return heatmap
+
+init_heatmap = create_heatmap(chord_matrix)
+
+filter_slider = dcc.Slider(
+    id = 'frequency-threshold',
+    min = 0,
+    max = chord_matrix.max().max(),
+    step = 1,
+    value = 1,
+    marks = {
+        i: str(i) for i in range(0, int(chord_matrix.max().max()) + 1, 1)
+    }, className = 'w-50'
+)
+
+fig = dbc.Container([
+    html.H3('Chord Frequencies by Year'),
+    filter_slider,
+    dcc.Graph(
+        id = 'heatmap',
+        figure = init_heatmap,
+    )
+])
+
+layout = html.Div([heading,
+                   main_content,
+                   fig]
+                )
+
+
+########################
+# CALLBACKS HERE
+########################

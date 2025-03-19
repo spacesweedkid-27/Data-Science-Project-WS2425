@@ -4,10 +4,12 @@ Für Fortnite
 '''
 
 import pandas as pd
-from dash import Dash, dash_table, dcc, html, clientside_callback, callback
+from dash import Dash, dash_table, dcc, html, clientside_callback, callback, Patch
 from dash.dependencies import Input, Output
 import dash
 import dash_bootstrap_components as dbc
+from dash_bootstrap_templates import load_figure_template
+import plotly.io as pio
 
 app = Dash(__name__,
     external_stylesheets=[dbc.themes.MORPH, dbc.icons.FONT_AWESOME],
@@ -15,12 +17,15 @@ app = Dash(__name__,
 )
 server=app.server
 
+import pages.chords as c
 ###################################
 # data imports go here
 ###################################
 # Should probably load data within pages, so data gets rendered on view, not on
 # sideload -> better performance for larger datasets.
 
+templates = ['morph']
+load_figure_template(templates)
 
 ###################################
 # Static content for all pages
@@ -79,6 +84,27 @@ clientside_callback(
     Output('color-mode-switch', 'className'),
     Input('color-mode-switch', 'n_clicks'),
 )
+
+@callback(
+    Output('heatmap', 'figure', allow_duplicate=True),
+    Input('frequency-threshold', 'value'),
+    prevent_initial_call=True
+)
+def update_heatmap(min_frequency):
+    filtered_matrix = c.chord_matrix.loc[:, c.chord_matrix.max(axis=0) >= min_frequency]
+    updated_heatmap_fig = c.create_heatmap(filtered_matrix)
+
+    return updated_heatmap_fig
+@callback(
+    Output('graph', 'figure'),
+    Input('color-mode-switch', 'value')
+)
+def update_fig_template(switch_on):
+    template = pio.templates['morph'] if switch_on else pio.templates['morph_dark']
+
+    patched_fig = Patch()
+    patched_fig['layout']['template'] = template
+    return patched_fig
 
 # TODO In theory we should do handling of what happens when wrong
 # paths are called but I honestly don't see myself doing that. Would
