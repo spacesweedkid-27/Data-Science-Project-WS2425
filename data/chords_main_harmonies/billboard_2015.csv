@@ -1,0 +1,102 @@
+Title,Artist,Main_Harmony,Main_Interval_Harmony
+"""Uptown Funk""",Mark Ronson featuring Bruno Mars,"(1, 4)","(5, -5)"
+"""Thinking Out Loud""",Ed Sheeran,"(1, 1, 4, 5)","(5, 2, 5, 0)"
+"""See You Again""",Wiz Khalifa featuring Charlie Puth,not found,not found
+"""Trap Queen""",Fetty Wap,"(1, 4, 6, 7)","(2, 2, 5, 3)"
+"""Sugar""",Maroon 5,not found,not found
+"""Shut Up and Dance""",Walk the Moon,"(4, 6, 5, 1)","(5, 5, 4, -2)"
+"""Blank Space""",Taylor Swift,"(4, 2, 5, 0)","(5, -3, -4, 2)"
+"""Watch Me""",Silentó,not found,not found
+"""Earned It""",The Weeknd,"(5, 1)","(-5, 5, 0, -5, 0, 5, -5, 5)"
+"""The Hills""",The Weeknd,"(3, 5, 3, 1)","(3, 4, -4, -3)"
+"""Cheerleader (Felix Jaehn Remix)""",OMI,"(4, 1, 4, 5)","(-5, 5, 2, -2)"
+"""Can't Feel My Face""",The Weeknd,"(1, 0, 2)","(-2, 4, -2)"
+"""Love Me Like You Do""",Ellie Goulding,"(1, 3, 6, 4)","(-4, 2, 2, 3)"
+"""Take Me to Church""",Hozier,"(4, 1, 4, 3)","(-5, -4, 2, -5)"
+"""Bad Blood""",Taylor Swift featuring Kendrick Lamar,"(1, 5, 2, 3)","(-5, -5, 2, -4)"
+"""Lean On""",Major Lazer and DJ Snake featuring MØ,not found,not found
+"""Want to Want Me""",Jason Derulo,"(6, 1)","(-3, 3)"
+"""Shake It Off""",Taylor Swift,"(1, 2, 4)","(2, 3, -5)"
+"""Where Are Ü Now""",Skrillex and Diplo (Jack Ü) featuring Justin Bieber,not found,not found
+"""Fight Song""",Rachel Platten,"(1, 5, 6, 4)","(-5, -5, 2, -4)"
+"""679""",Fetty Wap featuring Remy Boyz,"(1, 7, 3, 5)","(5, 3, 5, -1)"
+"""Lips Are Movin""",Meghan Trainor,"(1, 2, 4, 1)","(2, 3, -5, 0)"
+"""Worth It""",Fifth Harmony featuring Kid Ink,"(1, 1, 5, 5)","(0, -5, 0, 5)"
+"""Post to Be""",Omarion featuring Chris Brown and Jhené Aiko,not found,not found
+"""Honey, I'm Good.""",Andy Grammer,"(1, 1, 4, 5)","(5, 0, 5, 2)"
+"""I'm Not the Only One""",Sam Smith,"(1, 3, 6, 4)","(-5, 4, 5, -4)"
+"""Good for You""",Selena Gomez featuring ASAP Rocky,"(5, 6, 1, 2)","(2, 3, 2, 5)"
+"""All About That Bass""",Meghan Trainor,"(1, 1, 2, 5)","(5, 5, 0, 2)"
+"""Style""",Taylor Swift,"(6, 1)","(-4, 4)"
+"""Hotline Bling""",Drake,"(6, 1)","(3, -3)"
+"""Hey Mama""","David Guetta featuring Nicki Minaj, Bebe Rexha and Afrojack","(1, 1, 1, 1)","(0, 0, 0, 0)"
+"""G.D.F.R.""",Flo Rida featuring Sage the Gemini and Lookas,not found,not found
+"""What Do You Mean?""",Justin Bieber,not found,not found
+"""Photograph""",Ed Sheeran,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Hello""",Adele,"(1, 6, 3, 7)","(-5, -5, 2, -4)"
+"""Stitches""",Shawn Mendes,"(7, 3, 6, 1)","(5, 5, 4, -2)"
+"""Talking Body""",Tove Lo,"(1, 7, 6, 4)","(-2, -2, -3, -5)"
+"""Jealous""",Nick Jonas,"(1, 2, 0)","(2, 2, -4)"
+"""Time of Our Lives""",Pitbull and Ne-Yo,not found,not found
+"""Locked Away""",R. City featuring Adam Levine,"(1, 6, 4, 1, 5, 1)","(-5, -5, 5, 0, -3, -4)"
+"""Somebody""",Natalie La Rose featuring Jeremih,"(1, 2, 3, 5)","(2, 2, 3, 5)"
+"""FourFiveSeconds""","Rihanna, Kanye West and Paul McCartney","(1, 4, 6, 5)","(5, 4, -2, 5)"
+"""Centuries""",Fall Out Boy,"(1, 3, 6, 4, 7)","(5, 2, 3, 5, -3)"
+"""My Way""",Fetty Wap featuring Monty,"(1, 2, 3, 5, 1)","(2, 2, 3, 5, 0)"
+"""Take Your Time""",Sam Hunt,"(1, 4)","(4, 5, -4, -5)"
+"""Animals""",Maroon 5,"(2, 3, 2, 1)","(2, 2, -2, -2)"
+"""I Don't Fuck with You""",Big Sean featuring E-40,not found,not found
+"""Bitch Better Have My Money""",Rihanna,"(1, 5)","(-5, 5)"
+"""Flex (Ooh, Ooh, Ooh)""",Rich Homie Quan,not found,not found
+"""Nasty Freestyle""",T-Wayne,not found,not found
+"""Only""","Nicki Minaj featuring Drake, Lil Wayne and Chris Brown",not found,not found
+"""Elastic Heart""",Sia,"(2, 3, 2, 1, 5)","(-5, -5, 2, -2, -2)"
+"""Cool for the Summer""",Demi Lovato,not found,not found
+"""Renegades""",X Ambassadors,"(3, 7, 6, 1)","(-2, 4, 3, -5)"
+"""I Don't Mind""",Usher featuring Juicy J,"(1, 3, 1, 5)","(4, -4, -5, 5)"
+"""Love Me Harder""",Ariana Grande and The Weeknd,not found,not found
+"""Wildest Dreams""",Taylor Swift,"(2, 6, 1, 5)","(-5, -5, 3, -5)"
+"""Stay with Me""",Sam Smith,"(1, 6, 3)","(-4, -5, -3)"
+"""You Know You Like It""",DJ Snake and AlunaGeorge,not found,not found
+"""Uma Thurman""",Fall Out Boy,"(5, 3, 7, 4)","(-5, -5, 2, -4)"
+"""7/11""",Beyoncé,not found,not found
+"""The Heart Wants What It Wants""",Selena Gomez,not found,not found
+"""Girl Crush""",Little Big Town,"(1, 5, 6, 4)","(-5, -5, 2, -4)"
+"""Slow Motion""",Trey Songz,"(5, 6, 3, 5, 6, 1)","(-5, 1, -5, 4, 1, 4)"
+"""Drag Me Down""",One Direction,not found,not found
+"""Truffle Butter""",Nicki Minaj featuring Drake and Lil Wayne,not found,not found
+"""One Last Time""",Ariana Grande,"(1, 1, 1, 1, 4, 5, 5, 6, 5)","(0, 0, 0, 5, 2, 0, 2, -2, 5)"
+"""Chains""",Nick Jonas,"(1, 6)","(-4, 4)"
+"""All Eyes on You""",Meek Mill featuring Chris Brown and Nicki Minaj,not found,not found
+"""No Type""",Rae Sremmurd,"(3, 2, 6, 1)","(4, -2, -5, 3)"
+"""Riptide""",Vance Joy,"(1, 7, 3)","(5, -3, -2)"
+"""Classic Man""",Jidenna featuring Roman GianArthur,"(1, 3)","(4, -4)"
+"""Ex's & Oh's""",Elle King,"(1, 5)","(-5, 5)"
+"""Dear Future Husband""",Meghan Trainor,"(0, 0, 0, 0)","(2, 5, 0, -3, -4)"
+"""Marvin Gaye""",Charlie Puth featuring Meghan Trainor,"(1, 6, 4, 5)","(-3, -4, 2, 5)"
+"""Like I'm Gonna Lose You""",Meghan Trainor featuring John Legend,"(4, 4, 4, 4, 4, 1, 3, 6)","(0, 0, 0, 0, -5, 4, 5, -4)"
+"""Habits (Stay High)""",Tove Lo,"(1, 3, 5)","(4, 3, 5)"
+"""The Hanging Tree""",James Newton Howard featuring Jennifer Lawrence,not found,not found
+"""CoCo""",O.T. Genasis,not found,not found
+"""Bang Bang""","Jessie J, Ariana Grande and Nicki Minaj","(1, 1, 1, 1)","(0, 0, 0, 0)"
+"""Lay Me Down""",Sam Smith,"(2, 4, 0, 5)","(5, -3, -5, 3)"
+"""Tuesday""",ILoveMakonnen featuring Drake,not found,not found
+"""Hit the Quan""",iLoveMemphis,not found,not found
+"""Downtown""","Macklemore & Ryan Lewis featuring Eric Nally, Melle Mel, Kool Moe Dee and Grandmaster 
+Caz",not found,not found
+"""House Party""",Sam Hunt,"(6, 6, 0, 0, 1, 6, 4, 6, 0, 0, 1, 6)","(0, -1, -4, -3, 3, 5, 0, -1, -4, 0, 0, 5)"
+"""Ayo""",Chris Brown and Tyga,not found,not found
+"""Kick the Dust Up""",Luke Bryan,"(1, 1, 7)","(2, 0, -2)"
+"""Blessings""",Big Sean featuring Drake and Kanye West,not found,not found
+"""Budapest""",George Ezra,"(1, 1, 4, 1)","(-5, -5, -2, -5)"
+"""Chandelier""",Sia,"(0, 0, 0, 5)","(-3, 1, 0, 2)"
+"""Heartbeat Song""",Kelly Clarkson,"(6, 4, 1, 3)","(5, -4, -5, 4)"
+"""Don't""",Ed Sheeran,"(1, 1, 1, 6, 4, 5)","(0, 0, -3, -4, 2, 5)"
+"""Ghost""",Ella Henderson,"(1, 5, 3, 2)","(-2, -2, -5, -3)"
+"""Here""",Alessia Cara,"(1, 1, 4, 6)","(0, 5, 3, 4)"
+"""Waves (Robin Schulz Remix)""",Mr Probz,not found,not found
+"""El Perdón""",Nicky Jam and Enrique Iglesias,"(7, 6, 1, 7)","(-2, 0, -2, 4)"
+"""She Knows""",Ne-Yo featuring Juicy J,not found,not found
+"""Night Changes""",One Direction,"(5, 6)","(2, -2)"
+"""Back to Back""",Drake,"(1, 4)","(5, -5)"
+"""How Deep Is Your Love""",Calvin Harris and Disciples,"(1, 6, 4)","(-4, -3, -5)"

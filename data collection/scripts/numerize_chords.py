@@ -215,10 +215,47 @@ def convert_song_to_harmony(chords: list[str]) -> list[int]:
     return [convert_letter_to_harmonic_position(key, chord) for chord in chords]
 
 
+def convert_song_to_interval_difference(chords: list[str]) -> list[int]:
+    """Returns a list of integers that marks the difference in half-steps between each chord.
+       For the purpose of our research, this behaves similar to convert_song_to_harmony, but
+       it is not dependent on the key identification, which assumes a song is played in one
+       key and has diminishing results for some songs. Especially complex songs.
+    """
+    temp = []
+    for i in range(len(chords) - 1):
+        # The inner distance vector.
+        iv = convert_to_position_at_keyboard(chords[i + 1]) - \
+                    convert_to_position_at_keyboard(chords[i])
+        # The normalized distance vector.
+        nv = (iv + 6) % 12 - 6
+        # Take the minimal absolute left/right distance.
+        temp.append(nv)
+    return temp
+
+
+def variance_of_intervals(chords: list[str]) -> float:
+    """Returns the variance of the interval changes of a song.
+       Not equivalent with the variance of the chords themselves,
+       since this variance is dependent on composition.
+       For example if I have a song that plays C-major 4 times
+       and then G-major 4 times, the interval variance is not
+       equal to the one of the song where C-major and G-major
+       switch for 4 times, even though their note variance is
+       the same.
+    """
+    intervals = convert_song_to_interval_difference(chords)
+    # Should approximate 0 in most songs,
+    # but must be calculated for correct variance.
+    xm = sum(intervals) / len(intervals)
+    return sum((xi - xm) ** 2 for xi in intervals) / len(intervals)
+
 
 def __test__():
     # This is totally not an example that broke identify_key, trust me ;)
     song = ['A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm', 'A#', 'Dm', 'Em', 'Dm']
+    print(song)
+    print(convert_song_to_interval_difference(song))
+    print(variance_of_intervals(song))
     print(identify_key(song))
     # Gives the correct result <3
     print(identify_key_2(song))
@@ -226,6 +263,7 @@ def __test__():
     print(convert_to_position_at_keyboard("C#"))
     print(convert_letter_to_harmonic_position("D", "F#"))
     print(shrink_chord("A#min"))
+
 
 #__test__()
 
