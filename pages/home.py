@@ -39,7 +39,8 @@ button_row = dbc.Stack([
     dbc.Button('tempo', color='danger', class_name='me-3', id='tempo-trigger')],
     class_name='d-grid gap-2 d-md-block mb-3')
 
-table = dbc.Table.from_dataframe(chord_data, striped=True, bordered=True, hover=True, id='dynamic-content')
+#table = dbc.Table.from_dataframe(chord_data, striped=True, bordered=True, hover=True, id='dynamic-content')
+dynamic_container = dbc.Container([],id='dynamic-content')
 
 container = dbc.Container(
     [
@@ -62,7 +63,9 @@ container = dbc.Container(
 layout = html.Div([
     dcc.Location(id='url', refresh=False),
     container,
-    table])
+    dynamic_container
+    #table
+    ])
 
 ###################################
 # Callbacks
@@ -77,7 +80,7 @@ layout = html.Div([
 def buttons_clicks(chords_clicks, lyrics_clicks, tempo_clicks):
     ctx = dash.callback_context
     if not ctx.triggered:
-        return table #  TODO proper msg
+        return chords_layout
     
     button_id = ctx.triggered[0]['prop_id'].split('.')[0]
 
@@ -87,5 +90,3 @@ def buttons_clicks(chords_clicks, lyrics_clicks, tempo_clicks):
         return lyrics_layout
     elif button_id == 'tempo-trigger':
         return tempo_layout
-    
-    return table # TODO proper msg

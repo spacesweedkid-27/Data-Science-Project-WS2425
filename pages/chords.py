@@ -12,6 +12,7 @@ from dash_bootstrap_templates import load_figure_template
 dash.register_page(__name__)
 
 load_figure_template('morph')
+theme = 'plotly_dark' #  Initial theme that needs to be passed to graphs on load
 
 heading = dbc.Container('We got some information about chords here')
 main_content = dbc.Container('Some information about this project goes here. '
@@ -22,6 +23,13 @@ main_content = dbc.Container('Some information about this project goes here. '
 
 path = 'data/chords_extracted'
 files = glob.glob(os.path.join(path, 'billboard_*.csv'))
+
+###################################
+# CHORD FREQUENCY BY YEAR
+###################################
+
+# This was written before we had the accumulated data file.
+# Might rewrite this later if there's time.
 
 # Store chord frequencies.
 count_per_year = {}
@@ -57,7 +65,7 @@ for year, chords in count_per_year.items():
     chord_matrix.loc[year] = chord_counts
 
 chord_matrix = chord_matrix.apply(pd.to_numeric, errors='coerce').fillna(0)
-def create_heatmap(chord_matrix):
+def create_heatmap(chord_matrix, theme):
     heatmap = go.Figure(data=go.Heatmap(
         z = chord_matrix.values,
         x = chord_matrix.columns,
@@ -72,22 +80,43 @@ def create_heatmap(chord_matrix):
         yaxis_title='Year',
         autosize=True,
         xaxis=dict(tickangle=45),
-        yaxis=dict(tickmode='linear')
+        yaxis=dict(tickmode='linear'),
+        height = 600,
+        template = theme
     )
 
     return heatmap
 
-init_heatmap = create_heatmap(chord_matrix)
+init_heatmap = create_heatmap(chord_matrix, theme)
 
+###################################
+# CHORD PROGRESSIONS
+###################################
+
+# Some content
+
+###################################
+# CHORD GENRE RELATIONS
+###################################
+
+# Some content
+
+###################################
+# HTML ELEMENTS
+###################################
+
+# Slider to set a minimum threshold to the chords that are
+# being displayed in the chord frequencies by year heatmap.
 filter_slider = dcc.Slider(
     id = 'frequency-threshold',
     min = 0,
     max = chord_matrix.max().max(),
-    step = 1,
+    step = 50,
     value = 1,
     marks = {
-        i: str(i) for i in range(0, int(chord_matrix.max().max()) + 1, 1)
-    }, className = 'w-50'
+        i: str(i) for i in range(0, int(chord_matrix.max().max()) + 1, 200)
+    }, tooltip = {'placement': 'bottom', 'always_visible': False},
+    className = 'w-50'
 )
 
 fig = dbc.Container([
@@ -99,12 +128,14 @@ fig = dbc.Container([
     )
 ])
 
+###################################
+
+
+###################################
+# MAIN LAYOUT
+###################################
+
 layout = html.Div([heading,
                    main_content,
                    fig]
                 )
-
-
-########################
-# CALLBACKS HERE
-########################
