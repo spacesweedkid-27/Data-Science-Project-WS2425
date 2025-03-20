@@ -1,0 +1,101 @@
+Title,Artist,Main_Harmony,Main_Interval_Harmony
+"""Thrift Shop""",Macklemore & Ryan Lewis featuring Wanz,"(1, 3, 4, 5, 7, 1, 1)","(3, 2, 2, 3)"
+"""Blurred Lines""",Robin Thicke featuring T.I. and Pharrell Williams,"(1, 3, 6, 4)","(4, 5, -4, -5)"
+"""Radioactive""",Imagine Dragons,"(1, 5, 2, 4)","(-5, -5, -5, 3)"
+"""Harlem Shake""",Baauer,not found,not found
+"""Can't Hold Us""",Macklemore & Ryan Lewis featuring Ray Dalton,"(7, 7, 5, 6, 1)","(0, -3, 1, 4, -2)"
+"""Mirrors""",Justin Timberlake,"(4, 6, 5)","(-2, -2, 4)"
+"""Just Give Me a Reason""",Pink featuring Nate Ruess,"(7, 1, 5, 7, 3)","(-5, 2, -5, 3, 5)"
+"""When I Was Your Man""",Bruno Mars,"(0, 0, 4, 0)","(5, 5, 2)"
+"""Cruise""",Florida Georgia Line featuring Nelly,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Roar""",Katy Perry,"(1, 2, 6, 4)","(-5, -4, -5, 2)"
+"""Locked Out of Heaven""",Bruno Mars,"(1, 0, 4, 5, 1, 2)","(-2, -5, 2, 5, 2, -2)"
+"""Ho Hey""",The Lumineers,"(1, 4)","(5, -5)"
+"""Stay""",Rihanna featuring Mikky Ekko,"(6, 6, 6, 6, 6, 6, 1, 2)","(0, 0, 0, 0, 0, 3, 2, -5)"
+"""Get Lucky""",Daft Punk featuring Pharrell Williams,"(1, 3, 5, 4)","(3, 4, -2, -5)"
+"""Royals""",Lorde,"(1, 0, 4)","(-5, -5, -2)"
+"""I Knew You Were Trouble.""",Taylor Swift,"(5, 6, 4, 5, 1)","(2, -4, 2, 5, -5)"
+"""We Can't Stop""",Miley Cyrus,"(1, 3, 6, 4)","(4, 5, -4, -5)"
+"""Wrecking Ball""",Miley Cyrus,"(6, 3, 7, 1)","(-5, -5, 2, -4)"
+"""Wake Me Up""",Avicii,"(1, 6, 3, 7, 1, 6, 3, 5)","(-5, -5, 2, -4, -5, 4, 5, -4)"
+"""Suit & Tie""",Justin Timberlake featuring Jay-Z,not found,not found
+"""Cups (Pitch Perfect's *When I'm Gone*)""",Anna Kendrick,"(4, 1)","(5, -5)"
+"""Holy Grail""",Jay-Z featuring Justin Timberlake,"(1, 1, 6, 6)","(0, -4, 0, -3)"
+"""Scream & Shout""",will.i.am featuring Britney Spears,not found,not found
+"""Clarity""",Zedd featuring Foxes,not found,not found
+"""Sail""",Awolnation,not found,not found
+"""Don't You Worry Child""",Swedish House Mafia featuring John Martin,"(6, 7, 1, 6)","(2, 2, -4, 0)"
+"""Diamonds""",Rihanna,"(1, 3, 2, 7)","(-2, -3, 1, 4)"
+"""I Love It""",Icona Pop featuring Charli XCX,"(4, 1)","(5, -5)"
+"""Safe and Sound""",Capital Cities,"(1, 5, 3, 2)","(-2, -2, -5, -3)"
+"""Treasure""",Bruno Mars,"(3, 0, 3, 4, 1)","(2, 2, -5, 3, -2)"
+"""The Way""",Ariana Grande featuring Mac Miller,"(1, 4, 7, 2, 0, 5)","(5, 5, 5, 4, 4, 1)"
+"""Started from the Bottom""",Drake,"(1, 1, 1, 1)","(0, 0, 0, 0)"
+"""Come & Get It""",Selena Gomez,not found,not found
+"""Hold On, We're Going Home""",Drake featuring Majid Jordan,"(1, 0, 1, 5, 4)","(-2, 2, -5, -2, -5)"
+"""Daylight""",Maroon 5,"(1, 1, 6, 4)","(-5, 0, -3, -4)"
+"""Feel This Moment""",Pitbull featuring Christina Aguilera,"(1, 4, 7, 5)","(5, 5, -3, 5)"
+"""Applause""",Lady Gaga,"(4, 7, 1)","(5, 5, 2)"
+"""One More Night""",Maroon 5,"(1, 5, 4)","(-5, -2, -5)"
+"""Love Me""",Lil Wayne featuring Drake and Future,not found,not found
+"""My Songs Know What You Did in the Dark (Light Em Up)""",Fall Out Boy,not found,not found
+"""Fuckin' Problems""","ASAP Rocky featuring Drake, 2 Chainz and Kendrick Lamar","(1, 6, 3, 7)","(-5, -5, 2, -4)"
+"""Beauty and a Beat""",Justin Bieber featuring Nicki Minaj,not found,not found
+"""Same Love""",Macklemore & Ryan Lewis featuring Mary Lambert,not found,not found
+"""Sweet Nothing""",Calvin Harris featuring Florence Welch,"(1, 5, 3, 2)","(-2, -2, -5, -3)"
+"""Summertime Sadness""",Lana Del Rey and Cédric Gervais,not found,not found
+"""Home""",Phillip Phillips,"(1, 6, 1, 1)","(-4, -3, 3, 0)"
+"""It's Time""",Imagine Dragons,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Power Trip""",J. Cole featuring Miguel,"(7, 6, 7, 1)","(-2, -2, 2, 2)"
+"""Girl on Fire""",Alicia Keys featuring Nicki Minaj,"(1, 6, 3, 5)","(5, -3, -5, 3)"
+"""Heart Attack""",Demi Lovato,not found,not found
+"""Love Somebody""",Maroon 5,not found,not found
+"""I Will Wait""",Mumford & Sons,"(3, 7, 1, 6, 3, 6)","(-5, 2, -4, -5)"
+"""Try""",Pink,not found,not found
+"""Wagon Wheel""",Darius Rucker,"(1, 5, 6, 4, 1, 5, 4)","(-5, -5, 2, -4, -5, -5, -2)"
+"""Gangnam Style""",Psy,"(1, 1, 1, 1)","(0, 0, -5, 3)"
+"""I Need Your Love""",Calvin Harris featuring Ellie Goulding,"(3, 7, 1, 6, 3)","(-5, 2, -4, -5, 0)"
+"""Die Young""",Kesha,"(1, 3, 7, 6)","(3, -5, -2, 4)"
+"""Some Nights""",Fun,"(1, 4)","(5, -5)"
+"""Bad""",Wale featuring Tiara Thomas or Rihanna,"(1, 4, 5)","(5, 2, 5)"
+"""Boys 'Round Here""",Blake Shelton featuring Pistol Annies and Friends,"(1, 4)","(5, -5)"
+"""Gone, Gone, Gone""",Phillip Phillips,"(1, 6, 5, 4)","(-2, -5, -3, -2)"
+"""Demons""",Imagine Dragons,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Counting Stars""",OneRepublic,not found,not found
+"""I Cry""",Flo Rida,"(7, 1, 6, 7, 4, 3, 6)","(2, -5, -2, 5, 2, 2, -4)"
+"""Little Talks""",Of Monsters and Men,"(1, 6, 3, 7)","(-5, -5, 2, -4)"
+"""The Other Side""",Jason Derulo,not found,not found
+"""Berzerk""",Eminem,"(6, 6, 6, 6)","(0, 0, 0, 0)"
+"""Catch My Breath""",Kelly Clarkson,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Crash My Party""",Luke Bryan,"(1, 0, 4, 2)","(-2, -2, -5, -3)"
+"""Pour It Up""",Rihanna,"(6, 1)","(-4, 4)"
+"""22""",Taylor Swift,not found,not found
+"""I Want Crazy""",Hunter Hayes,"(1, 1, 1, 1)","(0, 0, 0, 0)"
+"""The Fox (What Does the Fox Say?)""",Ylvis,not found,not found
+"""Best Song Ever""",One Direction,"(1, 5, 2)","(-5, -5, -2)"
+"""The A Team""",Ed Sheeran,"(5, 3, 1)","(-4, -5, -3, -4)"
+"""Carry On""",Fun,"(4, 1)","(5, -5)"
+"""Highway Don't Care""",Tim McGraw featuring Taylor Swift and Keith Urban,not found,not found
+"""That's My Kind of Night""",Luke Bryan,"(1, 4)","(-5, 5)"
+"""Swimming Pools (Drank)""",Kendrick Lamar,"(1, 6, 3, 5)","(-3, -5, 3, 5)"
+"""Sure Be Cool If You Did""",Blake Shelton,not found,not found
+"""#Beautiful""",Mariah Carey featuring Miguel,not found,not found
+"""Troublemaker""",Olly Murs featuring Flo Rida,"(3, 1, 7, 3)","(5, 0, -4, -1)"
+"""Body Party""",Ciara,"(1, 7, 3, 2, 5)","(5, -2, 5, 5, -1)"
+"""Adorn""",Miguel,"(1, 2, 3)","(2, 2, -4)"
+"""Hall of Fame""",The Script featuring will.i.am,"(3, 7, 1, 6)","(-5, 2, -4, -5)"
+"""Let Me Love You (Until You Learn to Love Yourself)""",Ne-Yo,not found,not found
+"""U.O.E.N.O.""",Rocko featuring Future and Rick Ross,not found,not found
+"""Next to Me""",Emeli Sandé,not found,not found
+"""Mama's Broken Heart""",Miranda Lambert,"(1, 5)","(-5, 5)"
+"""It Goes Like This""",Thomas Rhett,"(6, 1)","(-4, 4)"
+"""Bugatti""",Ace Hood featuring Future and Rick Ross,not found,not found
+"""Wanted""",Hunter Hayes,"(1, 5, 4)","(-5, -2, -5, -5)"
+"""Downtown""",Lady Antebellum,"(4, 1)","(5, 0, -5, 5)"
+"""Get Your Shine On""",Florida Georgia Line,not found,not found
+"""#thatPower""",will.i.am featuring Justin Bieber,not found,not found
+"""Brave""",Sara Bareilles,"(4, 5, 1, 6)","(5, -3, -4, 2)"
+"""Let Her Go""",Passenger,"(0, 4, 1, 2)","(-5, -5, 2, -4)"
+"""Runnin' Outta Moonlight""",Randy Houser,"(1, 5, 3, 2)","(-2, -2, -5, -3)"
+"""I'm Different""",2 Chainz,not found,not found
+"""Still Into You""",Paramore,"(1, 4, 5)","(5, 2, 5)"
