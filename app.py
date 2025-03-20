@@ -75,14 +75,14 @@ navbar = dbc.Navbar(
 ###################################
 
 # Main layout that loads all static content and other pages.
-app.layout = html.Div([
-                    dcc.Location(id='url', refresh=False),
-                    navbar,
-                    #  Holds dynamic page data.
-                    dash.page_container,
-                    #  Invisible storage for active theme.
-                    dcc.Store(id='theme-store', data = 'plotly_dark'),
-                    ])
+app.layout = dbc.Container([
+    dcc.Location(id='url', refresh=False),
+    navbar,
+    #  Holds dynamic page data.
+    dash.page_container,
+    #  Invisible storage for active theme.
+    dcc.Store(id='theme-store', data = 'plotly_dark'),
+], fluid=True)
 
 ###################################
 # CALLBACKS
@@ -127,7 +127,7 @@ def update_theme_store(n_clicks):
 
 # Callback for theme switch for chord-frequency heatmap.
 @callback(
-    Output('heatmap', 'figure'),
+    Output('chordfrequency-year-heatmap', 'figure'),
     Input('color-mode-switch', 'n_clicks')
 )
 def update_fig_template(n_clicks):
@@ -141,8 +141,8 @@ def update_fig_template(n_clicks):
 
 # Callback for heatmap chord-frequency slider.
 @callback(
-    Output('heatmap', 'figure', allow_duplicate=True),
-    [Input('frequency-threshold', 'value'),
+    Output('chordfrequency-year-heatmap', 'figure', allow_duplicate=True),
+    [Input('chordfrequency-year-slider', 'value'),
      Input('theme-store', 'data')],
     prevent_initial_call=True
 )

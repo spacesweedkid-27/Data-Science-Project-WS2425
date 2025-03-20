@@ -89,7 +89,7 @@ def create_heatmap(chord_matrix, theme):
 
     return heatmap
 
-init_heatmap = create_heatmap(chord_matrix, theme)
+init_chordfrequency_year_heatmap = create_heatmap(chord_matrix, theme)
 
 ###################################
 # CHORD PROGRESSIONS
@@ -123,8 +123,8 @@ init_bar_h = create_bar_chart_harmonic_progression(theme)
 
 # Slider to set a minimum threshold to the chords that are
 # being displayed in the chord frequencies by year heatmap.
-filter_slider = dcc.Slider(
-    id = 'frequency-threshold',
+chordfrequency_year_slider = dcc.Slider(
+    id = 'chordfrequency-year-slider',
     min = 0,
     max = chord_matrix.max().max(),
     step = 50,
@@ -149,10 +149,10 @@ filter_slider_harmony = dcc.Slider(
 
 fig = dbc.Container([
     html.H3('Chord Frequencies by Year'),
-    filter_slider,
+    chordfrequency_year_slider,
     dcc.Graph(
-        id = 'heatmap',
-        figure = init_heatmap,
+        id = 'chordfrequency-year-heatmap',
+        figure = init_chordfrequency_year_heatmap,
     )
 ])
 
