@@ -75,14 +75,14 @@ navbar = dbc.Navbar(
 ###################################
 
 # Main layout that loads all static content and other pages.
-app.layout = html.Div([
-                    dcc.Location(id='url', refresh=False),
-                    navbar,
-                    #  Holds dynamic page data.
-                    dash.page_container,
-                    #  Invisible storage for active theme.
-                    dcc.Store(id='theme-store', data = 'plotly_dark'),
-                    ])
+app.layout = dbc.Container([
+    dcc.Location(id='url', refresh=False),
+    navbar,
+    #  Holds dynamic page data.
+    dash.page_container,
+    #  Invisible storage for active theme.
+    dcc.Store(id='theme-store', data = 'plotly_dark'),
+], fluid=True)
 
 ###################################
 # CALLBACKS
