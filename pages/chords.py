@@ -97,17 +97,19 @@ init_heatmap = create_heatmap(chord_matrix, theme)
 
 ## Pie-chart of main harmony and interval differences.
 hs_h, hs_i = get_all_main_harmonies_and_intervals('data/merged.csv', {tuple() : 0}, {tuple() : 0})
-df_h = pd.DataFrame(hs_h.items(), columns=['Harmonic Progression', 'Absolute Frequency'])
-df_h = df_h.sort_values(by=['Absolute Frequency'], ascending=False)
+df_h_orig = pd.DataFrame(hs_h.items(), columns=['Harmonic Progression', 'Absolute Frequency'])
+# The first element is the 'not found' case.
+df_h_orig = df_h_orig[1:]
+df_h_orig = df_h_orig.sort_values(by=['Absolute Frequency'], ascending=False)
 
-#df_h.loc[df_h['Absolute Frequency'] < 10, 'Harmonic Progression'] = 'Progressions with Frequency less than 10'
-df_h = df_h[(df_h['Absolute Frequency'] < 618) & (df_h['Absolute Frequency'] > 10)]
-#pie_h = px.pie(df_h, values='Absolute Frequency', names='Harmonic Progression', title='Identified Harmonic Progression by Frequency')
-bar_h = px.bar(df_h, x='Harmonic Progression', y='Absolute Frequency')
-#bar_h = go.Figure(data=[go.Bar(x=df_h['Harmonic Progression'], y=df_h['Absolute Frequency'])])
+# With no filter we just copy.
+df_h = df_h_orig
 
-# shows correct graph
-#bar_h.show()
+def create_bar_chart_harmonic_progression(theme: str) -> go.Figure:
+    bar_h = px.bar(df_h, x='Harmonic Progression', y='Absolute Frequency')
+    bar_h.update_layout(template=theme)
+    return bar_h
+init_bar_h = create_bar_chart_harmonic_progression(theme)
 
 ###################################
 # CHORD GENRE RELATIONS
@@ -133,6 +135,18 @@ filter_slider = dcc.Slider(
     className = 'w-50'
 )
 
+filter_slider_harmony = dcc.Slider(
+    id = 'frequency-threshold-harmony-bar',
+    min = 1,
+    max = 52,
+    step = 1,
+    value = 1,
+    marks = {
+        i: str(i) for i in range(1, 52, 10)
+    }, tooltip = {'placement': 'bottom', 'always_visible': False},
+    className = 'w-50'
+)
+
 fig = dbc.Container([
     html.H3('Chord Frequencies by Year'),
     filter_slider,
@@ -142,12 +156,12 @@ fig = dbc.Container([
     )
 ])
 
-# somehow shows incorrect graph
 fig_bar_h = dbc.Container([
     html.H3('Harmonic Progression by Absolute Frequency'),
+    filter_slider_harmony,
     dcc.Graph(
         id = 'harmony-bar',
-        figure = bar_h
+        figure = init_bar_h
     )
 ])
 
@@ -161,7 +175,9 @@ fig_bar_h = dbc.Container([
 
 layout = html.Div([heading,
                    main_content,
+                   html.Br(),
                    fig,
+                   html.Br(),
                    fig_bar_h
                    ]
                 )

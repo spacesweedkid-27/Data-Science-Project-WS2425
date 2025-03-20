@@ -152,6 +152,16 @@ def update_heatmap(min_frequency, theme):
 
     return updated_heatmap_fig
 
+
+@callback(
+    Output('harmony-bar', 'figure', allow_duplicate=True),
+    Input('frequency-threshold-harmony-bar', 'value'),
+    prevent_initial_call=True
+)
+def update_bar_chart_harmony(min_frequency):
+    c.df_h = c.df_h_orig.loc[c.df_h_orig['Absolute Frequency'] >= min_frequency]
+    return c.create_bar_chart_harmonic_progression(c.theme)
+
 ###################################
 
 if __name__ == "__main__":
