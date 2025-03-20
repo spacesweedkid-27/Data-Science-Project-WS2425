@@ -16,6 +16,7 @@
 %\usepackage{tikz}  % For vectorgraphics
 \usepackage{unicode-math}
 \usepackage{graphicx}
+\usepackage{biblatex}
 
 %% intemize without double spacing
 %\usepackage{enumitem}
@@ -51,16 +52,9 @@
 }
 
 
-% pasted content
-%       ↓
-
-% https://hartwork.org/beamer-theme-matrix/
-\usetheme{Boadilla}
-\usecolortheme{dolphin}
-
-% Ganz ohne Hintergrund fand ich das etwas zu plain
-\usebeamercolor{block body}
-\setbeamercolor{frametitle}{bg=block body.bg}
+\usetheme{DataScience}
+\setbeamertemplate{caption}[numbered]
+\logo{\includegraphics[height=7.5cm]{cau-norm-de-blackgrey-cmyk.eps}}
 
 % Die gängigen Informationen
 \institute[\scalebox{0.8}{CAU}]{Christian-Albrechts-Universität zu Kiel}
@@ -90,7 +84,6 @@
         \tableofcontents[currentsection,currentsubsection]
     \end{frame}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % macht die footline kleiner
 %\setbeamertemplate{footline}{
@@ -103,4 +96,4 @@
 %}
 
 % entfernt die icons rechts unten
-\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{navigation symbols}{}
