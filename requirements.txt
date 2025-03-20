@@ -1,7 +1,8 @@
-dash==2.9.3
-numpy
-pandas
-scikit_learn
-plotly
-dash_bootstrap_components
+dash==3.0.0
+numpy==2.2.4
+pandas==2.2.3
+plotly==6.0.1
+dash_bootstrap_components==2.0.0
+dash_bootstrap_templates==2.1.0
+dash_html_components==2.0.0
 gunicorn
