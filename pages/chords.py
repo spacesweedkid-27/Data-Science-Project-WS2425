@@ -142,7 +142,7 @@ filter_slider_harmony = dcc.Slider(
     step = 1,
     value = 1,
     marks = {
-        i: str(i) for i in range(1, 52, 10)
+        i: str(i) for i in range(0, 52, 10)
     }, tooltip = {'placement': 'bottom', 'always_visible': False},
     className = 'w-50'
 )
