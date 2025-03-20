@@ -4,10 +4,12 @@ from dash.dependencies import Input, Output
 import dash
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
+import plotly.express as px
 import ast
 import glob
 import os
 from dash_bootstrap_templates import load_figure_template
+from data_collection.scripts.progression_by_frequency import get_all_main_harmonies_and_intervals
 
 dash.register_page(__name__)
 
@@ -93,7 +95,19 @@ init_heatmap = create_heatmap(chord_matrix, theme)
 # CHORD PROGRESSIONS
 ###################################
 
-# Some content
+## Pie-chart of main harmony and interval differences.
+hs_h, hs_i = get_all_main_harmonies_and_intervals('data/merged.csv', {tuple() : 0}, {tuple() : 0})
+df_h = pd.DataFrame(hs_h.items(), columns=['Harmonic Progression', 'Absolute Frequency'])
+df_h = df_h.sort_values(by=['Absolute Frequency'], ascending=False)
+
+#df_h.loc[df_h['Absolute Frequency'] < 10, 'Harmonic Progression'] = 'Progressions with Frequency less than 10'
+df_h = df_h[(df_h['Absolute Frequency'] < 618) & (df_h['Absolute Frequency'] > 10)]
+#pie_h = px.pie(df_h, values='Absolute Frequency', names='Harmonic Progression', title='Identified Harmonic Progression by Frequency')
+bar_h = px.bar(df_h, x='Harmonic Progression', y='Absolute Frequency')
+#bar_h = go.Figure(data=[go.Bar(x=df_h['Harmonic Progression'], y=df_h['Absolute Frequency'])])
+
+# shows correct graph
+#bar_h.show()
 
 ###################################
 # CHORD GENRE RELATIONS
@@ -128,6 +142,15 @@ fig = dbc.Container([
     )
 ])
 
+# somehow shows incorrect graph
+fig_bar_h = dbc.Container([
+    html.H3('Harmonic Progression by Absolute Frequency'),
+    dcc.Graph(
+        id = 'harmony-bar',
+        figure = bar_h
+    )
+])
+
 ###################################
 
 
@@ -135,7 +158,10 @@ fig = dbc.Container([
 # MAIN LAYOUT
 ###################################
 
+
 layout = html.Div([heading,
                    main_content,
-                   fig]
+                   fig,
+                   fig_bar_h
+                   ]
                 )

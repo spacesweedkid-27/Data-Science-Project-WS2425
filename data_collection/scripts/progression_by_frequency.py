@@ -50,7 +50,7 @@ def get_all_main_harmonies_and_intervals(input_path: str, current_h: dict[tuple[
         # the correlating Main_Harmony.
         for song in songs:
             if song['Main_Harmony'] != 'not found':
-                m_harmony = eval(song['Main_Harmony'])
+                m_harmony = (song['Main_Harmony'])
                 if m_harmony not in results_h.keys():
                     results_h[m_harmony] = 1
                 else:
@@ -62,7 +62,7 @@ def get_all_main_harmonies_and_intervals(input_path: str, current_h: dict[tuple[
         # the correlating ...
         for song in songs:
             if song['Main_Interval_Harmony'] != 'not found':
-                m_interval = eval(song['Main_Interval_Harmony'])
+                m_interval = (song['Main_Interval_Harmony'])
                 if m_interval not in results_i.keys():
                     results_i[m_interval] = 1
                 else:
@@ -71,5 +71,5 @@ def get_all_main_harmonies_and_intervals(input_path: str, current_h: dict[tuple[
                 results_i[tuple()] += 1
     return results_h, results_i
 
-convert_all_harmony_tables()
-
+if __name__ == 'main':
+    convert_all_harmony_tables()
