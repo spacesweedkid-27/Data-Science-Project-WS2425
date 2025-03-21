@@ -173,11 +173,12 @@ fig_bar_h = dbc.Container([
 ###################################
 
 
-layout = html.Div([heading,
+layout = dbc.Container([heading,
                    main_content,
                    html.Br(),
                    fig,
                    html.Br(),
                    fig_bar_h
-                   ]
+                   ],
+                   class_name='mw-75'
                 )

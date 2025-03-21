@@ -2,7 +2,7 @@
 DS Project Website
 Für Fortnite
 '''
-# TODO update requirements.txt
+
 import pandas as pd
 from dash import Dash, dash_table, dcc, html, clientside_callback, callback, Patch
 from dash.dependencies import Input, Output
@@ -20,6 +20,8 @@ server=app.server
 # We'll need to call some functions lateron to dynamically
 # change the graphs generated on the embedded pages.
 import pages.chords as c
+import pages.lyrics as l
+import pages.tempo as t
 
 
 ###################################
@@ -34,6 +36,14 @@ import pages.chords as c
 
 templates = ['morph']
 load_figure_template(templates)
+
+def update_fig_template(n_clicks):
+    isLightMode = n_clicks % 2 == 1
+    template = pio.templates['morph'] if isLightMode else pio.templates['plotly_dark']
+    
+    patched_fig = Patch()
+    patched_fig['layout']['template'] = template
+    return patched_fig
 
 ###################################
 # Static content for all pages
@@ -130,14 +140,16 @@ def update_theme_store(n_clicks):
     Output('chordfrequency-year-heatmap', 'figure'),
     Input('color-mode-switch', 'n_clicks')
 )
-def update_fig_template(n_clicks):
+def update_chordfrequency_year_heatmap(n_clicks):
+    return update_fig_template(n_clicks)
+'''def update_fig_template(n_clicks):
     isLightMode = n_clicks % 2 == 1
     template = pio.templates['morph'] if isLightMode else pio.templates['plotly_dark']
     
     patched_fig = Patch()
     patched_fig['layout']['template'] = template
     return patched_fig
-
+'''
 
 # Callback for heatmap chord-frequency slider.
 @callback(
@@ -161,6 +173,47 @@ def update_heatmap(min_frequency, theme):
 def update_bar_chart_harmony(min_frequency):
     c.df_h = c.df_h_orig.loc[c.df_h_orig['Absolute Frequency'] >= min_frequency]
     return c.create_bar_chart_harmonic_progression(c.theme)
+
+###################################
+# GRAPH TEMPLATE pt.3
+###################################
+
+# Callbacks are necessary for the handling of sliders and the theme-toggle.
+# If you don't use any interactive elements such as sliders, you still need
+# to create one callback to apply the theme to the function. This is fairly
+# straightforward, though.
+'''
+# Theme switch callback for xaxis yaxis figtype.
+@callback(
+    Output('xaxis-yaxis-figtype', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_xaxis_yaxis_figtype(n_clicks):
+    return update_fig_template(n_clicks)
+'''
+
+# When using a slider or other filter options, you'll need a callback that
+# handles value changes as well as theme changes (because the figure will be
+# re-rendered and is assigned the default theme on load. We access the invisible
+# theme-store html element to fetch the currently selected theme to apply it on
+# re-render automatically.)
+# You'll need to call the create function you defined in the corresponding
+# subpage. All subpages are imported already. Use:
+# c.function for functions from the chord-page
+# t.function for functions from the tempo-page
+# l.function for functions from the lyrics-page
+'''
+# Callback for xaxis yaxis figtype slider (toggle, switch, ...)
+@callback(
+    Output('xaxis-yaxis-figtype', 'figure', allow_duplicate=True),
+   [Input('xaxis-yaxis-fitype-slider', 'value'),
+    Input('theme-store', 'data')],
+    precent_initial_call = True
+)
+def update_xaxis_yaxis_figtype(value):
+    <update logic>
+    return t.create_xaxis_yaxis_figtype(theme)
+'''
 
 ###################################
 

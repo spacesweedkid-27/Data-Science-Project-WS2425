@@ -20,19 +20,21 @@ chord_data = pd.read_csv('data/chords_extracted/billboard_2005.csv')
 # HTML / DBC ELEMENTS
 ###################################
 
-headings = [
-    dbc.Container('informational information about music, yaya', className='text-primary vw-10 h2 mb-2')
-]
+heading = dbc.Container('On the development of popular music in the past two decades.',
+    className='text-primary vw-10 h2 mb-2'
+    )
 
-misc_information = [
-    dbc.Container('This text contains information, just so you know. '
-    'Let me tell you why Lateralus by Tool is such a masterpiece. I\'m not '
-    'really in the mood to type it out right now, but ya\'ll better believe '
-    'me, fr.', class_name='mb-2'),
-    dbc.Container('This is another block of information. We can write anything here, '
-    'but I think some basic information about what we\'re looking at would be '
-    'good - to get people into the groove, so to speak.', class_name='mb-2')
-]
+introtext = dbc.Container([
+    html.P('Music is a part of our culture that is not easily replaced. '
+    'Music has been a way to communicate emotions for hundreds of years. Through '
+    'music humans experience joy, sadness, love, grief - unity. Music has brought '
+    'us together, continues to do so to this day. Yet everyone is different.'),
+    html.P('Everyone is shaped by their own experiences, good and bad alike - they make '
+    'up who we are, what we do and what we like. An individual\'s taste in music '
+    'is no exception. Yet some songs find more popularity than others. We aim to '
+    'find out why.')],
+    class_name='mb-2'
+    )
 
 
 # Theme selection buttons. Would probably be far easier if we'd use a tab menu,
@@ -42,7 +44,7 @@ button_row = dbc.Stack([
     dbc.Button('chords', color='primary', class_name='me-3', id='chords-trigger'),
     dbc.Button('lyrics', color='secondary', class_name='me-3', id='lyrics-trigger'),
     dbc.Button('tempo', color='danger', class_name='me-3', id='tempo-trigger')],
-    class_name='d-grid gap-2 d-md-block mb-3')
+    class_name='d-grid gap-2 d-md-block mb-3 mx-auto', direction='horizontal')
 
 # Defines position of dynamic page content within the home page.
 # Will remain empty itself, as it's overwritten on init anyway. 
@@ -51,7 +53,7 @@ dynamic_container = dbc.Container([],id='dynamic-content')
 
 # I think I was trying to understand, how finely grained you could work in dash
 # in regards to structuring the site content. 
-container = dbc.Container(
+'''container = dbc.Container(
     [
         dbc.Row(
             dbc.Col(headings[0])
@@ -67,18 +69,21 @@ container = dbc.Container(
         )
     ],
     fluid=True,
-    className='d-flex flex-wrap align-items-start align-items-center vw-100 justify-content-center mb-2')
+    className='d-flex flex-wrap align-items-start align-items-center vw-100 justify-content-center mb-2')'''
 
 ###################################
 # MAIN LAYOUT
 ###################################
 
-layout = html.Div([
+layout = dbc.Container([
     dcc.Location(id='url', refresh=False),
-    container,
+    #container,
+    heading,
+    introtext,
+    button_row,
     dynamic_container
     #table
-    ])
+    ], class_name='mt-5 d-flex flex-wrap align-items-start align-items-center')
 
 ###################################
 # CALLBACKS
