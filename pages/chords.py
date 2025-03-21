@@ -11,6 +11,8 @@ import os
 from dash_bootstrap_templates import load_figure_template
 from data_collection.scripts.progression_by_frequency import get_all_main_harmonies_and_intervals
 
+import data_collection.scripts.numerize_chords as nc
+
 dash.register_page(__name__)
 
 load_figure_template('morph')
@@ -25,6 +27,7 @@ main_content = dbc.Container('Some information about this project goes here. '
 
 path = 'data/chords_extracted'
 files = glob.glob(os.path.join(path, 'billboard_*.csv'))
+TAGS_PATH = 'data/Billboard_lyrics/Billboard_Lyrics_Top_Tags'
 
 ###################################
 # CHORD FREQUENCY BY YEAR
@@ -113,7 +116,75 @@ init_bar_h = create_bar_chart_harmonic_progression(theme)
 # CHORD GENRE RELATIONS
 ###################################
 
-# Some content
+def apply_literal_eval(val):
+    '''Helper to catch errors for not found instances in chord data.'''
+    if isinstance(val, str):
+        try:
+            return ast.literal_eval(val)
+        except (ValueError):
+            return []
+        return val
+def toptags_to_list(val):
+    '''Helper to turn comma-separated Top_Tag strings into lists.'''
+    if isinstance(val, str):
+        return [tag.strip() for tag in val.split(',')]
+    return []
+
+chords_df = pd.read_csv('data/merged.csv', usecols=['Year', 'Title',
+                                                 'Artist', 'Chords'])
+# Turn chords into list objects.
+chords_df['Chords'] = chords_df['Chords'].apply(apply_literal_eval)
+# Merge all tags files into one dataframe.
+tags_file_path = glob.glob(
+    'data/Billboard_lyrics/BillBoard_Lyrics_Top_Tags' + '/*.csv')
+tags_list = (pd.read_csv(file, usecols=['Title', 'Artist', 'Top_Tags'])
+    for file in tags_file_path)
+toptags_df = pd.concat(tags_list, ignore_index=True)
+# Turn Top_Tags strings into list objects
+toptags_df['Top_Tags'] = toptags_df['Top_Tags'].apply(toptags_to_list)
+
+
+# Merged dataframe
+chords_toptags_df = pd.merge(
+    chords_df, toptags_df, on = ['Title', 'Artist'], how='inner')
+
+chords_toptags_exploded_df = chords_toptags_df.explode(
+    'Chords').explode('Top_Tags')
+print(chords_toptags_exploded_df.head())
+
+chords_toptags_exploded_df['Chords'] = chords_toptags_exploded_df['Chords'].fillna('').apply(nc.shrink_chord)
+
+chords_toptags_counts_df = chords_toptags_exploded_df.groupby(
+    ['Chords', 'Top_Tags']).size().reset_index(name='Count')
+
+print(chords_toptags_counts_df.loc[300:320])
+
+def create_chords_toptags_bubble(theme: str):
+    chords_toptags_bubble = go.Figure(data = px.scatter(
+        chords_toptags_counts_df,
+        x = 'Top_Tags',
+        y = 'Chords',
+        size='Count', color='Chords',
+        #hover_name='Count', 
+        #log_x=True,
+        size_max=60
+    ))
+    
+    chords_toptags_bubble.update_layout(
+        # axis titles and so on
+        autosize = True,
+        height = 600, #  Can be changed to different value when it makes sense
+        template = theme,
+    )
+    return chords_toptags_bubble
+
+init_chords_toptags_bubble = create_chords_toptags_bubble(theme)
+
+###################################
+# PROGRESSION GENRE RELATIONS
+###################################
+
+# Some content here
 
 ###################################
 # HTML ELEMENTS
@@ -225,6 +296,14 @@ fig_bar_h = dbc.Container([
     )
 ], class_name='mb-5')
 
+chords_toptags_bubble_fig = dbc.Container([
+    html.H3('Chords by Top Tags'),
+    dcc.Graph(
+        id = 'chords-toptags-bubble',
+        figure = init_chords_toptags_bubble
+    )
+], class_name='mb-5')
+
 ###################################
 
 
@@ -236,7 +315,8 @@ fig_bar_h = dbc.Container([
 layout = dbc.Container([heading,
                    main_content,
                    fig,
-                   fig_bar_h
+                   fig_bar_h,
+                   chords_toptags_bubble_fig
                    ],
                    class_name='mw-75'
                 )
