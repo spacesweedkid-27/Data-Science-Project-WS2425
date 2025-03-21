@@ -1,32 +1,61 @@
 \input{../praeambel.tex}
 
 \usepackage[orientation=portrait,size=a0,scale=1.4]{beamerposter}
+\usepackage{qrcode}
+\usepackage{multicol}
 \addbibresource{references.bib}
 
+\usepackage[pscoord]{eso-pic}% The zero point of the coordinate systemis the lower left corner of the page (the default).
+
+\newcommand{\placetextbox}[3]{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \setbox0=\hbox{#3}% Put <stuff> in a box
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(\LenToUnit{#1\paperwidth},\LenToUnit{#2\paperheight}){\vtop{{\null}\makebox[0pt][c]{#3}}}%
+  }%
+}%
+
 \author[H. Heyden \and M. Materzok \and N. Pulow \and S. Şimşek]{Henri Heyden \and Mika Materzok \and Nike Pulow \and Senanur Şimşek}
-\title{How do various musical elements vary in the most popular songs of the last 20 years?}
+\title{What made music popular in the last 20 years?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\begin{frame}{} 
-\begin{columns}[]
-    \begin{column}{.48\linewidth}
-        \begin{block}{Titel}
-            Hier ist Text
-        \end{block}
-    \end{column}
-  
-    \begin{column}{.48\linewidth}
+\begin{frame}{}
+\begin{multicols}{2}[\textit{\textquote{I think music in itself is healing. It's an explosive expression of humanity. It's something we are all touched by. No matter what culture we're from, everyone loves music.}} -- Billy Joel]
+    \begin{block}{Motivation} 
+        Blablabla
+    \end{block}
+    \begin{block}{Results}
+    \end{block}
+
+    \begin{block}{How did song duration change over the years?}
+        Todo: Answer Question and input graphic
+    \end{block}
+    \begin{block}{How did song tempo change over the years?}
+        ...
+    \end{block}
+    \begin{block}{What chord-progressions repeat most frequently?}
+    \end{block}
+    \begin{block}{Do certain chord-progressions dominate specific genres?}
+    \end{block}
+    \begin{block}{What chords and chord types dominate over the years?}
+    \end{block}
+    \begin{block}{How variant are the intervals that are being played?}
+    \end{block}
+    \begin{block}{Which words and combinations are the most frequent?}
+    \end{block}
+    \begin{block}{How did lyric polarity change?}
+    \end{block}
     \begin{block}{References}
         \printbibliography
     \end{block}
-    \end{column}
-\end{columns}
+    \placetextbox{0.9}{0.125}{\qrcode[height=9cm]{https://fur-fortnite.onrender.com/}}
+\end{multicols}
 
-\begin{block}{Titel}
-    Hier ist auch Text
-\end{block}
+%\begin{block}{Titel}
+%    Hier ist auch Text
+%\end{block}
+
 \end{frame}
 \end{document}
 
