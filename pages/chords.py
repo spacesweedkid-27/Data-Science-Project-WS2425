@@ -128,6 +128,7 @@ def query_h(query: str) -> str:
         # ...
         reader = csv.DictReader(csvfile)
         songs = list(reader)
+        songs.sort(key=lambda x:-eval(x['Year']) + eval(x['Rank']))
         for song in songs:
             if song['Main_Harmony'] == query:
                 return song['UG_link']
