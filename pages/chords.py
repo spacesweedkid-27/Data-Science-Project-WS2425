@@ -176,24 +176,21 @@ chords_toptags_df = pd.merge(
 
 chords_toptags_exploded_df = chords_toptags_df.explode(
     'Chords').explode('Top_Tags')
-print(chords_toptags_exploded_df.head())
 
 chords_toptags_exploded_df['Chords'] = chords_toptags_exploded_df['Chords'].fillna('').apply(nc.shrink_chord)
 
 chords_toptags_counts_df = chords_toptags_exploded_df.groupby(
     ['Chords', 'Top_Tags']).size().reset_index(name='Count')
 
-print(chords_toptags_counts_df.loc[300:320])
-
 def create_chords_toptags_bubble(theme: str):
     chords_toptags_bubble = go.Figure(data = px.scatter(
         chords_toptags_counts_df,
         x = 'Top_Tags',
         y = 'Chords',
-        size='Count', color='Chords',
+        size='Count', color='Count',
         #hover_name='Count', 
         #log_x=True,
-        size_max=60
+        size_max=100
     ))
     
     chords_toptags_bubble.update_layout(
