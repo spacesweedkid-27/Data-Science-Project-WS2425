@@ -194,7 +194,7 @@ def on_click_harmony_bar(click):
     # Harmony that has been clicked
     query = click['points'][0]['x']
     
-    return f'Link to example of clicked harmony: {c.query_h(query)}'
+    return dcc.Markdown(f'Link to example of clicked harmony: {c.query_h(query)}')
 
 
 @callback(
