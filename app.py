@@ -183,6 +183,37 @@ def update_bar_chart_harmony(min_frequency, theme):
     c.df_h = c.df_h_orig.loc[c.df_h_orig['Absolute Frequency'] >= min_frequency]
     return c.create_bar_chart_harmonic_progression(theme)
 
+@callback(
+    Output('click-harmony', 'children'),
+    Input('harmony-bar', 'clickData')
+)
+def on_click_harmony_bar(click):
+    if not click:
+        raise dash.exceptions.PreventUpdate
+
+    # Harmony that has been clicked
+    query = click['points'][0]['x']
+    
+    return dcc.Markdown(f'Link to example of clicked harmony: {c.query_h(query)}')
+
+
+@callback(
+    Output('interval-bar', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_interval_bar(n_clicks):
+    return update_fig_template(n_clicks)
+
+@callback(
+    Output('interval-bar', 'figure', allow_duplicate=True),
+   [Input('frequency-threshold-interval-bar', 'value'),
+    Input('theme-store', 'data')],
+    prevent_initial_call=True
+)
+def update_bar_chart_interval(min_frequency, theme):
+    c.df_i = c.df_i_orig.loc[c.df_i_orig['Absolute Frequency'] >= min_frequency]
+    return c.create_bar_chart_interval_progression(theme)
+
 
 ###################################
 # GRAPH TEMPLATE pt.3

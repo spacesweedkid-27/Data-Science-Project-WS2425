@@ -8,6 +8,7 @@ import plotly.express as px
 import ast
 import glob
 import os
+import csv
 from dash_bootstrap_templates import load_figure_template
 from data_collection.scripts.progression_by_frequency import get_all_main_harmonies_and_intervals
 
@@ -99,18 +100,43 @@ init_chordfrequency_year_heatmap = create_heatmap(chord_matrix, theme)
 ## Pie-chart of main harmony and interval differences.
 hs_h, hs_i = get_all_main_harmonies_and_intervals('data/merged.csv', {tuple() : 0}, {tuple() : 0})
 df_h_orig = pd.DataFrame(hs_h.items(), columns=['Harmonic Progression', 'Absolute Frequency'])
+df_i_orig = pd.DataFrame(hs_i.items(), columns=['Interval Progression', 'Absolute Frequency'])
+
 # The first element is the 'not found' case.
 df_h_orig = df_h_orig[1:]
 df_h_orig = df_h_orig.sort_values(by=['Absolute Frequency'], ascending=False)
+df_i_orig = df_i_orig[1:]
+df_i_orig = df_i_orig.sort_values(by=['Absolute Frequency'], ascending=False)
 
 # With no filter we just copy.
 df_h = df_h_orig
+df_i = df_i_orig
 
 def create_bar_chart_harmonic_progression(theme: str) -> go.Figure:
     bar_h = px.bar(df_h, x='Harmonic Progression', y='Absolute Frequency')
     bar_h.update_layout(template=theme)
     return bar_h
+def create_bar_chart_interval_progression(theme: str) -> go.Figure:
+    bar_i = px.bar(df_i, x='Interval Progression', y='Absolute Frequency')
+    bar_i.update_layout(template=theme)
+    return bar_i
+
 init_bar_h = create_bar_chart_harmonic_progression(theme)
+init_bar_i = create_bar_chart_interval_progression(theme)
+
+# Query a specific harmonic progression.
+def query_h(query: str) -> str:
+    """Returns a link to a harmonic progression."""
+    with open('data/merged.csv', newline='', encoding='utf-8') as csvfile:
+        # ...
+        reader = csv.DictReader(csvfile)
+        songs = list(reader)
+        songs.sort(key=lambda x:-eval(x['Year']) + eval(x['Rank']))
+        for song in songs:
+            if song['Main_Harmony'] == query:
+                return song['UG_link']
+    raise Exception('Shit shit shit, missing data!')
+    return None
 
 ###################################
 # CHORD GENRE RELATIONS
@@ -287,9 +313,12 @@ harmony_frequency_bar_controls = dbc.Row([
     )
 ])
 
+harmony_clicked_container = dbc.Container(id='click-harmony')
+
 fig_bar_h = dbc.Container([
     html.H3('Harmonic Progression by Absolute Frequency'),
     harmony_frequency_bar_controls,
+    harmony_clicked_container,
     dcc.Graph(
         id = 'harmony-bar',
         figure = init_bar_h
@@ -306,6 +335,48 @@ chords_toptags_bubble_fig = dbc.Container([
 
 ###################################
 
+# INTERVAL PROGRESSION BY FREQUENCY
+
+filter_slider_interval = dcc.Slider(
+    id = 'frequency-threshold-interval-bar',
+    min = 1,
+    max = 52,
+    step = 1,
+    value = 1,
+    marks = {
+        i: str(i) for i in range(0, 52, 10)
+    }, tooltip = {'placement': 'bottom', 'always_visible': False}
+)
+
+interval_frequency_bar_controls = dbc.Row([
+    # Slider
+    dbc.Col(filter_slider_interval),
+    dbc.Col(class_name = 'fa-regular fa-circle-question',
+            id = 'interval-frequency-slider-info',
+            style = {'cursor': 'pointer'},
+            width = 'auto'),
+    dbc.Col(
+        dbc.Tooltip(
+            'Sets a threshold for the minimum frequency to be displayed. '
+            'Progressions with a lower frequency than the threshold are not '
+            'displayed in the graph.',
+            target = 'interval-frequency-slider-info',
+            placement = 'right'
+        )
+    )
+])
+
+fig_bar_i = dbc.Container([
+    html.H3('Interval Progression by Absolute Frequency'),
+    interval_frequency_bar_controls,
+    dcc.Graph(
+        id = 'interval-bar',
+        figure = init_bar_i
+    )
+], class_name='mb-5')
+
+###################################
+
 
 ###################################
 # MAIN LAYOUT
@@ -316,7 +387,8 @@ layout = dbc.Container([heading,
                    main_content,
                    fig,
                    fig_bar_h,
-                   chords_toptags_bubble_fig
+                   chords_toptags_bubble_fig,
+                   fig_bar_i
                    ],
                    class_name='mw-75'
                 )
