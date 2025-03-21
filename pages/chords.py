@@ -119,6 +119,9 @@ init_bar_h = create_bar_chart_harmonic_progression(theme)
 # HTML ELEMENTS
 ###################################
 
+###################################
+# CHORD FREQUENCY BY YEAR
+
 # Slider to set a minimum threshold to the chords that are
 # being displayed in the chord frequencies by year heatmap.
 chordfrequency_year_slider = dcc.Slider(
@@ -129,9 +132,60 @@ chordfrequency_year_slider = dcc.Slider(
     value = 1,
     marks = {
         i: str(i) for i in range(0, int(chord_matrix.max().max()) + 1, 200)
-    }, tooltip = {'placement': 'bottom', 'always_visible': False},
-    className = 'w-50'
+    }, tooltip = {'placement': 'bottom', 'always_visible': False}
 )
+# Toggles for shrinking the chords and re-rendering graph accordingly.
+chordfrequency_year_shrinkchord_toggle = dbc.Switch(
+    id = 'chordfrequency-year-shrinkchord-toggle',
+    label = 'shrink chords',
+    value = False
+)
+
+# Wrapper for chordfrequency year controls.
+chordfrequency_year_controls = dbc.Row([
+    # Slider
+    dbc.Col(chordfrequency_year_slider, width=5),
+    dbc.Col(class_name = 'fa-regular fa-circle-question',
+                id = 'chordfrequency-year-slider-info',
+                style = {'cursor': 'pointer'},
+                width = 'auto'),
+    dbc.Col(
+        dbc.Tooltip(
+            'Sets a threshold for the minimum chord frequency to be displayed. '
+            'Chords with a lower frequency than the threshold are not displayed '
+            'in the graph.',
+            target = 'chordfrequency-year-slider-info',
+            placement = 'right'
+        )
+    ),
+    # Toggle
+    dbc.Col(chordfrequency_year_shrinkchord_toggle),
+    dbc.Col(class_name = 'fa-regular fa-circle-question',
+                id = 'chordfrequency-year-toggle-info',
+                style = {'cursor': 'pointer'},
+                width = 'auto'),
+    dbc.Col(
+        dbc.Tooltip(
+            'Activates chord shrinking. With this setting activated, \'special\' '
+            'chords such as Amaj7, are turned into their \'normal\' variants '
+            'and the graph is re-rendered to account for these changes.',
+                target = 'chordfrequency-year-toggle-info',
+                placement = 'right'
+        )
+    )
+])
+
+fig = dbc.Container([
+    html.H3('Chord Frequency by Year'),
+    chordfrequency_year_controls,
+    dcc.Graph(
+        id = 'chordfrequency-year-heatmap',
+        figure = init_chordfrequency_year_heatmap,
+    )
+], class_name='mb-5')
+
+###################################
+# HARMONIC PROGRESSION BY FREQUENCY
 
 filter_slider_harmony = dcc.Slider(
     id = 'frequency-threshold-harmony-bar',
@@ -141,25 +195,8 @@ filter_slider_harmony = dcc.Slider(
     value = 1,
     marks = {
         i: str(i) for i in range(0, 52, 10)
-    }, tooltip = {'placement': 'bottom', 'always_visible': False},
-    className = 'w-50'
+    }, tooltip = {'placement': 'bottom', 'always_visible': False}
 )
-
-chordfrequency_year_shrinkchord_toggle = dbc.Switch(
-    id = 'chordfrequency-year-shrinkchord-toggle',
-    label = 'shrink chords',
-    value = False
-)
-
-fig = dbc.Container([
-    html.H3('Chord Frequencies by Year'),
-    chordfrequency_year_slider,
-    chordfrequency_year_shrinkchord_toggle,
-    dcc.Graph(
-        id = 'chordfrequency-year-heatmap',
-        figure = init_chordfrequency_year_heatmap,
-    )
-])
 
 fig_bar_h = dbc.Container([
     html.H3('Harmonic Progression by Absolute Frequency'),
@@ -168,7 +205,7 @@ fig_bar_h = dbc.Container([
         id = 'harmony-bar',
         figure = init_bar_h
     )
-])
+], class_name='mb-5')
 
 ###################################
 
@@ -180,9 +217,7 @@ fig_bar_h = dbc.Container([
 
 layout = dbc.Container([heading,
                    main_content,
-                   html.Br(),
                    fig,
-                   html.Br(),
                    fig_bar_h
                    ],
                    class_name='mw-75'

@@ -93,7 +93,7 @@ xaxis_yaxis_figtype = dbc.Container([
         id = 'xaxis-yaxis-figtype',
         figure = init_xaxis_yaxis_figtype
     ), class_name = 'mt-3'
-])
+], class_name='mb-5')
 '''
 
 # Interactive sliders / toggles / filters are defined here.
