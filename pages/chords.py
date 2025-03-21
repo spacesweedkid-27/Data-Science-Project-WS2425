@@ -8,6 +8,7 @@ import plotly.express as px
 import ast
 import glob
 import os
+import csv
 from dash_bootstrap_templates import load_figure_template
 from data_collection.scripts.progression_by_frequency import get_all_main_harmonies_and_intervals
 
@@ -120,6 +121,19 @@ def create_bar_chart_interval_progression(theme: str) -> go.Figure:
 init_bar_h = create_bar_chart_harmonic_progression(theme)
 init_bar_i = create_bar_chart_interval_progression(theme)
 
+# Query a specific harmonic progression.
+def query_h(query: str) -> str:
+    """Returns a link to a harmonic progression."""
+    with open('data/merged.csv', newline='', encoding='utf-8') as csvfile:
+        # ...
+        reader = csv.DictReader(csvfile)
+        songs = list(reader)
+        for song in songs:
+            if song['Main_Harmony'] == query:
+                return song['UG_link']
+    raise Exception('Shit shit shit, missing data!')
+    return None
+
 ###################################
 # CHORD GENRE RELATIONS
 ###################################
@@ -227,9 +241,12 @@ harmony_frequency_bar_controls = dbc.Row([
     )
 ])
 
+harmony_clicked_container = dbc.Container(id='click-harmony')
+
 fig_bar_h = dbc.Container([
     html.H3('Harmonic Progression by Absolute Frequency'),
     harmony_frequency_bar_controls,
+    harmony_clicked_container,
     dcc.Graph(
         id = 'harmony-bar',
         figure = init_bar_h

@@ -184,6 +184,22 @@ def update_bar_chart_harmony(min_frequency, theme):
     return c.create_bar_chart_harmonic_progression(theme)
 
 @callback(
+    Output('click-harmony', 'children'),
+    Input('harmony-bar', 'clickData')
+)
+def on_click_harmony_bar(click):
+    if not click:
+        raise dash.exceptions.PreventUpdate
+
+    # Harmony that has been clicked
+    query = click['points'][0]['x']
+    
+    return dbc.Container([
+        f'Link to example of clicked harmony: {c.query_h(query)}',
+        ], id='click-harmony')
+
+
+@callback(
     Output('interval-bar', 'figure'),
     Input('color-mode-switch', 'n_clicks')
 )
