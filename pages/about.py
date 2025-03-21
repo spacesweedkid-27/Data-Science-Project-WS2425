@@ -13,7 +13,39 @@ introduction = dbc.Container('This website is part of a university research '
 'on identifying patterns in musical composition, lyrical themes, and genre '
 'evolution from 2005 to 2024.', class_name='mb-2')
 questions_heading = dbc.Container('the questions', class_name='h3 mt-4')
-questions = dbc.Container('The questions go here.', class_name='mb-2')
+questions = dbc.Container([
+    'How do various musical elements vary in the most popular songs of the last '
+    'twenty years?',
+    html.Ul([
+        html.Li([
+            html.Strong('Chords, harmony and progressions:'),
+            html.Ul([
+                html.Li('What chord-progressions repeat most frequently?'),
+                html.Li('What chords and chord types dominate?'),
+                html.Li('How did the amount of chords change?'),
+                html.Li('Do certain chord-progressions dominate specific genres?'),
+                html.Li('What key signatures dominate?')
+            ])
+        ]),
+        html.Li([
+            html.Strong('Time'),
+            html.Ul([
+                html.Li('How did song duration vary and change over the years?'),
+                html.Li('How does song tempo vary and change over the years?'),
+                html.Li('Do these characteristics correlate to other examined aspects?')
+            ])
+        ]),
+        html.Li([
+            html.Strong('Lyrics'),
+            html.Ul([
+                html.Li('How does the polarity of lyrics vary and chagne over the years?'),
+                html.Li('Which words and phrases are the most frequent?')
+            ])
+        ])
+    ])
+], class_name='mb-2')
+
+
 datasources_heading = dbc.Container('datasources', class_name='h3 mt-4')
 datasources = dbc.Container(
     ['To explore these questions, we gathered data from multiple sources: ',
@@ -43,11 +75,16 @@ datasources = dbc.Container(
     ]
 )
 
+challenges_heading = dbc.Container('challenges', class_name='h3 mt-4')
+challenges = dbc.Container('TODO: Description on what challenges we faced.')
+
 layout = html.Div([
     about_heading,
     introduction,
     questions_heading,
     questions,
     datasources_heading,
-    datasources
+    datasources,
+    challenges_heading,
+    challenges
     ])

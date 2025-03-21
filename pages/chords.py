@@ -198,9 +198,27 @@ filter_slider_harmony = dcc.Slider(
     }, tooltip = {'placement': 'bottom', 'always_visible': False}
 )
 
+harmony_frequency_bar_controls = dbc.Row([
+    # Slider
+    dbc.Col(filter_slider_harmony),
+    dbc.Col(class_name = 'fa-regular fa-circle-question',
+            id = 'harmony-frequency-slider-info',
+            style = {'cursor': 'pointer'},
+            width = 'auto'),
+    dbc.Col(
+        dbc.Tooltip(
+            'Sets a threshold for the minimum frequency to be displayed. '
+            'Progressions with a lower frequency than the threshold are not '
+            'displayed in the graph.',
+            target = 'harmony-frequency-slider-info',
+            placement = 'right'
+        )
+    )
+])
+
 fig_bar_h = dbc.Container([
     html.H3('Harmonic Progression by Absolute Frequency'),
-    filter_slider_harmony,
+    harmony_frequency_bar_controls,
     dcc.Graph(
         id = 'harmony-bar',
         figure = init_bar_h
