@@ -60,8 +60,6 @@ sorted_years = sorted(count_per_year.keys())
 
 chord_matrix = pd.DataFrame(columns=all_chords, index=sorted_years)
 
-#  simple chords
-
 for year, chords in count_per_year.items():
     chord_counts = {chord: chords.count(chord) for chord in all_chords}
     chord_matrix.loc[year] = chord_counts
@@ -147,9 +145,16 @@ filter_slider_harmony = dcc.Slider(
     className = 'w-50'
 )
 
+chordfrequency_year_shrinkchord_toggle = dbc.Switch(
+    id = 'chordfrequency-year-shrinkchord-toggle',
+    label = 'shrink chords',
+    value = False
+)
+
 fig = dbc.Container([
     html.H3('Chord Frequencies by Year'),
     chordfrequency_year_slider,
+    chordfrequency_year_shrinkchord_toggle,
     dcc.Graph(
         id = 'chordfrequency-year-heatmap',
         figure = init_chordfrequency_year_heatmap,

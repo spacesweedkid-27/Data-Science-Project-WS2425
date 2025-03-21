@@ -23,6 +23,8 @@ import pages.chords as c
 import pages.lyrics as l
 import pages.tempo as t
 
+import data_collection.scripts.numerize_chords as nc
+
 
 ###################################
 # data imports go here
@@ -142,37 +144,45 @@ def update_theme_store(n_clicks):
 )
 def update_chordfrequency_year_heatmap(n_clicks):
     return update_fig_template(n_clicks)
-'''def update_fig_template(n_clicks):
-    isLightMode = n_clicks % 2 == 1
-    template = pio.templates['morph'] if isLightMode else pio.templates['plotly_dark']
-    
-    patched_fig = Patch()
-    patched_fig['layout']['template'] = template
-    return patched_fig
-'''
 
-# Callback for heatmap chord-frequency slider.
+# Callback for heatmap chord-frequency slider and shrink toggle.
 @callback(
     Output('chordfrequency-year-heatmap', 'figure', allow_duplicate=True),
     [Input('chordfrequency-year-slider', 'value'),
+     Input('chordfrequency-year-shrinkchord-toggle', 'value'), # new
      Input('theme-store', 'data')],
     prevent_initial_call=True
 )
-def update_heatmap(min_frequency, theme):
-    filtered_matrix = c.chord_matrix.loc[:, c.chord_matrix.max(axis=0) >= min_frequency]
+def update_heatmap(min_frequency, shrink_chords, theme):
+    chord_matrix = c.chord_matrix.copy()
+
+    # If shrink chords toggle is true, parse "special" chords into "normal" ones
+    if shrink_chords:
+        chord_matrix.columns = chord_matrix.columns.map(nc.shrink_chord)
+        chord_matrix = chord_matrix.T.groupby(level=0).sum().T
+
+    filtered_matrix = chord_matrix.loc[:, chord_matrix.max(axis=0) >= min_frequency]
     updated_heatmap_fig = c.create_heatmap(filtered_matrix, theme)
 
     return updated_heatmap_fig
 
+@callback(
+    Output('harmony-bar', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_harmony_bar(n_clicks):
+    return update_fig_template(n_clicks)
 
 @callback(
     Output('harmony-bar', 'figure', allow_duplicate=True),
-    Input('frequency-threshold-harmony-bar', 'value'),
+   [Input('frequency-threshold-harmony-bar', 'value'),
+    Input('theme-store', 'data')],
     prevent_initial_call=True
 )
-def update_bar_chart_harmony(min_frequency):
+def update_bar_chart_harmony(min_frequency, theme):
     c.df_h = c.df_h_orig.loc[c.df_h_orig['Absolute Frequency'] >= min_frequency]
-    return c.create_bar_chart_harmonic_progression(c.theme)
+    return c.create_bar_chart_harmonic_progression(theme)
+
 
 ###################################
 # GRAPH TEMPLATE pt.3
