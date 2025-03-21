@@ -31,7 +31,7 @@ main_content = dbc.Container('Some information about this project goes here. '
 # Naming conventions:
 # functions related to generation of the figure:            create_xaxis_yaxis_figtype()
 #                                                           update_xaxis_yaxis_figtype()
-#                                                          (or whatever else applies)
+#                                                           (or whatever else applies)
 # temporary objects / interim results:                      xaxis_yaxis_figtype_tempdescriptor
 # initialization object:                                    init_xaxis_yaxis_figtype
 # (with tempdescriptor meaning a combination of words best
@@ -72,7 +72,7 @@ init_xaxis_yaxis_figtype = create_xaxis_yaxis_figtype(theme)
 
 # Define your html elements such as dbc.Container or dbc.Sliders here.
 # Any related callbacks need to be defined in app.py
-# Name these elements precicesly and plug them into the layout below.
+# Name these elements precisely and plug them into the layout below.
 
 ###################################
 # GRAPH TEMPLATE pt.2
