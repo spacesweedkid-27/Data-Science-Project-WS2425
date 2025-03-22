@@ -2,9 +2,10 @@
 
 \usepackage[orientation=portrait,size=a0,scale=1.4]{beamerposter}
 \usepackage{qrcode}
-\usepackage{multicol}
+\usepackage{paracol}
 \addbibresource{references.bib}
 
+\graphicspath{figures}
 \usepackage[pscoord]{eso-pic}% The zero point of the coordinate systemis the lower left corner of the page (the default).
 
 \newcommand{\placetextbox}[3]{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
@@ -19,38 +20,44 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{document}
-\begin{frame}{}
-\begin{multicols}{2}[\textit{\textquote{I think music in itself is healing. It's an explosive expression of humanity. It's something we are all touched by. No matter what culture we're from, everyone loves music.}} -- Billy Joel]
-    \begin{block}{Motivation} 
-        Blablabla
-    \end{block}
-    \begin{block}{Results}
-    \end{block}
+    %How did song duration change over the years?
+    %How did song tempo change over the years?
+    %What chord-progressions repeat most frequently?
+    %Do certain chord-progressions dominate specific genres?
+    %What chords and chord types dominate over the years?
+    %How variant are the intervals that are being played?
+    %Which words and combinations are the most frequent?
+    %How did lyric polarity change? 
 
-    \begin{block}{How did song duration change over the years?}
-        Todo: Answer Question and input graphic
+\begin{document}
+\begin{frame}[t]
+\centering
+\textit{\textquote{I think music in itself is healing. It's an explosive expression of humanity. It's something we are all touched by. No matter what culture we're from, everyone loves music.}}\\ -- Billy Joel
+\begin{columns}
+\begin{column}{0.49\textwidth}
+    \begin{block}{Motivation} 
+        Not only is it interesting to look at popular music from the point of view of musicians aspiring to create the next hit single. Indeed, it is also interesting to analyse recent music since music is an essential part of any culture.
+        By analysing popular music one can learn about what the current culture is, how it changed and how it varied.
+        In the following, we'll look at the most popular music of the last two decades to answer which musical and lyrical elements we can identify and analyse the change of them.
     \end{block}
-    \begin{block}{How did song tempo change over the years?}
-        ...
+    \begin{block}{Song Duration}
     \end{block}
-    \begin{block}{What chord-progressions repeat most frequently?}
+    \begin{block}{Chord Progressions}
+    What chord progression should you use to write the perfect song? By scraping chords, identifying their key signature and looking for repeated patters, we found the most frequently used harmonic progressions of the last 20 years:
+    \begin{figure}[hbt!]
+        \centering
+        \includegraphics{1.png}
+        \caption{Top ten most used progressions by absolute frequency}
+    \end{figure}
     \end{block}
-    \begin{block}{Do certain chord-progressions dominate specific genres?}
-    \end{block}
-    \begin{block}{What chords and chord types dominate over the years?}
-    \end{block}
-    \begin{block}{How variant are the intervals that are being played?}
-    \end{block}
-    \begin{block}{Which words and combinations are the most frequent?}
-    \end{block}
-    \begin{block}{How did lyric polarity change?}
-    \end{block}
+    \end{column}
+\begin{column}{0.49\textwidth}
     \begin{block}{References}
         \printbibliography
     \end{block}
-    \placetextbox{0.9}{0.125}{\qrcode[height=9cm]{https://fur-fortnite.onrender.com/}}
-\end{multicols}
+\end{column}
+\end{columns}
+\placetextbox{0.9}{0.125}{\qrcode[height=9cm]{https://fur-fortnite.onrender.com/}}
 
 %\begin{block}{Titel}
 %    Hier ist auch Text
