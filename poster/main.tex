@@ -5,8 +5,9 @@
 \usepackage{paracol}
 \addbibresource{references.bib}
 
-\graphicspath{figures}
-\usepackage[pscoord]{eso-pic}% The zero point of the coordinate systemis the lower left corner of the page (the default).
+\usepackage[pscoord]{eso-pic} % The zero point of the coordinate system is the lower left corner of the page (the default).
+
+\setbeamertemplate{blocks}[default] % Remove the shadows and borders of blocks.
 
 \newcommand{\placetextbox}[3]{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
   \setbox0=\hbox{#3}% Put <stuff> in a box
@@ -41,14 +42,18 @@
         In the following, we'll look at the most popular music of the last two decades to answer which musical and lyrical elements we can identify and analyse the change of them.
     \end{block}
     \begin{block}{Song Duration}
+    Here should be text that has some meaning blablablabla bla bla bla blablabla...............................
     \end{block}
     \begin{block}{Chord Progressions}
-    What chord progression should you use to write the perfect song? By scraping chords, identifying their key signature and looking for repeated patters, we found the most frequently used harmonic progressions of the last 20 years:
+    What chord progression should you use to write the perfect song? By scraping chords, identifying their key signature and looking for repeated patters, we found the most frequently used harmonic and interval progressions of the last 20 years, see figure \ref{fig:harmony}.
     \begin{figure}[hbt!]
         \centering
-        \includegraphics{1.png}
-        \caption{Top ten most used progressions by absolute frequency}
+        % (Other graphic is not yet exported)
+        \includegraphics{./figures/1.png} \hspace{0.5cm} \includegraphics{./figures/1.png}
+        \caption{Top ten most used harmonic and interval (in half steps) progressions by absolute frequency.}
+        \label{fig:harmony}
     \end{figure}
+
     \end{block}
     \end{column}
 \begin{column}{0.49\textwidth}
