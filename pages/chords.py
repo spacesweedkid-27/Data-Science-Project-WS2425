@@ -138,7 +138,20 @@ def query_h(query: str) -> str:
             if song['Main_Harmony'] == query:
                 return song['UG_link']
     raise Exception('Shit shit shit, missing data!')
-    return None
+
+def create_scatterplot_interval_variance(theme: str) -> go.Figure:
+    with open('data/merged.csv', newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        songs = list(reader)
+        for song in songs:
+            song['Year'] = eval(song['Year'])
+            song['Interval_Variance'] = eval(song['Interval_Variance']) if song['Interval_Variance'] != 'not found' else 0.0
+    as_df = pd.DataFrame.from_records(songs)
+    scat = px.scatter(as_df, x='Year', y='Interval_Variance')
+    scat.update_layout(template=theme)
+    return scat
+
+init_scat = create_scatterplot_interval_variance(theme)
 
 ###################################
 # CHORD GENRE RELATIONS
@@ -416,6 +429,16 @@ fig_bar_i = dbc.Container([
 
 ###################################
 
+# INTERVAL VARIANCE
+fig_var = dbc.Container([
+    html.H3('Variance of Interval-Length over Year'),
+    dcc.Graph(
+        id = 'interval-var',
+        figure = init_scat
+    )
+], class_name='mb-5')
+
+###################################
 
 ###################################
 # MAIN LAYOUT
@@ -425,9 +448,10 @@ fig_bar_i = dbc.Container([
 layout = dbc.Container([heading,
                    main_content,
                    fig,
-                   chords_toptags_bubble_fig,
                    fig_bar_h,
                    fig_bar_i,
+                   fig_var,
+                   chords_toptags_bubble_fig,
                    ],
                    class_name='mw-75'
                 )
