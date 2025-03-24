@@ -222,7 +222,7 @@ def create_tempo_plot_with_range(year_range):
     
     fig = px.scatter(df_filtered_tempo, x="Year", y="Tempo",
                      title="Average Song Tempo (BPM) Over The Last 20 Years ",
-                     labels={"Tempo": "Tempo (BPM)", "Year": "Jahr"})
+                     labels={"Tempo": "Tempo (BPM)", "Year": "Year"})
     
     # Line for average tempo values
     fig.add_scatter(x=filtered_grouped_tempo["Year"], y=filtered_grouped_tempo["Tempo"], 

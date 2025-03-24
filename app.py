@@ -222,6 +222,13 @@ def update_interval_bar(n_clicks):
     return update_fig_template(n_clicks)
 
 @callback(
+    Output('interval-var', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_interval_var(n_clicks):
+    return update_fig_template(n_clicks)
+
+@callback(
     Output('interval-bar', 'figure', allow_duplicate=True),
    [Input('frequency-threshold-interval-bar', 'value'),
     Input('theme-store', 'data')],

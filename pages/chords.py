@@ -145,9 +145,12 @@ def create_scatterplot_interval_variance(theme: str) -> go.Figure:
         songs = list(reader)
         for song in songs:
             song['Year'] = eval(song['Year'])
+            #song['Rank'] = eval(song['Rank'])
             song['Interval_Variance'] = eval(song['Interval_Variance']) if song['Interval_Variance'] != 'not found' else 0.0
     as_df = pd.DataFrame.from_records(songs)
-    scat = px.scatter(as_df, x='Year', y='Interval_Variance')
+    scat = px.box(as_df, x='Year', y='Interval_Variance')
+    median = as_df.groupby('Year', as_index=False)['Interval_Variance'].median()
+    scat.add_trace(go.Scatter(x=median['Year'], y=median['Interval_Variance'], mode='lines', name='Median', line=dict(color="red")))
     scat.update_layout(template=theme)
     return scat
 
@@ -504,6 +507,29 @@ fig_var = dbc.Container([
 
 ###################################
 
+
+###################################
+
+# META TEXT
+meta = dbc.Container([
+    html.H3('About the chords'),
+    dcc.Markdown(
+        """
+        We searched with an automatic search query injector for 2000 Songs, of these we received 1382 chords. The remaining 618 were missing due to either:
+
+        1. Broken search results
+
+        2. Only non-free chords available or no pubic chords found
+        
+        3. Labels/artists blocking chord pages due to copyright etc.
+
+        Since the algorithm picked the first link that contains the song's title and artist, and the links were normally sorted by ratings, this meant that for the most popular songs we got correct results.  
+        Some songs that didn't stand the test of time, which were coincidentally rap/hip-hop songs, did have chords that didn't make sense if you listen to the music. This wasn't that much of an issue though, since their \"harmony\" didn't matter that much.
+        """
+        )
+])
+###################################
+
 ###################################
 # MAIN LAYOUT
 ###################################
@@ -517,6 +543,7 @@ layout = dbc.Container([heading,
                    harmonies_toptags_bubble_fig,
                    fig_bar_i,
                    fig_var,
+                   meta
                    ],
                    class_name='mw-75'
                 )
