@@ -26,10 +26,10 @@ main_content = dbc.Container('Some information about this project goes here. '
 ###################################
 
 
+# Data loading and processing
 directory = 'data/durations'
 csv_files = [f for f in os.listdir(directory) if f.endswith('.csv')]
 df_list = []
-
 
 for file in csv_files:
     df = pd.read_csv(os.path.join(directory, file))
@@ -37,13 +37,12 @@ for file in csv_files:
     df['Year'] = year
     df_list.append(df)
 
-
 df_all_years = pd.concat(df_list, ignore_index=True)
 
 ####################################
 # Helper functions
 ####################################
-# Function to remove outliers using IQR method
+# Helper function to remove outliers using IQR method
 def remove_outliers(df, column):
     df_copy = df.copy()
     Q1 = df_copy[column].quantile(0.25)
@@ -53,7 +52,7 @@ def remove_outliers(df, column):
     upper_bound = Q3 + 1.5 * IQR
     return df_copy[(df_copy[column] >= lower_bound) & (df_copy[column] <= upper_bound)]
 
-# Helper function to convert minutes to mm:ss format
+# Helper function to format duration
 def format_duration(minutes):
     total_seconds = int(minutes * 60)  
     mm = total_seconds // 60  
@@ -93,6 +92,7 @@ def create_xaxis_yaxis_figtype(theme):
     )
     return xaxis_yaxis_figtype)
 '''
+
 
 # Function to create the bar chart
 def create_duration_years_bar(show_outliers):
@@ -148,6 +148,7 @@ init_xaxis_yaxis_figtype = create_xaxis_yaxis_figtype(theme)
 '''
 init_duration_years_bar = create_duration_years_bar(['show'])
 
+
 ###################################
 # HTML ELEMENTS
 ###################################
@@ -156,32 +157,12 @@ init_duration_years_bar = create_duration_years_bar(['show'])
 # Any related callbacks need to be defined in app.py
 # Name these elements precisely and plug them into the layout below.
 
-graph_section = dbc.Container([
-    html.H3('Average Song Durations Over the Years'),
-    
-    # Outlier toggle (checklist) to show/hide outliers in the graph
-    html.Div([
-        html.Label('Show Outliers', style={'marginRight': '10px'}),
-        dcc.Checklist(
-            id='outlier-toggle',
-            options=[{'label': '', 'value': 'show'}],
-            value=['show'],  # Default value is to show outliers
-            inline=True
-        )
-    ], style={'display': 'flex', 'alignItems': 'center', 'margin': '20px 0'}),
-    
-    # Graph component for displaying the bar chart
-    dcc.Graph(id='duration-chart'),
-], class_name='mb-5')
-
-# Interactive toggle
 duration_years_bar_toggle = dcc.Checklist(
     id='duration-years-bar-toggle',
-    options=[{'label': '', 'value': 'show'}],
+    options=[{'label': 'Outlier', 'value': 'show'}],
     value=['show'],
     inline=True
 )
-
 
 duration_years_bar = dbc.Container([
     html.H3('Average Song Duration Over the Years'),
@@ -191,6 +172,7 @@ duration_years_bar = dbc.Container([
         figure=init_duration_years_bar
     )
 ], class_name='mt-3')
+
 ###################################
 # GRAPH TEMPLATE pt.2
 ###################################
@@ -238,7 +220,7 @@ xaxis_yaxis_figtype_slider = dcc.Slider(
 # registry needs this attribute to properly load the content.
 layout = html.Div([heading,
                    main_content,
-                   graph_section,
+                   
                    duration_years_bar])
                    # More html / dbc Elements can be added here
                    # in the preferred order. Don't forget the commas.
