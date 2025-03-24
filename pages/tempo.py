@@ -20,17 +20,13 @@ main_content = dbc.Container('Some information about this project goes here. '
 # GRAPHS
 ###################################
 
-# Import or define your graphs here.
-# Create one section (### #TITLE ###) for each graph. This makes it easier
-# to look for certain elements. Try to keep naming precise.
 
 ###################################
 # Duration
 ###################################
 
-# Here goes everything needed to create the graph such as data imports, 
 
-directory = 'Data-Science-Project-WS2425/data/durations'
+directory = 'data/durations'
 csv_files = [f for f in os.listdir(directory) if f.endswith('.csv')]
 df_list = []
 
