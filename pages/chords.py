@@ -50,8 +50,13 @@ for file in files:
 
     # For each song, put 
     for chords in df['Chords']:
-        try: #  Gracefully handle 'not found' instances
+        try: #  Gracefully (tm) handle 'not found' instances
             chord_list = ast.literal_eval(chords) #  String to List
+            chord_list = list(set(chord_list))
+            '''chords_temp = []
+            for chord in chord_list:
+                if chord not in chords_temp:
+                    chords_temp.insert(0, chord)'''
             counts.extend(chord_list)
         except (KeyError, ValueError):
             continue
@@ -66,7 +71,9 @@ chord_matrix = pd.DataFrame(columns=all_chords, index=sorted_years)
 
 for year, chords in count_per_year.items():
     chord_counts = {chord: chords.count(chord) for chord in all_chords}
+
     chord_matrix.loc[year] = chord_counts
+print('chord matrix', chord_matrix.head())
 
 chord_matrix = chord_matrix.apply(pd.to_numeric, errors='coerce').fillna(0)
 def create_heatmap(chord_matrix, theme):
@@ -182,15 +189,20 @@ chords_toptags_exploded_df['Chords'] = chords_toptags_exploded_df['Chords'].fill
 chords_toptags_counts_df = chords_toptags_exploded_df.groupby(
     ['Chords', 'Top_Tags']).size().reset_index(name='Count')
 
+# boxplot 
+# how many songs pro genre -> meta data
+# 
+
 def create_chords_toptags_bubble(theme: str):
     chords_toptags_bubble = go.Figure(data = px.scatter(
         chords_toptags_counts_df,
         x = 'Top_Tags',
         y = 'Chords',
-        size='Count', color='Count',
+        size='Count',
+        #color='Count',
         #hover_name='Count', 
         #log_x=True,
-        size_max=100
+        #size_max=100
     ))
     
     chords_toptags_bubble.update_layout(
@@ -383,9 +395,9 @@ fig_bar_i = dbc.Container([
 layout = dbc.Container([heading,
                    main_content,
                    fig,
-                   fig_bar_h,
                    chords_toptags_bubble_fig,
-                   fig_bar_i
+                   fig_bar_h,
+                   fig_bar_i,
                    ],
                    class_name='mw-75'
                 )
