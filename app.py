@@ -25,7 +25,7 @@ import pages.tempo as t
 
 import data_collection.scripts.numerize_chords as nc
 
-
+import pages.tempo as t
 
 
 ###################################
@@ -221,7 +221,7 @@ def update_bar_chart_interval(min_frequency, theme):
 # Tempo page
 ###################################
 
-import pages.tempo as t
+
 
 # Duration slider callback
 @dash.callback(
