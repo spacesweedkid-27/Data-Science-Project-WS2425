@@ -102,8 +102,30 @@ def create_duration_years_bar_with_outliers(show_outliers):
     
     return fig
 
+def create_duration_boxplot():
+    fig = px.box(df_all_years_duration, x="Year", y="Duration_min", title="Song Duration Distribution Per Year (With Outliers)")
+    
+    df_grouped_duration = df_all_years_duration.groupby("Year", as_index=False)["Duration_min"].mean()
+    df_grouped_duration['Duration_formatted'] = df_grouped_duration['Duration_min'].apply(format_duration_min)
+    
+    fig.update_layout(
+        xaxis=dict(
+            tickmode="array",
+            tickvals=df_grouped_duration["Year"],  
+            tickformat=".0f",
+            rangeslider=dict(visible=True), 
+            type="linear",
+            fixedrange=True  
+        ),
+        yaxis=dict(
+            title="Duration"  
+        )
+    )
+    return fig
+
 # Initialize the duration plot
 init_duration_years_bar = create_duration_years_bar_with_outliers(['show'])
+init_duration_boxplot = create_duration_boxplot()
 
 ###################################
 # Tempo 
@@ -190,6 +212,13 @@ duration_years_bar = dbc.Container([
     )
 ], class_name='mt-3')
 
+# Comtaimer for boxplot
+duration_boxplot = dbc.Container([
+    html.H3('Song Duration Distribution'),
+    dcc.Graph(id='duration-boxplot', figure=init_duration_boxplot)
+], class_name='mt-3')
+
+
 # Tempo RangeSlider for selecting years
 tempo_year_range_slider = dcc.RangeSlider(
     min=2005,
@@ -213,5 +242,6 @@ tempo_plot = dbc.Container([
 layout = html.Div([heading,
                    main_content,
                    duration_years_bar,
+                   duration_boxplot,
                    tempo_plot,
                    tempo_year_range_slider])
