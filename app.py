@@ -224,7 +224,7 @@ def update_bar_chart_interval(min_frequency, theme):
 
 
 # Duration slider callback
-@dash.callback(
+@callback(
     Output('duration-years-bar', 'figure'),
     Input('duration-years-bar-toggle', 'value')
 )
