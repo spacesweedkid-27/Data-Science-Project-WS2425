@@ -239,7 +239,7 @@ def update_bar_chart_interval(min_frequency, theme):
 
 
 ###################################
-# Tempo page
+# TIME
 ###################################
 
 

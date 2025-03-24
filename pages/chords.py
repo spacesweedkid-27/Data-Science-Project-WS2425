@@ -474,10 +474,10 @@ meta = dbc.Container([
 layout = dbc.Container([heading,
                    main_content,
                    fig,
+                   chords_toptags_bubble_fig,
                    fig_bar_h,
                    fig_bar_i,
                    fig_var,
-                   chords_toptags_bubble_fig,
                    meta
                    ],
                    class_name='mw-75'

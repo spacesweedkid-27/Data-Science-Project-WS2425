@@ -43,7 +43,7 @@ introtext = dbc.Container([
 button_row = dbc.Stack([
     dbc.Button('chords', color='primary', class_name='me-3', id='chords-trigger'),
     dbc.Button('lyrics', color='secondary', class_name='me-3', id='lyrics-trigger'),
-    dbc.Button('tempo', color='danger', class_name='me-3', id='tempo-trigger')],
+    dbc.Button('time', color='danger', class_name='me-3', id='tempo-trigger')],
     class_name='d-grid gap-2 d-md-block mb-3 mx-auto', direction='horizontal')
 
 # Defines position of dynamic page content within the home page.
