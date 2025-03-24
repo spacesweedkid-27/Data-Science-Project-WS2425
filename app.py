@@ -243,7 +243,15 @@ def update_bar_chart_interval(min_frequency, theme):
     Input('duration-years-bar-toggle', 'value')
 )
 def update_duration_years_bar(show_outliers):
-    return t.create_duration_years_bar(show_outliers)
+    return t.create_duration_years_bar_with_outliers(show_outliers)
+
+@callback(
+    Output('tempo-plot', 'figure'),
+    Input('tempo-year-range-slider', 'value')
+)
+def update_tempo_plot(year_range):
+    return t.create_tempo_plot_with_range(year_range)
+
 
 
 
