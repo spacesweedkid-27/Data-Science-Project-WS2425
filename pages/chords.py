@@ -164,7 +164,6 @@ def apply_literal_eval(val):
             return ast.literal_eval(val)
         except (ValueError):
             return []
-        return val
 def toptags_to_list(val):
     '''Helper to turn comma-separated Top_Tag strings into lists.'''
     if isinstance(val, str):
@@ -203,10 +202,6 @@ chords_toptags_exploded_df = chords_toptags_exploded_df.drop_duplicates(
 chords_toptags_counts_df = chords_toptags_exploded_df.groupby(
     ['Chords', 'Top_Tags']).size().reset_index(name='Count')
 
-# boxplot 
-# how many songs pro genre -> meta data
-# 
-
 def create_chords_toptags_bubble(df, theme: str):
     chords_toptags_bubble = go.Figure(data = px.scatter(
         df,
@@ -229,7 +224,36 @@ init_chords_toptags_bubble = create_chords_toptags_bubble(chords_toptags_counts_
 # PROGRESSION GENRE RELATIONS
 ###################################
 
-# Some content here
+harmonies_df = pd.read_csv('data/merged.csv', usecols=['Year', 'Title',
+                                                 'Artist', 'Main_Harmony'])
+
+harmonies_toptags_df = pd.merge(harmonies_df, toptags_df, on = ['Title', 'Artist'],
+                              how = 'inner')
+harmonies_toptags_exploded_df = harmonies_toptags_df.explode(
+    'Main_Harmony').explode('Top_Tags')
+# Remove any not found instances from the dataframe.
+harmonies_toptags_exploded_df = harmonies_toptags_exploded_df[
+    (harmonies_toptags_exploded_df['Main_Harmony'] != 'not found') &
+    (harmonies_toptags_exploded_df['Top_Tags'] != 'not found')]
+harmonies_toptags_count_df = harmonies_toptags_exploded_df.groupby(
+    ['Main_Harmony', 'Top_Tags']).size().reset_index(name = 'Count')
+
+def create_harmonies_toptags_bubble(df, theme: str):
+    htb = go.Figure(data = px.scatter(
+        df,
+        y = 'Top_Tags',
+        x = 'Main_Harmony',
+        size = 'Count'
+    ))
+    htb.update_layout(
+        autosize = True,
+        height = 600,
+        template = theme
+    )
+    return htb
+
+init_harmonies_toptags_bubble = create_harmonies_toptags_bubble(
+    harmonies_toptags_count_df, theme)
 
 ###################################
 # HTML ELEMENTS
@@ -386,7 +410,6 @@ fig_bar_h = dbc.Container([
 ], class_name='mb-5')
 
 ###################################
-
 # INTERVAL PROGRESSION BY FREQUENCY
 
 filter_slider_interval = dcc.Slider(
@@ -428,8 +451,49 @@ fig_bar_i = dbc.Container([
 ], class_name='mb-5')
 
 ###################################
+# MAIN HARMONIES BY TOPTAGS
 
+harmonies_toptags_bubble_slider = dcc.Slider(
+    # Slider
+    id = 'harmonies-toptags-bubble-slider',
+    min = 0,
+    max = harmonies_toptags_count_df['Count'].max(),
+    step = 1,
+    value = 1,
+    marks = {
+        i: str(i) for i in range(0, int(harmonies_toptags_count_df['Count'].max()) + 1, 5)
+    }, tooltip = {'placement': 'bottom', 'always_visible': False}
+)
+
+harmonies_toptags_bubble_controls = dbc.Row([
+    dbc.Col(harmonies_toptags_bubble_slider),
+    dbc.Col(class_name = 'fa-regular fa-circle-question',
+            id = 'harmonies-toptags-slider-info',
+            style = {'cursor': 'pointer'},
+            width = 'auto'),
+    dbc.Col(
+        dbc.Tooltip(
+            'Sets a threshold for the minimum tag frequency to be displayed. '
+            'Tags with a lower frequency than the threshold are not displayed '
+            'in the graph.',
+            target = 'harmonies-toptags-slider-info',
+            placement = 'right'
+        )
+    )
+])
+
+harmonies_toptags_bubble_fig = dbc.Container([
+    html.H3('Main Harmony absolute frequency by Top Tags'),
+    harmonies_toptags_bubble_controls,
+    dcc.Graph(
+        id = 'harmonies-toptags-bubble',
+        figure = init_harmonies_toptags_bubble
+    )
+], class_name = 'mb-5')
+
+###################################
 # INTERVAL VARIANCE
+
 fig_var = dbc.Container([
     html.H3('Variance of Interval-Length over Year'),
     dcc.Graph(
@@ -450,6 +514,7 @@ layout = dbc.Container([heading,
                    fig,
                    chords_toptags_bubble_fig,
                    fig_bar_h,
+                   harmonies_toptags_bubble_fig,
                    fig_bar_i,
                    fig_var,
                    ],

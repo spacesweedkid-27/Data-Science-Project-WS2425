@@ -96,7 +96,7 @@ app.layout = dbc.Container([
     dash.page_container,
     #  Invisible storage for active theme.
     dcc.Store(id='theme-store', data = 'plotly_dark'),
-], fluid=True)
+], fluid=True, class_name='mb-5')
 
 ###################################
 # CALLBACKS
@@ -182,6 +182,7 @@ def update_chords_toptags_bubble(min_frequency, theme):
 
     return updated
 
+# Callbacks for harmony barchart. 
 @callback(
     Output('harmony-bar', 'figure'),
     Input('color-mode-switch', 'n_clicks')
@@ -212,7 +213,7 @@ def on_click_harmony_bar(click):
     
     return dcc.Markdown(f'Link to example of clicked harmony: {c.query_h(query)}')
 
-
+# Callbacks for interval barchart
 @callback(
     Output('interval-bar', 'figure'),
     Input('color-mode-switch', 'n_clicks')
@@ -229,6 +230,25 @@ def update_interval_bar(n_clicks):
 def update_bar_chart_interval(min_frequency, theme):
     c.df_i = c.df_i_orig.loc[c.df_i_orig['Absolute Frequency'] >= min_frequency]
     return c.create_bar_chart_interval_progression(theme)
+
+# Callbacks for harmony top tags bubble
+@callback(
+    Output('harmonies-toptags-bubble', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_harmonies_toptags_bubble_theme(n_clicks):
+    return update_fig_template(n_clicks)
+
+@callback(
+    Output('harmonies-toptags-bubble', 'figure', allow_duplicate=True),
+    [Input('harmonies-toptags-bubble-slider', 'value'),
+     Input('theme-store', 'data')],
+    prevent_initial_call = True
+)
+def update_harmonies_toptags_bubble(min_frequency, theme):
+    filtered_df = c.harmonies_toptags_count_df[c.harmonies_toptags_count_df['Count'] >= int(min_frequency)]
+    updated = c.create_harmonies_toptags_bubble(filtered_df, theme)
+    return updated
 
 
 ###################################
