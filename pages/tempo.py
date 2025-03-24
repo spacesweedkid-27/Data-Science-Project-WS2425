@@ -9,6 +9,8 @@ import os
 
 dash.register_page(__name__)
 
+theme = 'plotly_dark' #  Initial theme that needs to be passed to graphs on load
+
 heading = dbc.Container('We got some information about tempo here')
 main_content = dbc.Container('Some information about this project goes here. '
 'This content answers questions about what data sources we used, how the data '
@@ -104,7 +106,7 @@ def format_duration_min(minutes):
     return f"{mm}:{ss:02d}"
 
 # Function to create the bar chart for song duration
-def create_duration_years_bar_with_outliers(show_outliers):
+def create_duration_years_bar_with_outliers(show_outliers, theme):
     df_original = df_all_years_duration  
 
     if 'show' in show_outliers:
@@ -145,12 +147,13 @@ def create_duration_years_bar_with_outliers(show_outliers):
             ticktext=y_labels,
             fixedrange=True,  
             range=[0, y_max]  
-        )
+        ),
+        template = theme
     )
     
     return fig
 
-def create_duration_boxplot():
+def create_duration_boxplot(theme):
     fig = px.box(df_all_years_duration, x="Year", y="Duration_min", title="Song Duration Distribution Per Year (With Outliers)")
     
     df_grouped_duration = df_all_years_duration.groupby("Year", as_index=False)["Duration_min"].mean()
@@ -167,13 +170,15 @@ def create_duration_boxplot():
         ),
         yaxis=dict(
             title="Duration"  
-        )
+        ),
+        height = 800,
+        template = theme
     )
     return fig
 
 # Initialize the duration plot
-init_duration_years_bar = create_duration_years_bar_with_outliers(['show'])
-init_duration_boxplot = create_duration_boxplot()
+init_duration_years_bar = create_duration_years_bar_with_outliers(['show'], theme)
+init_duration_boxplot = create_duration_boxplot(theme)
 
 ###################################
 # Tempo 
@@ -212,7 +217,7 @@ def load_tempo_data():
 df_all_years_tempo, df_grouped_tempo = load_tempo_data()
 
 # Function to create the Tempo plot
-def create_tempo_plot_with_range(year_range):
+def create_tempo_plot_with_range(year_range, theme):
     # Filter data based on selected years
     df_filtered_tempo = df_all_years_tempo[
         (df_all_years_tempo['Year'] >= year_range[0]) & 
@@ -231,12 +236,13 @@ def create_tempo_plot_with_range(year_range):
     fig.update_layout(
         xaxis=dict(type='category'),
         yaxis=dict(title="Tempo (BPM)"),
+        template = theme
     )
     
     return fig
 
 # Initialize the tempo plot
-init_tempo_plot = create_tempo_plot_with_range([2005, 2024])
+init_tempo_plot = create_tempo_plot_with_range([2005, 2024], theme)
 
 ###################################
 # HTML ELEMENTS

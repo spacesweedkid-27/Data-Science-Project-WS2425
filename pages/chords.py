@@ -535,15 +535,15 @@ meta = dbc.Container([
 ###################################
 
 
-layout = dbc.Container([heading,
-                   main_content,
+layout = dbc.Container([#heading,
+                   meta,
+                   #main_content,
                    fig,
                    chords_toptags_bubble_fig,
                    fig_bar_h,
                    harmonies_toptags_bubble_fig,
                    fig_bar_i,
-                   fig_var,
-                   meta
+                   fig_var
                    ],
                    class_name='mw-75'
                 )

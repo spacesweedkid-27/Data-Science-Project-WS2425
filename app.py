@@ -170,6 +170,13 @@ def update_heatmap(min_frequency, shrink_chords, theme):
 
 # Callback for chordfrequency by toptags slider.
 @callback(
+        Output('chords-toptags-bubble', 'figure'),
+        Input('color-mode-switch', 'n_clicks')
+)
+def update_chords_toptags_bubble_theme(n_clicks):
+    return update_fig_template(n_clicks)
+
+@callback(
         Output('chords-toptags-bubble', 'figure', allow_duplicate = True),
         [Input('chords-toptags-bubble-slider', 'value'),
          Input('theme-store', 'data')],
@@ -262,24 +269,48 @@ def update_harmonies_toptags_bubble(min_frequency, theme):
 # TIME
 ###################################
 
-
+@callback(
+    Output('duration-years-bar', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_duration_years_bar_theme(n_clicks):
+    return update_fig_template(n_clicks)
 
 # Duration slider callback
 @callback(
-    Output('duration-years-bar', 'figure'),
-    [Input('duration-years-bar-toggle', 'value')]
+    Output('duration-years-bar', 'figure', allow_duplicate=True),
+   [Input('duration-years-bar-toggle', 'value'),
+    Input('theme-store', 'data')],
+    prevent_initial_call = True
 )
-def update_duration_years_bar(show_outliers):
-    return t.create_duration_years_bar_with_outliers(show_outliers)
+def update_duration_years_bar(show_outliers, theme):
+    return t.create_duration_years_bar_with_outliers(show_outliers, theme)
 
+# Duration Boxplot Themeswitch.
+@callback(
+    Output('duration-boxplot', 'figure'),
+    Input('theme-store', 'data')
+)
+def update_duration_boxplot(theme):
+    return t.create_duration_boxplot(theme)
+
+# Tempo Scatter Plot Themeswitch.
+@callback(
+    Output('tempo-plot', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_tempo_plot_theme(n_clicks):
+    return update_fig_template(n_clicks)
 
 # Tempo range slider
 @callback(
-    Output('tempo-plot', 'figure'),
-    Input('tempo-year-range-slider', 'value')
+    Output('tempo-plot', 'figure', allow_duplicate=True),
+   [Input('tempo-year-range-slider', 'value'),
+    Input('theme-store', 'data')],
+    prevent_initial_call = True
 )
-def update_tempo_plot(year_range):
-    return t.create_tempo_plot_with_range(year_range)
+def update_tempo_plot(year_range, theme):
+    return t.create_tempo_plot_with_range(year_range, theme)
 
 
 
@@ -318,7 +349,7 @@ def update_xaxis_yaxis_figtype(n_clicks):
     Output('xaxis-yaxis-figtype', 'figure', allow_duplicate=True),
    [Input('xaxis-yaxis-fitype-slider', 'value'),
     Input('theme-store', 'data')],
-    precent_initial_call = True
+    prevent_initial_call = True
 )
 def update_xaxis_yaxis_figtype(value):
     <update logic>
