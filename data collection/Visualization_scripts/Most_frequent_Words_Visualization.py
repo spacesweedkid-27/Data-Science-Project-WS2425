@@ -11,14 +11,14 @@ from nltk.util import ngrams
 import nltk
 nltk.download('punkt')
 
-# Stop-Wörter anpassen
+
 STOP_WORDS = {"wan", "na", "ta", "ca"}  # Wörter, die ignoriert werden sollen
 
-# 📌 Ordner mit den CSV-Dateien (Anpassen!)
+
 folder_path =  r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\BillBoard_Lyrics_preprocessed"
 file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
 
-# 📌 Daten einlesen & Lyrics kombinieren
+#Daten einlesen & Lyrics kombinieren
 dataframes = []
 for file in file_paths:
     filename = os.path.basename(file)
@@ -31,13 +31,13 @@ for file in file_paths:
     df['Year'] = year  
     dataframes.append(df)
 
-# 📌 Alle Jahre zusammenfügen
+#Alle Jahre zusammenfügen
 all_data = pd.concat(dataframes, ignore_index=True)
 
-# 📌 Alle Lyrics zu einer Liste zusammenführen
+#Alle Lyrics zu einer Liste zusammenführen
 all_lyrics = ' '.join(all_data['Lyrics'].dropna()).lower()  # Alles in Kleinbuchstaben
 
-# 📌 Funktion für Wort-, Bigramm-, Trigramm-Häufigkeiten
+#Funktion für Wort-, Bigramm-, Trigramm-Häufigkeiten
 def get_ngram_frequencies(text, n=1, top_n=20):
     tokens = nltk.word_tokenize(text)
     tokens = [t for t in tokens if t not in STOP_WORDS]  # Stop-Wörter entfernen
@@ -50,11 +50,11 @@ def get_ngram_frequencies(text, n=1, top_n=20):
     freq = Counter(ngram_list)
     return freq.most_common(top_n)
 
-# 📌 Dash App erstellen
+#Dash App erstellen
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
-    html.H1("🔎 Most Frequent Words in Billboard Lyrics"),
+    html.H1("Most Frequent Words in Billboard Lyrics"),
     dcc.Slider(
         id='ngram-slider',
         min=1,
@@ -66,7 +66,7 @@ app.layout = html.Div([
     dcc.Graph(id='word-frequency-chart')
 ])
 
-# 📌 Callback-Funktion für interaktive Visualisierung
+#Callback-Funktion für interaktive Visualisierung
 @app.callback(
     Output('word-frequency-chart', 'figure'),
     Input('ngram-slider', 'value')
@@ -81,6 +81,6 @@ def update_chart(n):
                  text_auto=True)
     return fig
 
-# 📌 Server starten
+# Server starten
 if __name__ == '__main__':
     app.run(debug=True)

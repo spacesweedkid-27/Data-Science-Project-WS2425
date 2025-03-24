@@ -1,105 +1,132 @@
-import pandas as pd
-import glob
-from textblob import TextBlob
-import plotly.express as px
-import re
 import os
+import glob
+import pandas as pd
+import re
+import plotly.graph_objects as go
+from textblob import TextBlob
+import numpy as np
 
-# Define the folder path
+# Daten laden und zusammenführen
 folder_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\BillBoard_Lyrics_preprocessed"
 
-# Get all CSV file paths
 file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
-
 dataframes = []
 
-# Read and process CSV files
 for file in file_paths:
     filename = os.path.basename(file)
-    match = re.search(r'(\d{4})', filename)  
+    match = re.search(r'(\d{4})', filename)  # Jahr aus Dateinamen extrahieren
     if match:
         year = int(match.group(1))
     else:
         continue
 
     df = pd.read_csv(file)
-    df['Year'] = year  
+    df['Year'] = year
     dataframes.append(df)
 
-# Combine all data
 if dataframes:
     all_data = pd.concat(dataframes, ignore_index=True)
 else:
-    raise ValueError("No valid CSV files found.")
+    raise ValueError("Keine gültigen CSV-Dateien gefunden.")
 
-# Ensure consistent column names
-all_data.columns = all_data.columns.str.strip()
+# Funktion zur Berechnung der Wortpolarität
+def get_word_polarity(text):
+    if isinstance(text, str):  
+        words = text.split()
+        polarities = [TextBlob(word).sentiment.polarity for word in words]
+        return polarities
+    return []
 
-# Standardize lyrics column name if different
-possible_columns = ['lyrics', 'Lyrics', 'text', 'lyric']
-for col in possible_columns:
-    if col in all_data.columns:
-        all_data['lyrics'] = all_data[col]
-        break
+all_data['Polarity'] = all_data['Lyrics'].apply(get_word_polarity)
 
-# Function to calculate polarity per word rather than full lyrics
-def get_word_polarity(lyrics):
-    words = str(lyrics).split()  # Split into individual words
-    if not words:
-        return None
-    polarity_scores = [TextBlob(word).sentiment.polarity for word in words]
-    return sum(polarity_scores) / len(polarity_scores)  # Average polarity
+# Daten für die Visualisierung vorbereiten
+years = list(range(2005, 2025))
+polarities_by_year = {year: [] for year in years}
+mean_polarities = {}
 
-# Apply word-level polarity analysis
-all_data['Polarity'] = all_data['lyrics'].apply(get_word_polarity)
+for year in years:
+    yearly_data = all_data[all_data['Year'] == year]
+    if not yearly_data.empty:
+        all_polarities = [p for sublist in yearly_data['Polarity'] for p in sublist]
+        polarities_by_year[year] = all_polarities
+        mean_polarities[year] = np.mean(all_polarities) if all_polarities else 0  # Durchschnitt berechnen
+    else:
+        mean_polarities[year] = 0
 
-# Drop rows with missing polarity values
-all_data = all_data.dropna(subset=['Polarity'])
+#Interaktive Visualisierung mit Optimierung
+fig = go.Figure()
 
-# Convert polarity bins to strings to avoid dtype issues
-all_data['Polarity_bin'] = all_data['Polarity'].round(2)  # Round to 2 decimals for smoother bins
+for year in years:
+    polarities = np.array(polarities_by_year[year])
+    
+    # Trennen der neutralen Werte (Polarität = 0)
+    negative = polarities[polarities < 0]
+    neutral = polarities[polarities == 0]
+    positive = polarities[polarities > 0]
 
-# Count occurrences in each polarity bin per year
-polarity_distribution = all_data.groupby(['Year', 'Polarity_bin'], observed=False).size().reset_index(name='Count')
+    # Histogramme für jede Polaritätsklasse
+    fig.add_trace(go.Histogram(
+        x=negative,
+        name=f'Negativ ({year})',
+        marker_color='red',
+        opacity=0.7,
+        visible=True if year == 2005 else False
+    ))
 
-# Convert 'Polarity_bin' to string to prevent multi-index issues
-polarity_distribution['Polarity_bin'] = polarity_distribution['Polarity_bin'].astype(str)
+    fig.add_trace(go.Histogram(
+        x=positive,
+        name=f'Positiv ({year})',
+        marker_color='blue',
+        opacity=0.7,
+        visible=True if year == 2005 else False
+    ))
 
-# Normalize within each year
-polarity_distribution['Normalized_Count'] = polarity_distribution.groupby('Year')['Count'].transform(lambda x: x / x.sum())
+    fig.add_trace(go.Histogram(
+        x=neutral,
+        name=f'Neutral ({year})',
+        marker_color='gray',
+        opacity=0.5,
+        visible=True if year == 2005 else False
+    ))
 
-# Create interactive histogram
-fig = px.histogram(
-    polarity_distribution,
-    x='Polarity_bin',
-    y='Normalized_Count',  # Use normalized values
-    animation_frame="Year",
-    title="Polarity Distribution of Song Lyrics Over Time (Normalized)",
-    labels={"Polarity_bin": "Sentiment Polarity", "Normalized_Count": "Proportion of Songs"},
-    template="plotly_dark"
-)
+    # Durchschnittliche Polarität als dünne vertikale Linie 
+    fig.add_trace(go.Scatter(
+        x=[mean_polarities[year], mean_polarities[year]],  # Linie bei Durchschnittswert
+        y=[1, 10**5],  # Höhe der Linie (angepasst für logarithmische Skalierung)
+        mode="lines",
+        line=dict(color="orange", width=2, dash="dash"),  # Farbe: Orange, Dünn, Gestrichelt
+        name=f'Durchschnitt ({year})',
+        visible=True if year == 2005 else False
+    ))
 
-# Update layout for better scaling
+#Korrekte Slider-Definition mit optimierter Sichtbarkeit
+steps = []
+for i, year in enumerate(years):
+    step = dict(
+        method="update",
+        args=[{"visible": [j // 4 == i for j in range(len(years) * 4)]}],
+        label=str(year)
+    )
+    steps.append(step)
+
 fig.update_layout(
-    xaxis_title="Sentiment Polarity (-1 = Negative, 0 = Neutral, 1 = Positive)",
-    yaxis_title="Proportion of Songs",
-    xaxis=dict(range=[-1, 1]),  # Fix polarity range
-    yaxis=dict(range=[0, 1]),  # Normalize scale
-    updatemenus=[
-        dict(
-            type="buttons",
-            showactive=False,
-            buttons=[
-                dict(label="Play",
-                     method="animate",
-                     args=[None, {"frame": {"duration": 1000, "redraw": True}, "fromcurrent": True}]),
-                dict(label="Pause",
-                     method="animate",
-                     args=[[None], {"frame": {"duration": 0, "redraw": False}, "mode": "immediate"}])
-            ]
-        )
-    ]
+    title="Verteilung der Wortpolaritäten in Songtexten (2005–2024)",
+    xaxis_title="Polarität",
+    yaxis_title="Anzahl der Wörter",
+    barmode='overlay',  # Histogramme überlagern sich leicht für bessere Sichtbarkeit
+    yaxis_type="log",  # Logarithmische Skalierung
+    sliders=[{
+        "active": 0,  # Startjahr 2005
+        "currentvalue": {
+            "visible": True,
+            "prefix": "Jahr: ",
+            "font": {"size": 20}
+        },
+        "steps": steps
+    }]
 )
 
-# Show plot
+#Visualisierung anzeigen
+import plotly.io as pio
+pio.renderers.default = "browser"
 fig.show()

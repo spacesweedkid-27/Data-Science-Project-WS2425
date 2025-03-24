@@ -1,130 +1,89 @@
-import os
-import glob
 import pandas as pd
+import glob
+import os
 import re
-import plotly.graph_objects as go
 from textblob import TextBlob
-import numpy as np
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
-# 📌 1️⃣ Daten laden und zusammenführen
+# Define the folder path
 folder_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\BillBoard_Lyrics_preprocessed"
 
+# Get all CSV file paths
 file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
+
 dataframes = []
 
+# Function to calculate polarity of the lyrics
+def get_polarity(text):
+    # Ensure the input is a string, if not return a polarity of 0
+    if isinstance(text, str):
+        return TextBlob(text).sentiment.polarity
+    else:
+        return 0.0  # If the value is not a string, return neutral polarity (0)
+
+# Read and process CSV files
 for file in file_paths:
     filename = os.path.basename(file)
-    match = re.search(r'(\d{4})', filename)  # Jahr aus Dateinamen extrahieren
+    match = re.search(r'(\d{4})', filename)  # Extract year from filename
     if match:
         year = int(match.group(1))
     else:
         continue
 
+    # Read the CSV file
     df = pd.read_csv(file)
-    df['Year'] = year
+    df['Year'] = year  # Add year column
+    df['Polarity'] = df['Lyrics'].apply(get_polarity)  # Calculate polarity for each song's lyrics
     dataframes.append(df)
 
+# Combine all data into a single dataframe
 if dataframes:
     all_data = pd.concat(dataframes, ignore_index=True)
 else:
-    raise ValueError("Keine gültigen CSV-Dateien gefunden.")
+    raise ValueError("No valid CSV files found.")
 
-# 📌 2️⃣ Funktion zur Berechnung der Wortpolarität
-def get_word_polarity(text):
-    if isinstance(text, str):  
-        words = text.split()
-        polarities = [TextBlob(word).sentiment.polarity for word in words]
-        return polarities
-    return []
+# Create an interactive figure with Plotly
+fig = make_subplots(rows=1, cols=1, subplot_titles=["Polarität der Songtexte über Jahre"])
 
-all_data['Polarity'] = all_data['Lyrics'].apply(get_word_polarity)
-
-# 📌 3️⃣ Daten für die Visualisierung vorbereiten
-years = list(range(2005, 2025))
-polarities_by_year = {year: [] for year in years}
-mean_polarities = {}
-
-for year in years:
-    yearly_data = all_data[all_data['Year'] == year]
-    if not yearly_data.empty:
-        all_polarities = [p for sublist in yearly_data['Polarity'] for p in sublist]
-        polarities_by_year[year] = all_polarities
-        mean_polarities[year] = np.mean(all_polarities) if all_polarities else 0  # Durchschnitt berechnen
-    else:
-        mean_polarities[year] = 0
-
-# 📌 4️⃣ Interaktive Visualisierung mit Optimierung
-fig = go.Figure()
-
-for year in years:
-    polarities = np.array(polarities_by_year[year])
+# Add both bars and line for each year
+for year in range(2005, 2025):  # From 2005 to 2024
+    year_data = all_data[all_data['Year'] == year]
     
-    # Trennen der neutralen Werte (Polarität = 0)
-    negative = polarities[polarities < 0]
-    neutral = polarities[polarities == 0]
-    positive = polarities[polarities > 0]
-
-    # Histogramme für jede Polaritätsklasse
-    fig.add_trace(go.Histogram(
-        x=negative,
-        name=f'Negativ ({year})',
-        marker_color='red',
-        opacity=0.7,
-        visible=True if year == 2005 else False
+    # Calculate the average polarity for the year
+    avg_polarity = year_data['Polarity'].mean()
+    
+    # Add bars for each year
+    fig.add_trace(go.Bar(
+        x=[year], 
+        y=[avg_polarity], 
+        name=f'Jahr {year}',
+        marker=dict(color='rgba(255, 99, 132, 0.5)', opacity=0.7)
     ))
-
-    fig.add_trace(go.Histogram(
-        x=positive,
-        name=f'Positiv ({year})',
-        marker_color='blue',
-        opacity=0.7,
-        visible=True if year == 2005 else False
-    ))
-
-    fig.add_trace(go.Histogram(
-        x=neutral,
-        name=f'Neutral ({year})',
-        marker_color='gray',
-        opacity=0.5,
-        visible=True if year == 2005 else False
-    ))
-
-    # 🔥 Durchschnittliche Polarität als dünne vertikale Linie 🔥
+    
+    # Add a line for each year
     fig.add_trace(go.Scatter(
-        x=[mean_polarities[year], mean_polarities[year]],  # Linie bei Durchschnittswert
-        y=[1, 10**5],  # Höhe der Linie (angepasst für logarithmische Skalierung)
-        mode="lines",
-        line=dict(color="orange", width=2, dash="dash"),  # Farbe: Orange, Dünn, Gestrichelt
-        name=f'Durchschnitt ({year})',
-        visible=True if year == 2005 else False
+        x=[year], 
+        y=[avg_polarity], 
+        mode='lines+markers',  # Line + Marker
+        name=f'Jahr {year}',
+        text=[f'{year}: {avg_polarity:.2f}'],
+        textposition="top center",
+        marker=dict(size=8, color='rgb(255, 99, 132)', opacity=0.7),
+        line=dict(color='rgb(255, 99, 132)', width=2)  # Add line
     ))
 
-# 📌 5️⃣ Korrekte Slider-Definition mit optimierter Sichtbarkeit
-steps = []
-for i, year in enumerate(years):
-    step = dict(
-        method="update",
-        args=[{"visible": [j // 4 == i for j in range(len(years) * 4)]}],
-        label=str(year)
-    )
-    steps.append(step)
-
+# Layout for the visualization
 fig.update_layout(
-    title="Verteilung der Wortpolaritäten in Songtexten (2005–2024)",
-    xaxis_title="Polarität",
-    yaxis_title="Anzahl der Wörter",
-    barmode='overlay',  # Histogramme überlagern sich leicht für bessere Sichtbarkeit
-    yaxis_type="log",  # Logarithmische Skalierung
-    sliders=[{
-        "active": 0,  # Startjahr 2005
-        "currentvalue": {
-            "visible": True,
-            "prefix": "Jahr: ",
-            "font": {"size": 20}
-        },
-        "steps": steps
-    }]
+    title="Durchschnittliche Polarität der Songtexte über Jahre",
+    xaxis_title="Jahr",
+    yaxis_title="Durchschnittliche Polarität",
+    showlegend=True,
+    hovermode="closest",
+    template="plotly_dark"
 )
 
-# 📌 6️⃣ Visualisierung anzeigen
+# Show the plot
+import plotly.io as pio
+pio.renderers.default = "browser"
 fig.show()
