@@ -25,7 +25,7 @@ import pages.tempo as t
 
 import data_collection.scripts.numerize_chords as nc
 
-import pages.tempo as t
+
 
 
 ###################################
