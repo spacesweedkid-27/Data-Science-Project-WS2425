@@ -245,6 +245,7 @@ def update_bar_chart_interval(min_frequency, theme):
 def update_duration_years_bar(show_outliers):
     return t.create_duration_years_bar_with_outliers(show_outliers)
 
+# Tempo range slider
 @callback(
     Output('tempo-plot', 'figure'),
     Input('tempo-year-range-slider', 'value')
