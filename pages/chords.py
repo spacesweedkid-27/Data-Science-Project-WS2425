@@ -53,10 +53,6 @@ for file in files:
         try: #  Gracefully (tm) handle 'not found' instances
             chord_list = ast.literal_eval(chords) #  String to List
             chord_list = list(set(chord_list))
-            '''chords_temp = []
-            for chord in chord_list:
-                if chord not in chords_temp:
-                    chords_temp.insert(0, chord)'''
             counts.extend(chord_list)
         except (KeyError, ValueError):
             continue
@@ -73,7 +69,6 @@ for year, chords in count_per_year.items():
     chord_counts = {chord: chords.count(chord) for chord in all_chords}
 
     chord_matrix.loc[year] = chord_counts
-print('chord matrix', chord_matrix.head())
 
 chord_matrix = chord_matrix.apply(pd.to_numeric, errors='coerce').fillna(0)
 def create_heatmap(chord_matrix, theme):
@@ -167,6 +162,7 @@ chords_df = pd.read_csv('data/merged.csv', usecols=['Year', 'Title',
                                                  'Artist', 'Chords'])
 # Turn chords into list objects.
 chords_df['Chords'] = chords_df['Chords'].apply(apply_literal_eval)
+
 # Merge all tags files into one dataframe.
 tags_file_path = glob.glob(
     'data/Billboard_lyrics/BillBoard_Lyrics_Top_Tags' + '/*.csv')
@@ -176,7 +172,6 @@ toptags_df = pd.concat(tags_list, ignore_index=True)
 # Turn Top_Tags strings into list objects
 toptags_df['Top_Tags'] = toptags_df['Top_Tags'].apply(toptags_to_list)
 
-
 # Merged dataframe
 chords_toptags_df = pd.merge(
     chords_df, toptags_df, on = ['Title', 'Artist'], how='inner')
@@ -184,7 +179,13 @@ chords_toptags_df = pd.merge(
 chords_toptags_exploded_df = chords_toptags_df.explode(
     'Chords').explode('Top_Tags')
 
-chords_toptags_exploded_df['Chords'] = chords_toptags_exploded_df['Chords'].fillna('').apply(nc.shrink_chord)
+# Shrink chords (because on very convoluted axis is enough)
+chords_toptags_exploded_df['Chords'] = chords_toptags_exploded_df['Chords'].fillna(
+    '').apply(nc.shrink_chord)
+
+# Drop duplicates to only count one occurence of each chord per song.
+chords_toptags_exploded_df = chords_toptags_exploded_df.drop_duplicates(
+    subset=['Title', 'Artist', 'Chords', 'Top_Tags'])
 
 chords_toptags_counts_df = chords_toptags_exploded_df.groupby(
     ['Chords', 'Top_Tags']).size().reset_index(name='Count')
@@ -193,16 +194,12 @@ chords_toptags_counts_df = chords_toptags_exploded_df.groupby(
 # how many songs pro genre -> meta data
 # 
 
-def create_chords_toptags_bubble(theme: str):
+def create_chords_toptags_bubble(df, theme: str):
     chords_toptags_bubble = go.Figure(data = px.scatter(
-        chords_toptags_counts_df,
+        df,
         x = 'Top_Tags',
         y = 'Chords',
         size='Count',
-        #color='Count',
-        #hover_name='Count', 
-        #log_x=True,
-        #size_max=100
     ))
     
     chords_toptags_bubble.update_layout(
@@ -213,7 +210,7 @@ def create_chords_toptags_bubble(theme: str):
     )
     return chords_toptags_bubble
 
-init_chords_toptags_bubble = create_chords_toptags_bubble(theme)
+init_chords_toptags_bubble = create_chords_toptags_bubble(chords_toptags_counts_df, theme)
 
 ###################################
 # PROGRESSION GENRE RELATIONS
@@ -234,10 +231,10 @@ chordfrequency_year_slider = dcc.Slider(
     id = 'chordfrequency-year-slider',
     min = 0,
     max = chord_matrix.max().max(),
-    step = 50,
+    step = 1,
     value = 1,
     marks = {
-        i: str(i) for i in range(0, int(chord_matrix.max().max()) + 1, 200)
+        i: str(i) for i in range(0, int(chord_matrix.max().max()) + 1, 10)
     }, tooltip = {'placement': 'bottom', 'always_visible': False}
 )
 # Toggles for shrinking the chords and re-rendering graph accordingly.
@@ -291,6 +288,47 @@ fig = dbc.Container([
 ], class_name='mb-5')
 
 ###################################
+# CHORDFREQUENCY BY TOP TAGS
+
+chords_toptags_bubble_slider = dcc.Slider(
+    # Slider
+    id = 'chords-toptags-bubble-slider',
+    min = 0,
+    max = chords_toptags_counts_df['Count'].max(),
+    step = 5,
+    value = 1,
+    marks = {
+        i: str(i) for i in range(0, int(chords_toptags_counts_df['Count'].max()) + 5, 50)
+    }, tooltip = {'placement': 'bottom', 'always_visible': False}
+)
+
+chords_toptags_bubble_controls = dbc.Row([
+    dbc.Col(chords_toptags_bubble_slider),
+    dbc.Col(class_name = 'fa-regular fa-circle-question',
+            id = 'chords-toptags-slider-info',
+            style = {'cursor': 'pointer'},
+            width = 'auto'),
+    dbc.Col(
+        dbc.Tooltip(
+            'Sets a threshold for the minimum tag frequency to be displayed. '
+            'Tags with a lower frequency than the threshold are not displayed '
+            'in the graph.',
+            target = 'chords-toptags-slider-info',
+            placement = 'right'
+        )
+    )
+])
+
+chords_toptags_bubble_fig = dbc.Container([
+    html.H3('Absolute Chordfrequency by Top Tags'),
+    chords_toptags_bubble_controls,
+    dcc.Graph(
+        id = 'chords-toptags-bubble',
+        figure = init_chords_toptags_bubble
+    )
+], class_name='mb-5')
+
+###################################
 # HARMONIC PROGRESSION BY FREQUENCY
 
 filter_slider_harmony = dcc.Slider(
@@ -331,14 +369,6 @@ fig_bar_h = dbc.Container([
     dcc.Graph(
         id = 'harmony-bar',
         figure = init_bar_h
-    )
-], class_name='mb-5')
-
-chords_toptags_bubble_fig = dbc.Container([
-    html.H3('Chords by Top Tags'),
-    dcc.Graph(
-        id = 'chords-toptags-bubble',
-        figure = init_chords_toptags_bubble
     )
 ], class_name='mb-5')
 

@@ -163,10 +163,24 @@ def update_heatmap(min_frequency, shrink_chords, theme):
         chord_matrix.columns = chord_matrix.columns.map(nc.shrink_chord)
         chord_matrix = chord_matrix.T.groupby(level=0).sum().T
 
-    filtered_matrix = chord_matrix.loc[:, chord_matrix.max(axis=0) >= min_frequency]
+    filtered_matrix = chord_matrix.loc[:, pd.to_numeric(chord_matrix.max(axis=0)) >= int(min_frequency)]
     updated_heatmap_fig = c.create_heatmap(filtered_matrix, theme)
 
     return updated_heatmap_fig
+
+# Callback for chordfrequency by toptags slider.
+@callback(
+        Output('chords-toptags-bubble', 'figure', allow_duplicate = True),
+        [Input('chords-toptags-bubble-slider', 'value'),
+         Input('theme-store', 'data')],
+         prevent_initial_call = True
+)
+def update_chords_toptags_bubble(min_frequency, theme):
+
+    filtered_df = c.chords_toptags_counts_df[c.chords_toptags_counts_df['Count'] >= int(min_frequency)]
+    updated = c.create_chords_toptags_bubble(filtered_df, theme)
+
+    return updated
 
 @callback(
     Output('harmony-bar', 'figure'),
