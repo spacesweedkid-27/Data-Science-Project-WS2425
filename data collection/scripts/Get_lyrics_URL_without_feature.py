@@ -7,7 +7,7 @@ GENIUS_API_TOKEN = "XEO7v-2JGWVsHSUXV8HC7n6S7iXY8Uh_BMoqdYBDimTttVOAquc1EUT0z_Dc
 GENIUS_API_URL = "https://api.genius.com"
 
 # CSV-Datei laden
-file_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\raw\billboard_2023.csv"  # Stelle sicher, dass die Datei im selben Verzeichnis ist
+file_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\raw\billboard_2013.csv"  # Stelle sicher, dass die Datei im selben Verzeichnis ist
 df = pd.read_csv(file_path)
 
 # Funktion zum Bereinigen des Künstlernamens
@@ -60,7 +60,7 @@ def get_song_lyrics_url(title, artist):
 df["Lyrics_URL"] = df.apply(lambda row: get_song_lyrics_url(row["Title"], row["Artist"]), axis=1)
 
 # Neue Datei speichern
-new_file_path = "billboard_2023_lyrics_URL.csv"
+new_file_path = "billboard_2013_lyrics_URL.csv"
 df.to_csv(new_file_path, index=False)
 
 print(f"Neue Datei mit Lyrics-URLs gespeichert als {new_file_path}")

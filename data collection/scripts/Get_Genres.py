@@ -11,7 +11,7 @@ load_dotenv()
 API_KEY =  "5e0cefeecb9bb463ea191ada4938a63f"
 
 # Load CSV file
-df = pd.read_csv(r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\raw\billboard_2024.csv")
+df = pd.read_csv(r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\raw\billboard_2013.csv")
 
 # Function to clean artist name (keep only the first artist)
 def clean_artist_name(artist):
@@ -47,5 +47,5 @@ tqdm.pandas()
 df["Top_Tags"] = df.progress_apply(lambda row: get_tags(row["Artist"], row["Title"]), axis=1)
 
 # Save the updated CSV file
-df.to_csv("billboard_2024_with_tags.csv", index=False)
+df.to_csv("billboard_2013_with_tags.csv", index=False)
 print("✅ Done! Updated CSV saved as 'billboard_2005_with_tags_cleaned.csv'.")

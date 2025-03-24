@@ -35,14 +35,14 @@ def preprocess_lyrics(lyrics):
     return " ".join(processed_words)  # Liste in String umwandeln
 
 # Datei einlesen 
-file_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\Billboard_Lyrics_Text\billboard_2023_Lyrics_text.csv"  
+file_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\Billboard_Lyrics_Text\billboard_2013_Lyrics_text.csv"  
 df = pd.read_csv(file_path)
 
 # Preprocessing auf die "Lyrics"-Spalte anwenden
 df["Lyrics"] = df["Lyrics"].apply(preprocess_lyrics)
 
 # Neue Datei speichern
-processed_file_path = "billboard_2023_Lyrics_preprocessed.csv"
+processed_file_path = "billboard_2013_Lyrics_preprocessed.csv"
 df.to_csv(processed_file_path, index=False)
 
 print(f"Preprocessing abgeschlossen! Datei gespeichert als: {processed_file_path}")

@@ -87,6 +87,6 @@ def write_lyrics_to_csv(input_csv, output_csv):
     print(f'Lyrics have been added to {output_csv}')
 
 # Calling the function with the original CSV file and the desired output file
-input_csv = r'C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\billboard_2005_with_lyrics.csv'
-output_csv = 'billboard_2005_with_lyrics_and_lyrics.csv'
+input_csv = r'C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\Billboard_Lyrics_URL\billboard_2013_lyrics_URL.csv'
+output_csv = 'billboard_2013_Lyrics_text.csv'
 write_lyrics_to_csv(input_csv, output_csv)
