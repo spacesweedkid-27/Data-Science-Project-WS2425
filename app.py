@@ -26,6 +26,8 @@ import pages.tempo as t
 import data_collection.scripts.numerize_chords as nc
 
 
+
+
 ###################################
 # data imports go here
 ###################################
@@ -213,6 +215,22 @@ def update_interval_bar(n_clicks):
 def update_bar_chart_interval(min_frequency, theme):
     c.df_i = c.df_i_orig.loc[c.df_i_orig['Absolute Frequency'] >= min_frequency]
     return c.create_bar_chart_interval_progression(theme)
+
+
+###################################
+# Tempo page
+###################################
+
+import pages.tempo as t
+
+# Duration slider callback
+@dash.callback(
+    Output('duration-years-bar', 'figure'),
+    Input('duration-years-bar-toggle', 'value')
+)
+def update_duration_years_bar(show_outliers):
+    return t.create_duration_years_bar(show_outliers)
+
 
 
 ###################################
