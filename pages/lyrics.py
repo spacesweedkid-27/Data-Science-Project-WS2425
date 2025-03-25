@@ -5,14 +5,11 @@ from dash import dcc, html, callback
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import plotly.express as px
-from textblob import TextBlob
-import numpy as np
 import nltk
 from dash_bootstrap_templates import load_figure_template
 from collections import Counter
 from nltk.util import ngrams
 from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 import glob
@@ -20,6 +17,7 @@ import os
 import re
 import random
 import matplotlib as mpl
+import numpy as np # Sorry
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 
 dash.register_page(__name__)
@@ -39,7 +37,7 @@ screaming = dbc.Container('NEVER GONNA GIVE YOU UP, NEVER GONNA LET YOU DOWN, '
 'SAY GOODBYE, NEVER GONNA TELL A LIE AND HURT YOU!')
 
 # Verzeichnis und CSV-Dateien laden
-folder_path = "data/Billboard_lyrics/Billboard_Lyrics_preprocessed"
+folder_path = "data/Billboard_lyrics/Billboard_Lyrics_preprocessed/"
 file_paths = glob.glob(os.path.join(folder_path, "billboard_*.csv"))
 
 ###################################
