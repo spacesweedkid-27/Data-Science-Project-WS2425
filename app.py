@@ -29,7 +29,7 @@ import re
 app = Dash(__name__,
     external_stylesheets=[dbc.themes.MORPH, dbc.icons.FONT_AWESOME],
     use_pages=True
-)
+) 
 server=app.server
 
 # We'll need to call some functions lateron to dynamically
@@ -37,9 +37,8 @@ server=app.server
 import pages.chords as c
 import pages.lyrics as l
 import pages.tempo as t
+
 import data_collection.scripts.numerize_chords as nc
-
-
 
 
 ###################################
@@ -56,11 +55,16 @@ templates = ['morph']
 load_figure_template(templates)
 
 def update_fig_template(n_clicks):
-    isLightMode = n_clicks % 2 == 1
-    template = pio.templates['morph'] if isLightMode else pio.templates['plotly_dark']
+    isDarkMode = n_clicks % 2 == 1
+    template = pio.templates['plotly_dark'] if isDarkMode else pio.templates['morph']
     
     patched_fig = Patch()
     patched_fig['layout']['template'] = template
+
+    if isDarkMode:
+        patched_fig['layout']['paper_bgcolor'] = '#212529'
+        patched_fig['layout']['plot_bgcolor'] = '#212529'
+    
     return patched_fig
 
 ###################################
@@ -109,11 +113,10 @@ app.layout = dbc.Container([
     #  Holds dynamic page data.
     dash.page_container,
     #  Invisible storage for active theme.
-    dcc.Store(id='theme-store', data = 'plotly_dark'),
-], fluid=True)
+    dcc.Store(id='theme-store', data = 'morph'),
+], fluid=True, class_name='mb-5')
 
-dcc.Store(id='lyrics-store', data=''),  # Store for lyrics data
-
+dcc.Store(id='lyrics-store', data='')  # Store for lyrics data
 
 ###################################
 # CALLBACKS
@@ -128,10 +131,10 @@ clientside_callback(
     # works now and I don't want to touch it ever again.
     """
     (n_clicks) => {
-    let isLightMode = n_clicks % 2 === 1;
+    let isDarkMode = n_clicks % 2 === 1;
     document.documentElement.setAttribute('data-bs-theme',
-                                            isLightMode ? 'light' : 'dark');
-    return isLightMode ? 'fa fa-sun' : 'fa fa-moon';
+                                            isDarkMode ? 'dark' : 'light');
+    return isDarkMode ? 'fa fa-sun' : 'fa fa-moon';
     }
     """,
     Output('color-mode-switch', 'className'),
@@ -143,8 +146,8 @@ clientside_callback(
         Input('color-mode-switch', 'n_clicks')
 )
 def update_theme_store(n_clicks):
-    isLightMode = n_clicks % 2 == 1
-    return 'morph' if isLightMode else 'plotly_dark'
+    isDarkMode = n_clicks % 2 == 1
+    return 'plotly_dark' if isDarkMode else 'morph'
 
 # SPECIFIC CALLBACKS
 
@@ -183,9 +186,19 @@ def update_heatmap(min_frequency, shrink_chords, theme):
     filtered_matrix = chord_matrix.loc[:, pd.to_numeric(chord_matrix.max(axis=0)) >= int(min_frequency)]
     updated_heatmap_fig = c.create_heatmap(filtered_matrix, theme)
 
+    if theme == 'plotly_dark':
+        updated_heatmap_fig['layout']['paper_bgcolor'] = '#212529'
+        updated_heatmap_fig['layout']['plot_bgcolor'] = '#212529'
     return updated_heatmap_fig
 
 # Callback for chordfrequency by toptags slider.
+@callback(
+        Output('chords-toptags-bubble', 'figure'),
+        Input('color-mode-switch', 'n_clicks')
+)
+def update_chords_toptags_bubble_theme(n_clicks):
+    return update_fig_template(n_clicks)
+
 @callback(
         Output('chords-toptags-bubble', 'figure', allow_duplicate = True),
         [Input('chords-toptags-bubble-slider', 'value'),
@@ -197,8 +210,13 @@ def update_chords_toptags_bubble(min_frequency, theme):
     filtered_df = c.chords_toptags_counts_df[c.chords_toptags_counts_df['Count'] >= int(min_frequency)]
     updated = c.create_chords_toptags_bubble(filtered_df, theme)
 
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+
     return updated
 
+# Callbacks for harmony barchart. 
 @callback(
     Output('harmony-bar', 'figure'),
     Input('color-mode-switch', 'n_clicks')
@@ -214,7 +232,12 @@ def update_harmony_bar(n_clicks):
 )
 def update_bar_chart_harmony(min_frequency, theme):
     c.df_h = c.df_h_orig.loc[c.df_h_orig['Absolute Frequency'] >= min_frequency]
-    return c.create_bar_chart_harmonic_progression(theme)
+    updated = c.create_bar_chart_harmonic_progression(theme)
+
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    return updated
 
 @callback(
     Output('click-harmony', 'children'),
@@ -227,9 +250,9 @@ def on_click_harmony_bar(click):
     # Harmony that has been clicked
     query = click['points'][0]['x']
     
-    return dcc.Markdown(f'Link to example of clicked harmony: {c.query_h(query)}')
+    return html.P(f'Link to example of clicked harmony: {c.query_h(query)}')
 
-
+# Callbacks for interval barchart
 @callback(
     Output('interval-bar', 'figure'),
     Input('color-mode-switch', 'n_clicks')
@@ -237,7 +260,8 @@ def on_click_harmony_bar(click):
 def update_interval_bar(n_clicks):
     return update_fig_template(n_clicks)
 
-@callback(
+
+@callback( 
     Output('interval-bar', 'figure', allow_duplicate=True),
    [Input('frequency-threshold-interval-bar', 'value'),
     Input('theme-store', 'data')],
@@ -245,105 +269,117 @@ def update_interval_bar(n_clicks):
 )
 def update_bar_chart_interval(min_frequency, theme):
     c.df_i = c.df_i_orig.loc[c.df_i_orig['Absolute Frequency'] >= min_frequency]
-    return c.create_bar_chart_interval_progression(theme)
+    updated = c.create_bar_chart_interval_progression(theme)
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    return updated
+
+# Callback for Interval Variance boxplot
+@callback(
+    Output('interval-var', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_interval_var(n_clicks):
+    return update_fig_template(n_clicks)
+
+# Callbacks for harmony top tags bubble
+@callback(
+    Output('harmonies-toptags-bubble', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_harmonies_toptags_bubble_theme(n_clicks):
+    return update_fig_template(n_clicks)
+
+@callback(
+    Output('harmonies-toptags-bubble', 'figure', allow_duplicate=True),
+    [Input('harmonies-toptags-bubble-slider', 'value'),
+     Input('theme-store', 'data')],
+    prevent_initial_call = True
+)
+def update_harmonies_toptags_bubble(min_frequency, theme):
+    filtered_df = c.harmonies_toptags_count_df[c.harmonies_toptags_count_df['Count'] >= int(min_frequency)]
+    updated = c.create_harmonies_toptags_bubble(filtered_df, theme)
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    return updated
 
 
 ###################################
-# Tempo page
+# TIME
 ###################################
 
-
+@callback(
+    Output('duration-years-bar', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_duration_years_bar_theme(n_clicks):
+    return update_fig_template(n_clicks)
 
 # Duration slider callback
 @callback(
-    Output('duration-years-bar', 'figure'),
-    [Input('duration-years-bar-toggle', 'value')]
+    Output('duration-years-bar', 'figure', allow_duplicate=True),
+   [Input('duration-years-bar-toggle', 'value'),
+    Input('theme-store', 'data')],
+    prevent_initial_call = True
 )
-def update_duration_years_bar(show_outliers):
-    return t.create_duration_years_bar_with_outliers(show_outliers)
+def update_duration_years_bar(show_outliers, theme):
+    updated = t.create_duration_years_bar_with_outliers(show_outliers, theme)
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    return updated
 
+# Duration Boxplot Themeswitch.
+@callback(
+    Output('duration-boxplot', 'figure'),
+    Input('theme-store', 'data')
+)
+def update_duration_boxplot(theme):
+    return t.create_duration_boxplot(theme)
+
+# Tempo Scatter Plot Themeswitch.
+@callback(
+    Output('tempo-plot', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_tempo_plot_theme(n_clicks):
+    return update_fig_template(n_clicks)
 
 # Tempo range slider
 @callback(
-    Output('tempo-plot', 'figure'),
-    Input('tempo-year-range-slider', 'value')
+    Output('tempo-plot', 'figure', allow_duplicate=True),
+   [Input('tempo-year-range-slider', 'value'),
+    Input('theme-store', 'data')],
+    prevent_initial_call = True
 )
-def update_tempo_plot(year_range):
-    return t.create_tempo_plot_with_range(year_range)
-
+def update_tempo_plot(year_range, theme):
+    updated = t.create_tempo_plot_with_range(year_range, theme)
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
 
 ###################################
-# Lyrics page
+# LYRICS
 ###################################
-# SPECIFIC CALLBACKS
 
-# Define STOP_WORDS
-STOP_WORDS = {"wan", "na", "ta", "ca", "and", "the", "to", "of", "in", "a", "for", "on", "is", "it", "you", "are", "this", "with", "by", "i", "be", "as", "that", "have", "at", "so", "up", "out", "but", "from", "all", "just", "some", "can"}
+@callback(
+    Output('wordcloud', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_wordcloud(n_clicks):
+    isDarkMode = n_clicks % 2 == 1
+    if isDarkMode:
 
-# Define the function for n-gram frequency
-# Function for n-gram frequency analysis
-def get_ngram_frequencies(text, n=1, top_n=20):
-    tokens = nltk.word_tokenize(text)
-    tokens = [t for t in tokens if t not in STOP_WORDS]  # Remove stop words
-    
-    # For n > 1, filter out n-grams that have repeated words
-    if n > 1:
-        ngram_list = [ng for ng in ngrams(tokens, n) if len(set(ng)) == n]
+        bg_color = '#212529'
     else:
-        ngram_list = tokens
+        bg_color = '#d9e3f1'
     
-    freq = Counter(ngram_list)
-    return freq.most_common(top_n)
+    #return l.create_interactive_wordcloud(l.all_lyrics, bg_color)
+    return l.create_wordcloud(bg_color, l.all_lyrics)
 
-
-# Define the helper function to generate the word frequency chart
-def create_word_frequency_chart(n, lyrics_data):
-    freq_data = get_ngram_frequencies(lyrics_data, n)
-    words, counts = zip(*freq_data)
-    words = [" ".join(w) if isinstance(w, tuple) else w for w in words]
-    
-    # Basic bar chart with Plotly Express
-    fig = px.bar(x=words, y=counts, labels={"x": "Words/Phrases", "y": "Frequency"},
-                 title=f"Top {len(words)} Most Frequent {'Words' if n==1 else 'Phrases'}",
-                 text_auto=True)
-    return fig
-
-@dash.callback(
-    Output("word-frequency-chart", "figure"),
-    Input("ngram-slider", "value"),
-    Input('theme-store', 'data'),  # Handle theme change
-    Input('lyrics-store', 'data')  # Get lyrics data from store
-)
-def update_chart(n, theme_data, lyrics_data):
-    # Generate the chart with lyrics data
-    fig = create_word_frequency_chart(n, lyrics_data)
-
-    # Apply theme styles if theme_data is available
-    if theme_data:
-        if theme_data == "dark":
-            fig.update_layout(
-                plot_bgcolor="black", 
-                paper_bgcolor="black", 
-                font=dict(color="white"),
-                title=dict(font=dict(color="white")),
-                xaxis=dict(showgrid=True, gridcolor="gray"),
-                yaxis=dict(showgrid=True, gridcolor="gray")
-            )
-        else:
-            fig.update_layout(
-                plot_bgcolor="white", 
-                paper_bgcolor="white", 
-                font=dict(color="black"),
-                title=dict(font=dict(color="black")),
-                xaxis=dict(showgrid=True, gridcolor="lightgray"),
-                yaxis=dict(showgrid=True, gridcolor="lightgray")
-            )
-
-    return fig
-
-
-
-
+# TODO slider wordcloud when rerendering
 
 ###################################
 # GRAPH TEMPLATE pt.3
@@ -379,11 +415,16 @@ def update_xaxis_yaxis_figtype(n_clicks):
     Output('xaxis-yaxis-figtype', 'figure', allow_duplicate=True),
    [Input('xaxis-yaxis-fitype-slider', 'value'),
     Input('theme-store', 'data')],
-    precent_initial_call = True
+    prevent_initial_call = True
 )
 def update_xaxis_yaxis_figtype(value):
     <update logic>
-    return t.create_xaxis_yaxis_figtype(theme)
+    updated = t.create_xaxis_yaxis_figtype(theme)
+
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = #212529
+        updated['layout']['plot_bgcolor'] = #212529
+    return updated
 '''
 
 ###################################

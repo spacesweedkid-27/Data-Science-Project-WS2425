@@ -1,0 +1,101 @@
+Title,Artist,Main_Harmony,Main_Interval_Harmony
+"""Blinding Lights""",The Weeknd,"(4, 4, 4, 4, 1, 5, 7)","(-5, -5, 3, -5)"
+"""Circles""",Post Malone,"(4, 1, 4)","(5, 0, -5)"
+"""The Box""",Roddy Ricch,"(1, 1, 4, 7)","(0, 5, 5, 2)"
+"""Don't Start Now""",Dua Lipa,"(4, 1, 6, 3)","(-5, -4, -5, -5)"
+"""Rockstar""",DaBaby featuring Roddy Ricch,"(1, 3, 7, 6)","(3, -5, -2, 4)"
+"""Adore You""",Harry Styles,"(1, 3, 6, 7)","(2, 2, 3, 5)"
+"""Life Is Good""",Future featuring Drake,"(0, 0, 4)","(0, -4, 4)"
+"""Memories""",Maroon 5,"(1, 5, 6, 3, 4, 1, 4, 5)","(-5, 2, -5, 1, -5, 5, 2, 5)"
+"""The Bones""",Maren Morris,"(1, 5, 3, 2)","(-2, -5, -3, -2)"
+"""Someone You Loved""",Lewis Capaldi,"(5, 6, 4, 1)","(-5, 2, -4, -5)"
+"""Say So""",Doja Cat,"(7, 1, 4, 7, 5, 1, 4, 7)","(5, 5, 0, 2, 5, 5, -3, 5)"
+"""I Hope""",Gabby Barrett featuring Charlie Puth,"(7, 3, 7, 6, 1)","(-2, 5, -5, -2, 4)"
+"""Whats Poppin""","Jack Harlow featuring DaBaby, Tory Lanez and Lil Wayne","(1, 3, 5, 1, 0, 5)","(5, 3, 4, 5, -3, -2)"
+"""Dance Monkey""",Tones and I,"(1, 6, 7, 5)","(2, -3, 5, -4)"
+"""Savage""",Megan Thee Stallion featuring Beyoncé,"(1, 2)","(2, -2)"
+"""Roxanne""",Arizona Zervas,"(1, 7, 3, 6)","(5, 4, -2, 5)"
+"""Intentions""",Justin Bieber featuring Quavo,"(1, 1, 6, 4, 6, 4)","(-4, 4, -4, -5, 0, -3)"
+"""Everything I Wanted""",Billie Eilish,"(1, 2, 7, 1)","(2, -3, 1, 0)"
+"""Roses (Imanbek remix)""",Saint Jhn,not found,not found
+"""Watermelon Sugar""",Harry Styles,"(1, 5, 7, 4)","(-5, -5, -5, 3)"
+"""Before You Go""",Lewis Capaldi,"(1, 5, 6, 4)","(-4, 2, 0, 5)"
+"""Falling""",Trevor Daniel,"(1, 7, 3, 5)","(5, 3, 5, -1)"
+"""10,000 Hours""",Dan + Shay and Justin Bieber,not found,not found
+"""WAP""",Cardi B featuring Megan Thee Stallion,"(1, 0, 2)","(1, 1, -2)"
+"""Ballin'""",Mustard and Roddy Ricch,"(3, 3, 4, 6, 6, 1)","(0, 2, 3, 0, 4, 3)"
+"""Hot Girl Bummer""",Blackbear,"(1, 6, 3, 7, 1, 6, 3)","(-5, -5, 1, -3, -5, -4, -3)"
+"""Blueberry Faygo""",Lil Mosey,"(4, 7, 7, 5)","(5, 0)"
+"""Heartless""",The Weeknd,"(1, 6, 7)","(2, -4, 2)"
+"""Bop""",DaBaby,not found,not found
+"""Lose You to Love Me""",Selena Gomez,not found,not found
+"""Good as Hell""",Lizzo,"(1, 5, 6)","(-5, 2, 3)"
+"""Toosie Slide""",Drake,"(1, 5, 2, 3)","(-5, -5, 2, -4)"
+"""Break My Heart""",Dua Lipa,not found,not found
+"""Chasin' You""",Morgan Wallen,"(6, 3, 1, 7)","(-2, -2, -5, -3)"
+"""Savage Love (Laxed – Siren Beat)""",Jawsh 685 and Jason Derulo,not found,not found
+"""No Guidance""",Chris Brown featuring Drake,"(4, 6, 5)","(2, 2, -4)"
+"""My Oh My""",Camila Cabello featuring DaBaby,"(1, 6, 5)","(-4, -1, 5)"
+"""Dynamite""",BTS,"(1, 4, 7, 3)","(5, 5, 5, -3)"
+"""Go Crazy""",Chris Brown and Young Thug,"(7, 6, 7, 1)","(-1, -2, 2, 1)"
+"""High Fashion""",Roddy Ricch featuring Mustard,"(7, 3, 2, 1)","(-2, -2, -1, 5)"
+"""Laugh Now Cry Later""",Drake featuring Lil Durk,not found,not found
+"""Woah""",Lil Baby,"(1, 6, 5)","(-4, -1, 5)"
+"""Death Bed""",Powfu featuring Beabadoobee,"(1, 1, 4, 4)","(0, 5, 0, -5)"
+"""Señorita""",Shawn Mendes and Camila Cabello,not found,not found
+"""Highest in the Room""",Travis Scott,"(1, 5)","(-5, 5)"
+"""Bad Guy""",Billie Eilish,"(1, 4, 5)","(5, 2, 5)"
+"""Mood""",24kGoldn featuring Iann Dior,"(1, 3, 5, 2)","(4, 3, -5, -2)"
+"""Rain on Me""",Lady Gaga and Ariana Grande,"(6, 6, 5, 1, 1, 5)","(0, -1, 5, 0, -5, 1)"
+"""For the Night""",Pop Smoke featuring Lil Baby and DaBaby,not found,not found
+"""Ritmo (Bad Boys for Life)""",Black Eyed Peas and J Balvin,not found,not found
+"""Heart on Ice""",Rod Wave,not found,not found
+"""Nobody but You""",Blake Shelton and Gwen Stefani,not found,not found
+"""Trampoline""",Shaed,"(6, 7, 1, 4)","(2, 2, 5, -2)"
+"""Come & Go""",Juice Wrld and Marshmello,not found,not found
+"""Truth Hurts""",Lizzo,"(1, 6)","(-3, 3)"
+"""If the World Was Ending""",JP Saxe featuring Julia Michaels,"(5, 3, 1, 2)","(5, -3, -4, 2)"
+"""We Paid""",Lil Baby and 42 Dugg,not found,not found
+"""Yummy""",Justin Bieber,"(1, 2)","(-2, 2)"
+"""One Man Band""",Old Dominion,"(5, 1, 5, 6, 4)","(5, -5, 2, -4, 2)"
+"""Got What I Got""",Jason Aldean,not found,not found
+"""Sunday Best""",Surfaces,"(7, 0, 1, 4)","(5, 5, 3, -1)"
+"""Godzilla""",Eminem featuring Juice Wrld,"(6, 1)","(3, -3)"
+"""Bandit""",Juice Wrld and YoungBoy Never Broke Again,not found,not found
+"""Party Girl""",StaySolidRocky,"(1, 2, 3)","(2, 2, -4)"
+"""Die from a Broken Heart""",Maddie & Tae,"(4, 6, 5, 4)","(5, 4, -2, -2)"
+"""Popstar""",DJ Khaled featuring Drake,"(1, 4)","(5, -5)"
+"""All I Want for Christmas Is You""",Mariah Carey,not found,not found
+"""One of Them Girls""",Lee Brice,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Hard to Forget""",Sam Hunt,"(1, 4, 1, 5, 6, 4, 1, 1, 1, 5)","(-5, 2, -4, -5)"
+"""One Margarita""",Luke Bryan,"(1, 1, 4)","(0, 5, -5)"
+"""Panini""",Lil Nas X,"(1, 4, 0)","(5, -4, -1)"
+"""Hot""",Young Thug featuring Gunna,"(1, 7)","(-2, 2)"
+"""I Hope You're Happy Now""",Carly Pearce and Lee Brice,not found,not found
+"""Emotionally Scarred""",Lil Baby,"(1, 3)","(4, -4)"
+"""Suicidal""",YNW Melly featuring Juice Wrld,"(1, 6, 3, 2)","(-2, -3, -5, -2)"
+"""The Bigger Picture""",Lil Baby,"(1, 7, 6, 5)","(-2, -2, -1, 5)"
+"""Only Human""",Jonas Brothers,"(4, 1, 7)","(-5, -2, -5)"
+"""The Woo""",Pop Smoke featuring 50 Cent and Roddy Ricch,not found,not found
+"""Sum 2 Prove""",Lil Baby,not found,not found
+"""Stuck with U""",Ariana Grande and Justin Bieber,"(4, 6, 5, 1, 3)","(4, 1, 4, -2, 5)"
+"""Mood Swings""",Pop Smoke featuring Lil Tjay,"(1, 7, 5, 6)","(-2, -3, 1, 4)"
+"""You Should Be Sad""",Halsey,"(1, 6, 3, 5)","(-5, 4, 5, -4)"
+"""Dior""",Pop Smoke,not found,not found
+"""Supalonely""",Benee featuring Gus Dapperton,"(2, 1)","(2, -2)"
+"""Even Though I'm Leaving""",Luke Combs,"(5, 1, 4, 6)","(5, 5, 4, -2)"
+"""The Scotts""",The Scotts (Travis Scott and Kid Cudi),not found,not found
+"""Juicy""",Doja Cat and Tyga,"(7, 1)","(-2, 2)"
+"""Be Like That""","Kane Brown, Swae Lee and Khalid","(1, 5, 6, 4, 1)","(-5, 0, -5, 2, -4)"
+"""Homesick""",Kane Brown,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Rags2Riches""",Rod Wave featuring ATR Son Son,"(1, 5, 3, 4, 1, 5, 6, 4)","(-5, -5, 2, -4, -5, -5, -3, 1)"
+"""Bluebird""",Miranda Lambert,"(3, 6, 3, 1)","(3, 5, -5, -3)"
+"""Wishing Well""",Juice Wrld,"(0, 0, 4, 0, 0, 0, 0, 4, 4)","(5, 4, -4, -5, 0, 5, 4, 0, 3)"
+"""Does to Me""",Luke Combs featuring Eric Church,"(1, 4, 1, 5, 6, 4, 5, 1)","(5, -3, 0, -4, 2)"
+"""Pussy Fairy (OTW)""",Jhené Aiko,not found,not found
+"""ILY (I Love You Baby)""",Surf Mesa featuring Emilee,"(1, 4, 7, 5)","(5, 5, -3, -4, 2, 5, -3, 5)"
+"""More Than My Hometown""",Morgan Wallen,"(1, 2, 6, 4)","(-5, -4, -5, 2)"
+"""Lovin' on You""",Luke Combs,"(1, 4, 5, 1)","(0, 0, 0, 0)"
+"""Said Sum""",Moneybagg Yo,not found,not found
+"""Slide""",H.E.R. featuring YG,"(4, 1)","(5, -5)"
+"""Walk Em Down""",NLE Choppa featuring Roddy Ricch,"(1, 4)","(5, -5)"

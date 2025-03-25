@@ -8,6 +8,7 @@ import plotly.express as px
 from textblob import TextBlob
 import numpy as np
 import nltk
+from dash_bootstrap_templates import load_figure_template
 from collections import Counter
 from nltk.util import ngrams
 from wordcloud import WordCloud
@@ -17,8 +18,13 @@ from io import BytesIO
 import glob
 import os
 import re
+import random
 
 dash.register_page(__name__)
+
+load_figure_template('morph')
+theme = 'morph' #  Initial theme that needs to be passed to graphs on load
+bg_color = '#212529'
 
 heading = dbc.Container('We got some information about tempo here')
 main_content = dbc.Container('Some information about this project goes here. '
@@ -65,10 +71,11 @@ all_lyrics = " ".join(all_data["Lyrics"].dropna()).lower()
 # Define STOP_WORDS
 STOP_WORDS = {"wan", "na", "ta", "ca"}
 
+###################################
+# POLARITY CHART INTERACTIVE
 
-### POLARITY CHART INTERACTIVE ###
-
-### MOST FREQUENT WORDS/BIGRAMMS/TRIGRAMMS ###
+###################################
+# MOST FREQUENT WORDS/BIGRAMMS/TRIGRAMMS
 
 
 # Create function for n-gram frequency analysis
@@ -96,12 +103,18 @@ def create_word_frequency_chart(n):
                  title=f"Top {len(words)} Most Frequent {'Words' if n==1 else 'Phrases'}",
                  text_auto=True)
     return fig
-### WORD CLOUDS ###
+
+###################################
+# WORD CLOUDS
 
 # Create Word Cloud
 # Word Cloud Generation Function
-def generate_wordcloud(text):
-    wordcloud = WordCloud(width=800, height=400, background_color="white", stopwords=STOP_WORDS).generate(text)
+'''def create_wordcloud(text, bgcolor):
+    wordcloud = WordCloud(
+        width=800,
+        height=400,
+        background_color=bgcolor,
+        stopwords=STOP_WORDS).generate(text)
     img = BytesIO()
     plt.figure(figsize=(10, 5))
     plt.imshow(wordcloud, interpolation="bilinear")
@@ -109,10 +122,63 @@ def generate_wordcloud(text):
     plt.savefig(img, format="png")
     plt.close()
     img.seek(0)
-    return "data:image/png;base64," + base64.b64encode(img.read()).decode()
+    return "data:image/png;base64," + base64.b64encode(img.read()).decode()'''
 
-wordcloud_img = generate_wordcloud(all_lyrics)
+def generate_wordcloud_blue_colors():
+    return (f'rgb({random.randint(0,100)},{random.randint(0,100)},{random.randint(100,255)})')
 
+def create_wordcloud(bgcolor, text = all_lyrics):
+    wordcloud = WordCloud(
+        width = 800,
+        height = 400,
+        background_color = bgcolor,
+        stopwords = STOP_WORDS
+    ).generate(text)
+    if bgcolor == '#d9e3f1':
+        wordcloud.recolor(colormap = 'ocean') # light background
+    else:
+        wordcloud.recolor(colormap = 'Blues')
+
+    img = wordcloud.to_image()
+
+    buffer = BytesIO()
+    img.save(buffer, format = 'PNG')
+    buffer.seek(0)
+    encoded_img = base64.b64encode(buffer.getvalue()).decode()
+
+    fig = go.Figure()
+
+    fig.add_layout_image(
+        dict(
+            source=f'data:image/png;base64,{encoded_img}',
+            x = 0,
+            y = 1,
+            xref = 'paper',
+            yref = 'paper',
+            sizex = 1,
+            sizey = 1,
+            xanchor = 'left',
+            yanchor = 'top',
+            layer = 'below'
+        )
+    )
+    fig.update_layout(
+        width = 800,
+        height = 400,
+        margin = dict(l=0, r=0, t=0, b=0),
+        xaxis = dict(visible = False),
+        yaxis = dict(visible = False)
+    )
+    return fig
+
+init_wordcloud_img = create_wordcloud(bg_color, all_lyrics)
+
+# Wordcloud Wrapper object
+wordcloud = dbc.Container([
+    html.H3('Wordcloud'),
+    html.P('Controls go here'),
+    dcc.Graph(figure = init_wordcloud_img, id = 'wordcloud')
+], class_name='mt-3')
 
 ###################################
 # HTML ELEMENTS
@@ -132,7 +198,8 @@ ngram_slider = dcc.Slider(
     value=1,
 )
 word_frequency_chart = dcc.Graph(id="word-frequency-chart")
-word_cloud = html.Img(src=wordcloud_img, style={"width": "100%", "height": "auto"})
+'''word_cloud = html.Img(src=init_wordcloud_img,
+                      style={"width": "100%", "height": "auto"})'''
 
 ###################################
 # MAIN LAYOUT
@@ -149,6 +216,8 @@ layout = html.Div([
     heading,
     main_content,
     screaming,
+
+    wordcloud,
     
     # New Section for Lyrics Analysis:
     dbc.Container([
@@ -166,6 +235,6 @@ layout = html.Div([
         
         # Word Cloud
         html.H4("Word Cloud"),
-        word_cloud  # Assuming word_cloud is defined
+       #word_cloud  # Assuming word_cloud is defined
     ])
 ])

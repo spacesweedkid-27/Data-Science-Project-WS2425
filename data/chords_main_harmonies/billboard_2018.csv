@@ -1,0 +1,102 @@
+Title,Artist,Main_Harmony,Main_Interval_Harmony
+"""God's Plan""",Drake,"(1, 2)","(2, -2)"
+"""Perfect""",Ed Sheeran,"(1, 5, 6, 4)","(-5, -5, 2, -4)"
+"""Meant to Be""",Bebe Rexha featuring Florida Georgia Line,"(1, 1, 2, 6, 4)","(-5, 0, 2, -5, -4)"
+"""Havana""",Camila Cabello featuring Young Thug,"(1, 6, 5)","(-4, -1, 5)"
+"""Rockstar""",Post Malone featuring 21 Savage,"(5, 7, 3, 5, 5, 7)","(3, 5, 4, 0)"
+"""Psycho""",Post Malone featuring Ty Dolla Sign,not found,not found
+"""I Like It""","Cardi B, Bad Bunny and J Balvin",not found,not found
+"""The Middle""","Zedd, Maren Morris and Grey",not found,not found
+"""In My Feelings""",Drake,"(7, 1)","(-1, 1)"
+"""Girls Like You""",Maroon 5 featuring Cardi B,"(5, 6, 3, 4, 1, 4, 5, 1)","(-5, 2, -5, 1, -5, 5, 2, 5)"
+"""Nice for What""",Drake,"(4, 1, 4, 7)","(-5, 5, 5, -5)"
+"""Lucid Dreams""",Juice Wrld,"(6, 5, 1, 7, 6, 5, 1, 1, 7, 6, 5, 1, 7, 6, 5)","(-2, -2, -1, 5, -2, -2, -1, 1, -1, 5, -2, -2, -1, 5, -2, 2)"
+"""Better Now""",Post Malone,"(1, 5, 3, 4)","(-5, -4, 2, -5)"
+"""Finesse""",Bruno Mars featuring Cardi B,not found,not found
+"""Boo'd Up""",Ella Mai,not found,not found
+"""New Rules""",Dua Lipa,not found,not found
+"""Sad!""",XXXTentacion,"(1, 1, 6, 5)","(0, -3, -2, 5)"
+"""Never Be the Same""",Camila Cabello,not found,not found
+"""Love Lies""",Khalid and Normani,"(3, 1, 5)","(-3, -5, -4)"
+"""No Tears Left to Cry""",Ariana Grande,"(1, 6, 7)","(2, 2, -4)"
+"""Mine""",Bazzi,"(4, 1, 3, 1)","(-5, 3, -3, 5)"
+"""Thunder""",Imagine Dragons,"(1, 6, 4)","(-5, -3, -4)"
+"""Look Alive""",BlocBoy JB featuring Drake,"(1, 6)","(4, -4)"
+"""Delicate""",Taylor Swift,"(6, 4, 1, 2)","(-5, -4, -5, 2)"
+"""Yes Indeed""",Lil Baby and Drake,not found,not found
+"""Friends""",Marshmello and Anne-Marie,"(6, 5, 5, 1, 3)","(5, -1, 0, 5, 3)"
+"""Bad at Love""",Halsey,"(1, 3, 2)","(-2, -2, 4, -2, 5, 5, 4)"
+"""Taste""",Tyga featuring Offset,not found,not found
+"""Let You Down""",NF,"(5, 3)","(-4, 4)"
+"""No Limit""",G-Eazy featuring ASAP Rocky and Cardi B,not found,not found
+"""Fefe""",6ix9ine featuring Nicki Minaj and Murda Beatz,not found,not found
+"""Tequila""",Dan + Shay,"(1, 5, 2, 3)","(-5, -5, 2, -4)"
+"""Feel It Still""",Portugal. The Man,"(1, 3, 4, 1)","(-5, 0, 3, 2)"
+"""MotorSport""","Migos, Nicki Minaj and Cardi B","(5, 5, 5, 5)","(0, 0, 0, 0)"
+"""I Like Me Better""",Lauv,not found,not found
+"""Youngblood""",5 Seconds of Summer,not found,not found
+"""Whatever It Takes""",Imagine Dragons,"(7, 5, 1)","(-5, 2, -4, -5)"
+"""Ric Flair Drip""",Offset and Metro Boomin,"(1, 1, 5, 5)","(0, -5, 0, 0)"
+"""I Fall Apart""",Post Malone,"(3, 6, 3, 7, 1)","(-5, -5, 2, 3, 5)"
+"""Pray for Me""",The Weeknd and Kendrick Lamar,not found,not found
+"""Back to You""",Selena Gomez,not found,not found
+"""Sicko Mode""",Travis Scott,"(0, 0, 0, 0)","(5, -5)"
+"""Walk It Talk It""",Migos featuring Drake,not found,not found
+"""Gucci Gang""",Lil Pump,"(1, 4)","(5, -5)"
+"""Him & I""",G-Eazy and Halsey,not found,not found
+"""In My Blood""",Shawn Mendes,"(4, 6, 4, 1)","(5, 4, -4, -5)"
+"""All the Stars""",Kendrick Lamar and SZA,not found,not found
+"""Stir Fry""",Migos,"(6, 6, 6, 6)","(0, 0, 0, 0)"
+"""Too Good at Goodbyes""",Sam Smith,"(1, 3, 7, 4)","(-5, -5, -5, 3)"
+"""Love""",Kendrick Lamar featuring Zacari,"(1, 4)","(5, -5)"
+"""This Is America""",Childish Gambino,"(1, 0)","(3, -3, 3, -3)"
+"""Nonstop""",Drake,not found,not found
+"""Heaven""",Kane Brown,"(1, 5, 3, 2)","(-2, -5, -3, -2)"
+"""Bodak Yellow""",Cardi B,"(1, 4, 1, 6)","(5, -5, -4, 4)"
+"""Freaky Friday""",Lil Dicky featuring Chris Brown,"(3, 2, 3, 7, 1)","(-2, 2, -5, 1, 4)"
+"""Gummo""",6ix9ine,not found,not found
+"""Plug Walk""",Rich the Kid,"(1, 5, 6)","(2, 3, -5)"
+"""Wait""",Maroon 5,not found,not found
+"""Be Careful""",Cardi B,"(1, 7, 3)","(-1, 5, -4)"
+"""Wolves""",Selena Gomez and Marshmello,"(7, 1, 3, 6)","(2, 2, 3, 5)"
+"""Bartier Cardi""",Cardi B featuring 21 Savage,"(1, 1, 6, 1)","(0, -4, 4, 0)"
+"""God Is a Woman""",Ariana Grande,"(7, 6, 7, 4, 5, 1, 7, 1)","(2, -2, -2, 2, -5, 2, 5, -2, 2, -2, -2, 2, -5, 2, 5, 0, -4, 2, 2, 0, -4, 2, 2, 0, -4, 2, 2, -2)"
+"""Big Bank""","YG featuring 2 Chainz, Nicki Minaj and Big Sean",not found,not found
+"""Sorry Not Sorry""",Demi Lovato,"(1, 6, 4, 5)","(-4, -3, 2, 5)"
+"""How Long""",Charlie Puth,not found,not found
+"""Lights Down Low""",Max featuring Gnash,"(6, 5, 2, 1)","(-2, -3, -2, -5)"
+"""Young Dumb & Broke""",Khalid,"(1, 1, 6, 5)","(0, -3, -2, 5)"
+"""One Kiss""",Calvin Harris and Dua Lipa,"(0, 6, 6, 0, 1)","(0, 5, -1, 1, -5)"
+"""Natural""",Imagine Dragons,"(1, 5)","(-5, 5)"
+"""You Make It Easy""",Jason Aldean,"(1, 5, 6, 4)","(-5, 2, -4, -5)"
+"""Shape of You""",Ed Sheeran,"(1, 4, 6, 7)","(2, 2, 5, 3)"
+"""I Get the Bag""",Gucci Mane featuring Migos,not found,not found
+"""No Brainer""","DJ Khaled featuring Justin Bieber, Chance the Rapper and Quavo",not found,not found
+"""Plain Jane""",ASAP Ferg featuring Nicki Minaj,not found,not found
+"""Sky Walker""",Miguel featuring Travis Scott,"(1, 3)","(3, -3)"
+"""Marry Me""",Thomas Rhett,"(5, 3, 2, 1)","(-2, -5, -3, -2)"
+"""Eastside""","Benny Blanco, Halsey and Khalid","(7, 3, 6, 7, 1)","(5, 5, 2, 2, -2)"
+"""Call Out My Name""",The Weeknd,not found,not found
+"""King's Dead""","Jay Rock, Kendrick Lamar, Future and James Blake",not found,not found
+"""Happier""",Marshmello and Bastille,"(6, 1, 3)","(5, 4, 3)"
+"""Te Boté""","Nio García, Darell and Casper Mágico featuring Bad Bunny, Nicky Jam and 
+Ozuna",not found,not found
+"""Simple""",Florida Georgia Line,"(3, 6)","(-5, 5, -5, -5, 2, 3, 5)"
+"""Lemon""",N.E.R.D and Rihanna,not found,not found
+"""1-800-273-8255""",Logic featuring Alessia Cara and Khalid,"(1, 2, 3, 5)","(2, 2, 3, 5)"
+"""Say Something""",Justin Timberlake featuring Chris Stapleton,"(7, 4, 1, 3)","(-5, -5, 3, -5)"
+"""I'm Upset""",Drake,"(1, 1, 1, 1)","(0, 0, 0, 0)"
+"""Get Along""",Kenny Chesney,"(1, 1, 1, 4)","(0, 0, 5, -5)"
+"""Moonlight""",XXXTentacion,"(1, 7, 3)","(-1, 5, -4)"
+"""What Lovers Do""",Maroon 5 featuring SZA,"(2, 4)","(3, -3)"
+"""X""",Nicky Jam and J Balvin,not found,not found
+"""Outside Today""",YoungBoy Never Broke Again,not found,not found
+"""Trip""",Ella Mai,"(1, 2, 5, 1)","(5, 5, 0, 2)"
+"""Dura""",Daddy Yankee,"(1, 6, 4, 5)","(-3, -4, 2, 5)"
+"""Changes""",XXXTentacion,"(1, 6, 3)","(-3, -5, -4)"
+"""Mercy""",Brett Young,"(5, 6, 4, 1)","(-5, -5, 2, -4)"
+"""One Number Away""",Luke Combs,"(1, 4)","(-5, 5)"
+"""Powerglide""",Rae Sremmurd featuring Juicy J,"(1, 1, 3, 3)","(0, 3, 0, -3)"
+"""IDGAF""",Dua Lipa,"(1, 7, 3, 6, 1, 7, 5, 6)","(5, 5, 4, -2, -3, 1, 4, -2)"
+"""Mi Gente""",J Balvin and Willy William featuring Beyoncé,not found,not found
+"""Believer""",Imagine Dragons,"(6, 5, 1)","(-4, -1, 5)"
