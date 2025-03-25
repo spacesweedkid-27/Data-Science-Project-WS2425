@@ -284,6 +284,17 @@ chordfrequency_year_shrinkchord_toggle = dbc.Switch(
     value = False
 )
 
+chordfrequency_year_text = dbc.Container(
+    '''Musicians often write songs in the same key that they can sing in and 
+    therefore use the same chords more often. Most of the most frequently used 
+    chords can be played within the C-major or A-minor scale. We can also see, 
+    that the A-minor key is more popular than the C-major key, since D and Em 
+    work better in A-minor compared to C-major, with D and Em being roughly the 
+    IV and V of A-minor, but the II and II of C-major which are less important 
+    harmonix chords. ''',
+    class_name = 'mb-3'
+)
+
 # Wrapper for chordfrequency year controls.
 chordfrequency_year_controls = dbc.Row([
     # Slider
@@ -320,6 +331,7 @@ chordfrequency_year_controls = dbc.Row([
 
 fig = dbc.Container([
     html.H3('Chord Frequency by Year'),
+    chordfrequency_year_text,
     chordfrequency_year_controls,
     dcc.Graph(
         id = 'chordfrequency-year-heatmap',
@@ -342,6 +354,34 @@ chords_toptags_bubble_slider = dcc.Slider(
     }, tooltip = {'placement': 'bottom', 'always_visible': False}
 )
 
+chords_toptags_text = dbc.Container(
+    '''It shouldn\'t be surprising, that the most frequent genre in popular 
+    music is pop-music. Looking at the top user generated tags from LastFM and
+    comparing them to the chord frequency, we can see that Hip-Hop and Rap are 
+    also quite popular. We can also identify that these two genres have the most 
+    missing chords which can be explained by their neglection of harmony, since 
+    they focus more on rhythm and rhyme. ''',
+    class_name = 'mb-3'
+)
+
+chords_toptags_info_text = dbc.Card([
+    dbc.CardBody([
+        dbc.Row([
+            dbc.Col(class_name='fa-regular fa-lightbulb', width = 'auto'),
+            dbc.Col(html.H5('info', className = 'card-title align-top'))
+        ]),
+        html.P(
+            '''
+            Please be aware, that all top-tags we derived from the 
+            last.FM API are user-generated. We distance ourself from any 
+            political, cultural and social statements that might have 
+            influenced the most frequent tags.
+            ''', className = 'mb-0'
+        )], class_name='p-2 p2-5 ps-5'
+    )
+    ], color = 'secondary', class_name='mb-4 p-2'
+)
+
 chords_toptags_bubble_controls = dbc.Row([
     dbc.Col(chords_toptags_bubble_slider),
     dbc.Col(class_name = 'fa-regular fa-circle-question',
@@ -361,6 +401,8 @@ chords_toptags_bubble_controls = dbc.Row([
 
 chords_toptags_bubble_fig = dbc.Container([
     html.H3('Absolute Chordfrequency by Top Tags'),
+    chords_toptags_text,
+    chords_toptags_info_text,
     chords_toptags_bubble_controls,
     dcc.Graph(
         id = 'chords-toptags-bubble',
@@ -400,16 +442,45 @@ harmony_frequency_bar_controls = dbc.Row([
     )
 ])
 
+harmony_frequency_text = dbc.Container(
+    '''What main chord repition should you use to write the perfect song? By 
+    scraping chords, identifying their key signature to transpose equal 
+    harmonies and looking for repeated patterns, we found the most frequently 
+    used harmonic progressions of the last 20 years. \n
+    The most used harmonic progression (I, VI, III, VII) can for example be 
+    played in B-Minor with chords Bm, G, D, A, like in Ed Sheeran's "Shivers". ''',
+    class_name = 'mb-3'
+)
+
+harmony_frequency_info_text = dbc.Card([
+    dbc.CardBody([
+        dbc.Row([
+            dbc.Col(class_name='fa-regular fa-lightbulb', width = 'auto'),
+            dbc.Col(html.H5('info', className = 'card-title align-top'))
+        ]),
+        html.P(
+            '''
+            By clicking on one of the bars for a harmonic progression a link 
+            to chords of a song using the progression will be displayed above 
+            the plot.
+            ''', className = 'mb-0'
+        )], class_name='p-2 p2-5 ps-5'
+    )
+    ], color = 'secondary', class_name='mb-4 p-2'
+)
+
 harmony_clicked_container = dbc.Container(id='click-harmony')
 
 fig_bar_h = dbc.Container([
     html.H3('Harmonic Progression by Absolute Frequency'),
+    harmony_frequency_text,
+    harmony_frequency_info_text,
     harmony_frequency_bar_controls,
     harmony_clicked_container,
     dcc.Graph(
         id = 'harmony-bar',
         figure = init_bar_h
-    )
+    ),
 ], class_name='mb-5')
 
 ###################################
@@ -519,7 +590,7 @@ meta = dbc.Container([
 
         1. Broken search results
 
-        2. Only non-free chords available or no pubic chords found
+        2. Only non-free chords available or no public chords found
         
         3. Labels/artists blocking chord pages due to copyright etc.
 

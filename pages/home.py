@@ -24,6 +24,19 @@ heading = dbc.Container('On the development of popular music in the past two dec
     className='text-primary vw-10 h2 mb-2'
     )
 
+billy_joel_quote = dbc.Card(
+    dbc.CardBody([
+        html.H4(
+            '''
+            I think music in itself is healing. It\'s an explosive expression of 
+            humanity. It\'s something we are all touched by. No matter what culture 
+            we\'re from, everyone loves music.
+            ''', className = 'text-center'
+        ),
+        html.P('- Billy Joel', className='text-muted text-end mb-0')
+    ]), class_name= 'w-75 mb-5 d-grid d-md-block mx-auto'
+)
+
 introtext = dbc.Container([
     html.P('Music is a part of our culture that is not easily replaced. '
     'Music has been a way to communicate emotions for hundreds of years. Through '
@@ -78,6 +91,7 @@ dynamic_container = dbc.Container([],id='dynamic-content')
 layout = dbc.Container([
     dcc.Location(id='url', refresh=False),
     #container,
+    billy_joel_quote,
     heading,
     introtext,
     button_row,
