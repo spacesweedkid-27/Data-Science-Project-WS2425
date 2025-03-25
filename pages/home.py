@@ -47,7 +47,7 @@ introtext = dbc.Container([
     'is no exception. Yet some songs find more popularity than others. We aim to '
     'find out why.')],
     class_name='mb-2'
-    )
+    ) 
 
 
 # Theme selection buttons. Would probably be far easier if we'd use a tab menu,

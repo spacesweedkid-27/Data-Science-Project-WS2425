@@ -17,7 +17,7 @@ import data_collection.scripts.numerize_chords as nc
 dash.register_page(__name__)
 
 load_figure_template('morph')
-theme = 'plotly_dark' #  Initial theme that needs to be passed to graphs on load
+theme = 'morph' #  Initial theme that needs to be passed to graphs on load
 
 heading = dbc.Container('We got some information about chords here')
 main_content = dbc.Container('Some information about this project goes here. '
@@ -88,7 +88,7 @@ def create_heatmap(chord_matrix, theme):
         xaxis=dict(tickangle=45),
         yaxis=dict(tickmode='linear'),
         height = 600,
-        template = theme
+        template = theme,
     )
 
     return heatmap
@@ -116,11 +116,13 @@ df_i = df_i_orig
 
 def create_bar_chart_harmonic_progression(theme: str) -> go.Figure:
     bar_h = px.bar(df_h, x='Harmonic Progression', y='Absolute Frequency')
-    bar_h.update_layout(template=theme)
+    bar_h.update_layout(
+        template=theme)
     return bar_h
 def create_bar_chart_interval_progression(theme: str) -> go.Figure:
     bar_i = px.bar(df_i, x='Interval Progression', y='Absolute Frequency')
-    bar_i.update_layout(template=theme)
+    bar_i.update_layout(
+        template=theme)
     return bar_i
 
 init_bar_h = create_bar_chart_harmonic_progression(theme)
@@ -151,7 +153,8 @@ def create_scatterplot_interval_variance(theme: str) -> go.Figure:
     scat = px.box(as_df, x='Year', y='Interval_Variance')
     median = as_df.groupby('Year', as_index=False)['Interval_Variance'].median()
     scat.add_trace(go.Scatter(x=median['Year'], y=median['Interval_Variance'], mode='lines', name='Median', line=dict(color="red")))
-    scat.update_layout(template=theme)
+    scat.update_layout(
+        template=theme)
     return scat
 
 init_scat = create_scatterplot_interval_variance(theme)
@@ -217,7 +220,7 @@ def create_chords_toptags_bubble(df, theme: str):
         # axis titles and so on
         autosize = True,
         height = 600, #  Can be changed to different value when it makes sense
-        template = theme,
+        template = theme
     )
     return chords_toptags_bubble
 
@@ -251,7 +254,7 @@ def create_harmonies_toptags_bubble(df, theme: str):
     htb.update_layout(
         autosize = True,
         height = 600,
-        template = theme
+        template = theme,
     )
     return htb
 
@@ -276,7 +279,7 @@ chordfrequency_year_slider = dcc.Slider(
     marks = {
         i: str(i) for i in range(0, int(chord_matrix.max().max()) + 1, 10)
     }, tooltip = {'placement': 'bottom', 'always_visible': False}
-)
+) 
 # Toggles for shrinking the chords and re-rendering graph accordingly.
 chordfrequency_year_shrinkchord_toggle = dbc.Switch(
     id = 'chordfrequency-year-shrinkchord-toggle',
@@ -517,19 +520,19 @@ interval_frequency_bar_controls = dbc.Row([
 
 fig_bar_i = dbc.Container([
     html.H3('Interval Progression by Absolute Frequency'),
-    dcc.Markdown("""
-    Here we look at the intervals that are repeated most frequently in a song.
-    It should be noted, that the intervals are in half-steps and calculated using
-    the minimal distance either left or right to the next note.
-    
-    This is why the intervals don't add up to 0, even though they arrive at the
-    same key. For example the most frequent would be (C, G, D, E) if the first note played is C.
+    html.P("""
+        Here we look at the intervals that are repeated most frequently in a song.
+        It should be noted, that the intervals are in half-steps and calculated using
+        the minimal distance either left or right to the next note.
+        
+        This is why the intervals don't add up to 0, even though they arrive at the
+        same key. For example the most frequent would be (C, G, D, E) if the first note played is C.
 
-    These notes are all in C-major which could mean that the progression (I, V, II, III)
-    could have been played in major mode.
+        These notes are all in C-major which could mean that the progression (I, V, II, III)
+        could have been played in major mode.
 
-    So by looking at these half-steps we can determine the main harmony without knowing the key.
-    """),
+        So by looking at these half-steps we can determine the main harmony without knowing the key.
+        """),
     interval_frequency_bar_controls,
     dcc.Graph(
         id = 'interval-bar',
@@ -586,21 +589,21 @@ harmonies_toptags_bubble_fig = dbc.Container([
 
 fig_var = dbc.Container([
     html.H3('Variance of Interval-Length over Year'),
-    dcc.Markdown("""
-    The last graph searched for patterns in the half-steps,
-    here we look at the amount of half-steps overall:
-    
-    We calculated for each song the variance of half-tone steps.
-    This means we looked at each played interval in every song
-    and calculated the variance of the length of them.
-    
-    With this we get a measure of how _interesting_ each song is.
-    For example if we would just play between two notes over and over,
-    we'd have little variance according to this measure,
-    even though the absolute distance median would add up high.
+        html.P("""
+        The last graph searched for patterns in the half-steps,
+        here we look at the amount of half-steps overall:
+        
+        We calculated for each song the variance of half-tone steps.
+        This means we looked at each played interval in every song
+        and calculated the variance of the length of them.
+        
+        With this we get a measure of how _interesting_ each song is.
+        For example if we would just play between two notes over and over,
+        we'd have little variance according to this measure,
+        even though the absolute distance median would add up high.
 
-    The following graph shows how this average variance changed over the years.
-    """),
+        The following graph shows how this average variance changed over the years.
+        """),
     dcc.Graph(
         id = 'interval-var',
         figure = init_scat
@@ -615,20 +618,20 @@ fig_var = dbc.Container([
 # META TEXT
 meta = dbc.Container([
     html.H3('About the chords'),
-    dcc.Markdown(
-        """
-        We searched with an automatic search query injector for 2000 Songs, of these we received 1382 chords. The remaining 618 were missing due to either:
+        html.P(
+            """
+            We searched with an automatic search query injector for 2000 Songs, of these we received 1382 chords. The remaining 618 were missing due to either:
 
-        1. Broken search results
+            1. Broken search results
 
-        2. Only non-free chords available or no public chords found
-        
-        3. Labels/artists blocking chord pages due to copyright etc.
+            2. Only non-free chords available or no public chords found
+             
+            3. Labels/artists blocking chord pages due to copyright etc.
 
-        Since the algorithm picked the first link that contains the song's title and artist, and the links were normally sorted by ratings, this meant that for the most popular songs we got correct results.  
-        Some songs that didn't stand the test of time, which were coincidentally rap/hip-hop songs, did have chords that didn't make sense if you listen to the music. This wasn't that much of an issue though, since their \"harmony\" didn't matter that much.
-        """
-        )
+            Since the algorithm picked the first link that contains the song's title and artist, and the links were normally sorted by ratings, this meant that for the most popular songs we got correct results.  
+            Some songs that didn't stand the test of time, which were coincidentally rap/hip-hop songs, did have chords that didn't make sense if you listen to the music. This wasn't that much of an issue though, since their \"harmony\" didn't matter that much.
+            """
+    )
 ])
 ###################################
 

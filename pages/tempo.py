@@ -74,6 +74,8 @@ def create_xaxis_yaxis_figtype(theme):
         autosize = True,
         height = 600, #  Can be changed to different value when it makes sense
         template = theme,
+        paper_bgcolor = '#212529',
+        plot_bgcolor = '#212529'
     )
     return xaxis_yaxis_figtype)
 '''
@@ -148,7 +150,9 @@ def create_duration_years_bar_with_outliers(show_outliers, theme):
             fixedrange=True,  
             range=[0, y_max]  
         ),
-        template = theme
+        template = theme,
+        paper_bgcolor = '#212529',
+        plot_bgcolor = '#212529'
     )
     
     return fig
@@ -172,7 +176,9 @@ def create_duration_boxplot(theme):
             title="Duration"  
         ),
         height = 800,
-        template = theme
+        template = theme,
+        paper_bgcolor = '#212529',
+        plot_bgcolor = '#212529'
     )
     return fig
 
@@ -236,7 +242,9 @@ def create_tempo_plot_with_range(year_range, theme):
     fig.update_layout(
         xaxis=dict(type='category'),
         yaxis=dict(title="Tempo (BPM)"),
-        template = theme
+        template = theme,
+        paper_bgcolor = '#212529',
+        plot_bgcolor = '#212529'
     )
     
     return fig
