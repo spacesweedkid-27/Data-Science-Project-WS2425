@@ -17,6 +17,7 @@ import os
 import re
 import random
 import matplotlib as mpl
+import numpy as np # Sorry
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 
 dash.register_page(__name__)
