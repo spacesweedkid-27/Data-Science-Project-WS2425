@@ -4,27 +4,12 @@ Für Fortnite
 '''
 
 import pandas as pd
-from dash import Dash, dash_table, dcc, html, clientside_callback, callback, Patch
+from dash import Dash, dcc, html, clientside_callback, callback, Patch
 from dash.dependencies import Input, Output
 import dash
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import load_figure_template
 import plotly.io as pio
-import nltk
-from nltk.util import ngrams
-import plotly.graph_objects as go
-import plotly.express as px
-from textblob import TextBlob
-import numpy as np
-from collections import Counter
-from nltk.util import ngrams
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
-import base64
-from io import BytesIO
-import glob
-import os
-import re
 
 app = Dash(__name__,
     external_stylesheets=[dbc.themes.MORPH, dbc.icons.FONT_AWESOME],
