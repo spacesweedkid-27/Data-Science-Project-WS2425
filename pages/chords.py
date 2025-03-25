@@ -517,6 +517,19 @@ interval_frequency_bar_controls = dbc.Row([
 
 fig_bar_i = dbc.Container([
     html.H3('Interval Progression by Absolute Frequency'),
+    dcc.Markdown("""
+    Here we look at the intervals that are repeated most frequently in a song.
+    It should be noted, that the intervals are in half-steps and calculated using
+    the minimal distance either left or right to the next note.
+    
+    This is why the intervals don't add up to 0, even though they arrive at the
+    same key. For example the most frequent would be (C, G, D, E) if the first note played is C.
+
+    These notes are all in C-major which could mean that the progression (I, V, II, III)
+    could have been played in major mode.
+
+    So by looking at these half-steps we can determine the main harmony without knowing the key.
+    """),
     interval_frequency_bar_controls,
     dcc.Graph(
         id = 'interval-bar',
@@ -558,6 +571,9 @@ harmonies_toptags_bubble_controls = dbc.Row([
 
 harmonies_toptags_bubble_fig = dbc.Container([
     html.H3('Main Harmony absolute frequency by Top Tags'),
+    """Here we look at which tags contain which main harmony shown in the last graph.
+    It is very interesting to see, that the progressions (0,0,0,0) and (1,1,1,1) have
+    high rap and hip-hop matches, that if we add them together even overcome the pop matches.""",
     harmonies_toptags_bubble_controls,
     dcc.Graph(
         id = 'harmonies-toptags-bubble',
@@ -570,6 +586,21 @@ harmonies_toptags_bubble_fig = dbc.Container([
 
 fig_var = dbc.Container([
     html.H3('Variance of Interval-Length over Year'),
+    dcc.Markdown("""
+    The last graph searched for patterns in the half-steps,
+    here we look at the amount of half-steps overall:
+    
+    We calculated for each song the variance of half-tone steps.
+    This means we looked at each played interval in every song
+    and calculated the variance of the length of them.
+    
+    With this we get a measure of how _interesting_ each song is.
+    For example if we would just play between two notes over and over,
+    we'd have little variance according to this measure,
+    even though the absolute distance median would add up high.
+
+    The following graph shows how this average variance changed over the years.
+    """),
     dcc.Graph(
         id = 'interval-var',
         figure = init_scat
