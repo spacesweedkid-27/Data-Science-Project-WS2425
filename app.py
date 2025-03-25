@@ -101,7 +101,7 @@ app.layout = dbc.Container([
     dcc.Store(id='theme-store', data = 'morph'),
 ], fluid=True, class_name='mb-5')
 
-dcc.Store(id='lyrics-store', data='')  # Store for lyrics data
+#dcc.Store(id='lyrics-store', data='')  # Store for lyrics data
 
 ###################################
 # CALLBACKS

@@ -16,6 +16,8 @@ import glob
 import os
 import re
 import random
+import matplotlib as mpl
+from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 
 dash.register_page(__name__)
 
@@ -124,6 +126,10 @@ def create_word_frequency_chart(n):
 def generate_wordcloud_blue_colors():
     return (f'rgb({random.randint(0,100)},{random.randint(0,100)},{random.randint(100,255)})')
 
+
+blues_cm = mpl.colormaps['Blues']
+blues_light_cm = ListedColormap(blues_cm(np.linspace(0.50, 1.00, 128)))
+
 def create_wordcloud(bgcolor, text = all_lyrics):
     wordcloud = WordCloud(
         width = 800,
@@ -132,7 +138,7 @@ def create_wordcloud(bgcolor, text = all_lyrics):
         stopwords = STOP_WORDS
     ).generate(text)
     if bgcolor == '#d9e3f1':
-        wordcloud.recolor(colormap = 'ocean') # light background
+        wordcloud.recolor(colormap = blues_light_cm)
     else:
         wordcloud.recolor(colormap = 'Blues')
 
@@ -174,7 +180,7 @@ init_wordcloud_img = create_wordcloud(bg_color, all_lyrics)
 wordcloud = dbc.Container([
     html.H3('Wordcloud'),
     html.P('Controls go here'),
-    dcc.Graph(figure = init_wordcloud_img, id = 'wordcloud')
+    dcc.Graph(figure = init_wordcloud_img, id = 'wordcloud', className='d-grid d-md-block mx-auto')
 ], class_name='mt-3')
 
 ###################################
@@ -195,8 +201,6 @@ ngram_slider = dcc.Slider(
     value=1,
 )
 word_frequency_chart = dcc.Graph(id="word-frequency-chart")
-'''word_cloud = html.Img(src=init_wordcloud_img,
-                      style={"width": "100%", "height": "auto"})'''
 
 ###################################
 # MAIN LAYOUT
@@ -208,7 +212,7 @@ word_frequency_chart = dcc.Graph(id="word-frequency-chart")
 # Layout of the Lyrics page
 layout = html.Div([ 
     # Store lyrics data for use in callbacks
-    dcc.Store(id='lyrics-store', data=all_lyrics),  # Store data here
+    #dcc.Store(id='lyrics-store', data=all_lyrics),  # Store data here
     
     heading,
     main_content,
