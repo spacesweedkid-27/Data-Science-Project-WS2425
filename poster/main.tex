@@ -25,20 +25,21 @@
 \setbeamercolor{bibliography entry title}{fg=bonewhite}
 \setbeamercolor{bibliography entry location}{fg=bonewhite}
 \setbeamercolor{bibliography entry note}{fg=bonewhite}
+%\setbeamercolor{background canvas}{bg=bonewhite}
 
 \author[H. Heyden \and M. Materzok \and N. Pulow \and S. Şimşek]{Henri Heyden \and Mika Materzok \and Nike Pulow \and Senanur Şimşek}
 \title{What made music popular in the last 20 years?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % How did song duration change over the years?
-    % How did song tempo change over the years?
+    % - How did song duration change over the years?
+    % - How did song tempo change over the years?
     % Y What chord-progressions repeat most frequently?
-    % Y* Do certain chord(-progressions) dominate specific genres?
+    % Y Do certain chord(-progressions) dominate specific genres?
     % Y What chords and chord types dominate over the years?
-    % How variant are the intervals that are being played?
-    % Which words and combinations are the most frequent?
-    % How did lyric polarity change? 
+    % N How variant are the intervals that are being played?
+    % Y Which words and combinations are the most frequent?
+    % Y How did lyric polarity change? 
 
 \begin{document}
 \begin{frame}[t]
@@ -52,17 +53,17 @@
         In the following, we'll look at the most popular music of the last two decades \autocite{bill} to answer which musical and lyrical elements we can identify and analyse the change of them.
     \end{block}
     \begin{block}{Harmonic Progressions}
-    What main chord repetition should you use to write the perfect song? We found the most frequently used harmonic progressions of the last 20 years, see figure \ref{fig:harmony}.\\
+    What main chord repetition should you use to write the perfect song? By webscraping \textcite{ug}, we found the most frequently used harmonic progressions of the last 20 years, see figure \ref{fig:harmony}.\\
     The most used harmonic progression (I, VI, III, VII) can for example be played in B-minor with chords Bm, G, D, A, like in Ed Sheeran's \textquote{Shivers}.
     \begin{figure}[hbt!]
         \centering
         \includegraphics[width=\textwidth]{./figures/2.png}
-        \caption{Top ten most used harmonic progressions by absolute frequency. Source: Webscraping of \textcite{ug}}
+        \caption{Top ten most used harmonic progressions by absolute frequency}
         \label{fig:harmony}
     \end{figure} 
     \end{block}
     \begin{block}{Chords}
-    Musicians often write songs in the same key they can sing in and therefore use the same chords more often. Most chords in figure \ref{fig:chords} can be played in C-major or A-minor. We can also see that A-minor key is more popular than C-major key, since D and Em work better in A-minor compared to C-major.\footnote[1]{D and Em are roughly the IV and V of A-minor, but the II and III of C-major, which are less important harmonic chords as you can see in figure \ref{fig:harmony}}
+    Musicians often write songs in the same key they can sing in and therefore use the same chords more often. Most chords in figure \ref{fig:chords} can be played in C-major or A-minor. We can also see that A-minor key is more popular than C-major key, since D and Em work better in A-minor compared to C-major.\footnote[1]{D and Em are roughly the IV and V of A-minor, but the II and III of C-major, which are less important harmonics, as you can see in figure \ref{fig:harmony}.}
 
     \begin{figure}[hbt!]
         \centering
@@ -72,30 +73,67 @@
     \end{figure}
     
     It shouldn't be surprising, that the most frequent genre in popular music is \textit{pop}-music. \\
-    Looking at the top tags of the song we got from the \textcite{lastfm} and comparing to the identified harmonic progressions, we can see which genres use which chord progressions, see figure \ref{fig:harmtags}
+    Looking at the top tags of the song we got from the \textcite{lastfm} and comparing to the identified harmonic progressions, we can see which genres use mainly which chord progressions, see figure \ref{fig:harmtags}. Here we can identify, how pop dominates in more complex progressions compared to rap and hip-hop.
     \begin{figure}[hbt!]
         \centering
-        \includegraphics[width=\textwidth]{./figures/5.png}
-        \caption{Top ten most frequent genre tags by how often they use a chord progression.}
+        \includegraphics[width=\textwidth]{./figures/9.png}
+        \caption{Four frequent genre tags over how often they use a chord progression with less frequent combinations filtered out.}
         \label{fig:harmtags}
     \end{figure}
 
     \end{block}
     \end{column}
 \begin{column}{0.49\textwidth}
-    \begin{block}{Song Duration}
+    \begin{block}{Lyrics}
+    Song lyrics often reflect emotions and moods of their time. By extracting them from \textcite{lyr} and analyzing their polarity over the years with \textcite{pol}, we can identify cultural trends about how the language in songs had become positively or negatively charged, see figure \ref{fig:pol}.
+
+    \begin{figure}[hbt!]
+        \centering
+        \includegraphics[width=\textwidth]{./figures/10.png}
+        \caption{Song lyric polarity over time}
+        \label{fig:pol}
+    \end{figure}
+
+    In addition to polarity, the most frequently used words in song lyrics provide insight into lyrical trends. Figure \ref{fig:cloud} displays the most common words appearing in lyrics over the years.
+
+    \begin{figure}[hbt!]
+        \centering
+        \includegraphics[width=\textwidth]{./figures/11.png}
+        \caption{Wordcloud of most frequent and important words of all lyrics}
+        \label{fig:cloud}
+    \end{figure}
     \end{block}
 
-    \begin{block}{Lyrics}
+    \begin{block}{Song Duration}
+        % TODO: Insert stuff here!
     \end{block}
 
 \end{column}
 \end{columns}
-\placetextbox{0.85}{0.125}{\qrcode[height=9cm]{https://fur-fortnite.onrender.com/}}
-\placetextbox{0.015}{0.0275}{
-    \tiny\color{bonewhite}
-    References:
-    \printbibliography
+\placetextbox{0.85}{0.2}{
+    \begin{block}{Website}
+    \vspace{1cm}
+    \begin{minipage}{9cm}
+        \small
+        To learn more about this project, visit our website! \\ \vspace{0.1cm}
+        \qrcode[height=9cm]{https://fur-fortnite.onrender.com/}
+    \end{minipage}
+    \end{block}
+}
+%\placetextbox{0.6}{0.99}{\qrcode[height=6cm]{https://fur-fortnite.onrender.com/}}
+
+% May god have mercy for this latex code
+\placetextbox{0.015}{0.03}{
+    \tiny
+    \color{bonewhite}
+    References: \vspace{0.2cm} \\ 
+    \begin{minipage}{0.2\textwidth}
+        \printbibliography[keyword={1}]
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}{0.2\textwidth}
+        \printbibliography[keyword={2}]
+    \end{minipage}
 }
 \end{frame}
 \end{document}
