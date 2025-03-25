@@ -63,27 +63,6 @@ button_row = dbc.Stack([
 # Will remain empty itself, as it's overwritten on init anyway. 
 dynamic_container = dbc.Container([],id='dynamic-content')
 
-
-# I think I was trying to understand, how finely grained you could work in dash
-# in regards to structuring the site content. 
-'''container = dbc.Container(
-    [
-        dbc.Row(
-            dbc.Col(headings[0])
-        ),
-        dbc.Row(
-            dbc.Col(misc_information[0])
-        ),
-        dbc.Row(
-            dbc.Col(misc_information[1])
-        ),
-        dbc.Row(
-            dbc.Col(button_row)
-        )
-    ],
-    fluid=True,
-    className='d-flex flex-wrap align-items-start align-items-center vw-100 justify-content-center mb-2')'''
-
 ###################################
 # MAIN LAYOUT
 ###################################

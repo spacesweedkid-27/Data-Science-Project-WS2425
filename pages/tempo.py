@@ -5,10 +5,12 @@ import dash
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import os
+from dash_bootstrap_templates import load_figure_template
 
 
 dash.register_page(__name__)
 
+load_figure_template('morph')
 theme = 'morph' #  Initial theme that needs to be passed to graphs on load
 
 heading = dbc.Container('We got some information about tempo here')
@@ -74,8 +76,6 @@ def create_xaxis_yaxis_figtype(theme):
         autosize = True,
         height = 600, #  Can be changed to different value when it makes sense
         template = theme,
-        paper_bgcolor = '#212529',
-        plot_bgcolor = '#212529'
     )
     return xaxis_yaxis_figtype)
 '''
@@ -151,8 +151,6 @@ def create_duration_years_bar_with_outliers(show_outliers, theme):
             range=[0, y_max]  
         ),
         template = theme,
-        paper_bgcolor = '#212529',
-        plot_bgcolor = '#212529'
     )
     
     return fig
@@ -177,8 +175,6 @@ def create_duration_boxplot(theme):
         ),
         height = 800,
         template = theme,
-        paper_bgcolor = '#212529',
-        plot_bgcolor = '#212529'
     )
     return fig
 
@@ -243,8 +239,6 @@ def create_tempo_plot_with_range(year_range, theme):
         xaxis=dict(type='category'),
         yaxis=dict(title="Tempo (BPM)"),
         template = theme,
-        paper_bgcolor = '#212529',
-        plot_bgcolor = '#212529'
     )
     
     return fig

@@ -39,7 +39,7 @@ screaming = dbc.Container('NEVER GONNA GIVE YOU UP, NEVER GONNA LET YOU DOWN, '
 'SAY GOODBYE, NEVER GONNA TELL A LIE AND HURT YOU!')
 
 # Verzeichnis und CSV-Dateien laden
-folder_path = "data/Billboard_lyrics/BillBoard_Lyrics_preprocessed"
+folder_path = "data/Billboard_lyrics/Billboard_Lyrics_preprocessed"
 file_paths = glob.glob(os.path.join(folder_path, "billboard_*.csv"))
 
 ###################################
@@ -71,7 +71,7 @@ all_data = pd.concat(dataframes, ignore_index=True)
 all_lyrics = " ".join(all_data["Lyrics"].dropna()).lower()
 
 # Define STOP_WORDS
-STOP_WORDS = {"wan", "na", "ta", "ca"}
+STOP_WORDS = {"wan", "na", "ta", "ca", 'nigga'}
 
 ###################################
 # POLARITY CHART INTERACTIVE
@@ -107,29 +107,9 @@ def create_word_frequency_chart(n):
     return fig
 
 ###################################
-# WORD CLOUDS
+# WORD CLOUD
 
-# Create Word Cloud
-# Word Cloud Generation Function
-'''def create_wordcloud(text, bgcolor):
-    wordcloud = WordCloud(
-        width=800,
-        height=400,
-        background_color=bgcolor,
-        stopwords=STOP_WORDS).generate(text)
-    img = BytesIO()
-    plt.figure(figsize=(10, 5))
-    plt.imshow(wordcloud, interpolation="bilinear")
-    plt.axis("off")
-    plt.savefig(img, format="png")
-    plt.close()
-    img.seek(0)
-    return "data:image/png;base64," + base64.b64encode(img.read()).decode()'''
-
-def generate_wordcloud_blue_colors():
-    return (f'rgb({random.randint(0,100)},{random.randint(0,100)},{random.randint(100,255)})')
-
-
+# Colormap for light theme.
 blues_cm = mpl.colormaps['Blues']
 blues_light_cm = ListedColormap(blues_cm(np.linspace(0.50, 1.00, 128)))
 

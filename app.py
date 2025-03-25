@@ -206,7 +206,6 @@ def update_chords_toptags_bubble_theme(n_clicks):
          prevent_initial_call = True
 )
 def update_chords_toptags_bubble(min_frequency, theme):
-
     filtered_df = c.chords_toptags_counts_df[c.chords_toptags_counts_df['Count'] >= int(min_frequency)]
     updated = c.create_chords_toptags_bubble(filtered_df, theme)
 
@@ -337,7 +336,11 @@ def update_duration_years_bar(show_outliers, theme):
     Input('theme-store', 'data')
 )
 def update_duration_boxplot(theme):
-    return t.create_duration_boxplot(theme)
+    updated = t.create_duration_boxplot(theme)
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    return updated
 
 # Tempo Scatter Plot Themeswitch.
 @callback(
@@ -359,6 +362,7 @@ def update_tempo_plot(year_range, theme):
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+    return updated
 
 ###################################
 # LYRICS
@@ -376,7 +380,6 @@ def update_wordcloud(n_clicks):
     else:
         bg_color = '#d9e3f1'
     
-    #return l.create_interactive_wordcloud(l.all_lyrics, bg_color)
     return l.create_wordcloud(bg_color, l.all_lyrics)
 
 # TODO slider wordcloud when rerendering
