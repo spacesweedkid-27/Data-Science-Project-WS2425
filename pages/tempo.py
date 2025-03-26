@@ -5,10 +5,12 @@ import dash
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import os
+from dash_bootstrap_templates import load_figure_template
 
 
 dash.register_page(__name__)
 
+load_figure_template('morph')
 theme = 'morph' #  Initial theme that needs to be passed to graphs on load
 
 heading = dbc.Container('We got some information about tempo here')
@@ -74,8 +76,6 @@ def create_xaxis_yaxis_figtype(theme):
         autosize = True,
         height = 600, #  Can be changed to different value when it makes sense
         template = theme,
-        paper_bgcolor = '#212529',
-        plot_bgcolor = '#212529'
     )
     return xaxis_yaxis_figtype)
 '''
@@ -113,10 +113,10 @@ def create_duration_years_bar_with_outliers(show_outliers, theme):
 
     if 'show' in show_outliers:
         df_to_use = df_original
-        title = "Average Song Durations Over 20 Years (With Outliers)"
+        #title = "Average Song Durations Over 20 Years (With Outliers)"
     else:
         df_to_use = remove_outliers_duration(df_original, "Duration_min")
-        title = "Average Song Durations Over 20 Years (Without Outliers)"
+        #title = "Average Song Durations Over 20 Years (Without Outliers)"
     
     df_grouped_duration = df_to_use.groupby("Year", as_index=False)["Duration_min"].mean()
     df_grouped_duration['Duration_formatted'] = df_grouped_duration['Duration_min'].apply(format_duration_min)
@@ -125,7 +125,7 @@ def create_duration_years_bar_with_outliers(show_outliers, theme):
     y_ticks = list(range(0, y_max))  
     y_labels = [format_duration_min(y) for y in y_ticks]  
     
-    fig = px.bar(df_grouped_duration, x="Year", y="Duration_min", title=title)
+    fig = px.bar(df_grouped_duration, x="Year", y="Duration_min")
     
     fig.update_traces(
         hovertemplate='<b>Year:</b> %{x}<br>' +
@@ -151,14 +151,12 @@ def create_duration_years_bar_with_outliers(show_outliers, theme):
             range=[0, y_max]  
         ),
         template = theme,
-        paper_bgcolor = '#212529',
-        plot_bgcolor = '#212529'
     )
     
     return fig
 
 def create_duration_boxplot(theme):
-    fig = px.box(df_all_years_duration, x="Year", y="Duration_min", title="Song Duration Distribution Per Year (With Outliers)")
+    fig = px.box(df_all_years_duration, x="Year", y="Duration_min")
     
     df_grouped_duration = df_all_years_duration.groupby("Year", as_index=False)["Duration_min"].mean()
     df_grouped_duration['Duration_formatted'] = df_grouped_duration['Duration_min'].apply(format_duration_min)
@@ -177,8 +175,6 @@ def create_duration_boxplot(theme):
         ),
         height = 800,
         template = theme,
-        paper_bgcolor = '#212529',
-        plot_bgcolor = '#212529'
     )
     return fig
 
@@ -232,7 +228,6 @@ def create_tempo_plot_with_range(year_range, theme):
     filtered_grouped_tempo = df_filtered_tempo.groupby("Year", as_index=False)["Tempo"].mean()
     
     fig = px.scatter(df_filtered_tempo, x="Year", y="Tempo",
-                     title="Average Song Tempo (BPM) Over The Last 20 Years ",
                      labels={"Tempo": "Tempo (BPM)", "Year": "Year"})
     
     # Line for average tempo values
@@ -240,11 +235,9 @@ def create_tempo_plot_with_range(year_range, theme):
                     mode="lines", name="Average", line=dict(width=2))
     
     fig.update_layout(
-        xaxis=dict(type='category'),
-        yaxis=dict(title="Tempo (BPM)"),
+        xaxis=dict(type='category', automargin=True),
+        yaxis=dict(title="Tempo (BPM)", automargin=True),
         template = theme,
-        paper_bgcolor = '#212529',
-        plot_bgcolor = '#212529'
     )
     
     return fig
@@ -301,17 +294,17 @@ xaxis_yaxis_figtype_slider = dcc.Slider(
 ###################################
 
 # Define the toggle for the Duration bar chart
-duration_years_bar_toggle = dcc.Checklist(
-    id='duration-years-bar-toggle',
-    options=[{'label': 'Outlier', 'value': 'show'}],
-    value=['show'],
-    inline=True
-)
+#duration_years_bar_toggle = dcc.Checklist(
+#    id='duration-years-bar-toggle',
+#    options=[{'label': 'Outlier', 'value': 'show'}],
+#    value=['show'],
+#    inline=True
+#)
 
 # Container for the duration bar chart
 duration_years_bar = dbc.Container([
     html.H3('Average Song Duration Over the Years'),
-    duration_years_bar_toggle,
+    #duration_years_bar_toggle,
     dcc.Graph(
         id='duration-years-bar',
         figure=init_duration_years_bar
@@ -338,6 +331,7 @@ tempo_year_range_slider = dcc.RangeSlider(
 # Container for the Tempo plot
 tempo_plot = dbc.Container([
     html.H3('Average Tempo Over the Years'),
+    tempo_year_range_slider,
     dcc.Graph(
         id='tempo-plot',
         figure=init_tempo_plot
@@ -350,4 +344,4 @@ layout = html.Div([heading,
                    duration_years_bar,
                    duration_boxplot,
                    tempo_plot,
-                   tempo_year_range_slider])
+                   ])

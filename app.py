@@ -4,12 +4,13 @@ Für Fortnite
 '''
 
 import pandas as pd
-from dash import Dash, dash_table, dcc, html, clientside_callback, callback, Patch
+from dash import Dash, dcc, html, clientside_callback, callback, Patch
 from dash.dependencies import Input, Output
 import dash
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import load_figure_template
 import plotly.io as pio
+from base64 import b64encode # Only used for saving high res plot images.
 import nltk
 from nltk.util import ngrams
 import plotly.graph_objects as go
@@ -116,7 +117,7 @@ app.layout = dbc.Container([
     dcc.Store(id='theme-store', data = 'morph'),
 ], fluid=True, class_name='mb-5')
 
-dcc.Store(id='lyrics-store', data='')  # Store for lyrics data
+#dcc.Store(id='lyrics-store', data='')  # Store for lyrics data
 
 ###################################
 # CALLBACKS
@@ -189,6 +190,15 @@ def update_heatmap(min_frequency, shrink_chords, theme):
     if theme == 'plotly_dark':
         updated_heatmap_fig['layout']['paper_bgcolor'] = '#212529'
         updated_heatmap_fig['layout']['plot_bgcolor'] = '#212529'
+
+    # save image automatically
+    #updated_heatmap_fig.write_image(
+    #    file = f'plot_images/chords_years_heatmap{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 650,
+    #    scale = 5
+    #    )
+
     return updated_heatmap_fig
 
 # Callback for chordfrequency by toptags slider.
@@ -206,13 +216,20 @@ def update_chords_toptags_bubble_theme(n_clicks):
          prevent_initial_call = True
 )
 def update_chords_toptags_bubble(min_frequency, theme):
-
     filtered_df = c.chords_toptags_counts_df[c.chords_toptags_counts_df['Count'] >= int(min_frequency)]
     updated = c.create_chords_toptags_bubble(filtered_df, theme)
 
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+
+    # save image automatically
+    #updated.write_image(
+    #    file = f'plot_images/chords_toptags{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 600,
+    #    scale = 5
+    #)
 
     return updated
 
@@ -237,6 +254,15 @@ def update_bar_chart_harmony(min_frequency, theme):
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+    
+    # save image automatically
+    #updated.write_image(
+    #    file = f'plot_images/harmony_bar{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 450,
+    #    scale = 5
+    #)
+    
     return updated
 
 @callback(
@@ -303,6 +329,14 @@ def update_harmonies_toptags_bubble(min_frequency, theme):
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+    
+    # save image automatically
+    #updated.write_image(
+    #    file = f'plot_images/harmonies_toptags{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 600,
+    #    scale = 5
+    #)
     return updated
 
 
@@ -320,15 +354,24 @@ def update_duration_years_bar_theme(n_clicks):
 # Duration slider callback
 @callback(
     Output('duration-years-bar', 'figure', allow_duplicate=True),
-   [Input('duration-years-bar-toggle', 'value'),
-    Input('theme-store', 'data')],
+   #[Input('duration-years-bar-toggle', 'value'),]
+    Input('theme-store', 'data'),
     prevent_initial_call = True
 )
 def update_duration_years_bar(show_outliers, theme):
-    updated = t.create_duration_years_bar_with_outliers(show_outliers, theme)
+    updated = t.create_duration_years_bar_with_outliers([], theme)
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+    
+    # save image automatically
+    #updated.write_image(
+    #    file = f'plot_images/duration_years{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 400,
+    #    scale = 5
+    #)
+
     return updated
 
 # Duration Boxplot Themeswitch.
@@ -337,7 +380,11 @@ def update_duration_years_bar(show_outliers, theme):
     Input('theme-store', 'data')
 )
 def update_duration_boxplot(theme):
-    return t.create_duration_boxplot(theme)
+    updated = t.create_duration_boxplot(theme)
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    return updated
 
 # Tempo Scatter Plot Themeswitch.
 @callback(
@@ -359,6 +406,16 @@ def update_tempo_plot(year_range, theme):
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+
+    # save image automatically
+    #updated.write_image(
+    #    file = f'plot_images/tempo_years{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 400,
+    #    scale = 3.8
+    #)
+
+    return updated
 
 ###################################
 # LYRICS
@@ -393,8 +450,16 @@ def update_wordcloud(n_clicks):
     else:
         bg_color = '#d9e3f1'
     
-    #return l.create_interactive_wordcloud(l.all_lyrics, bg_color)
-    return l.create_wordcloud(bg_color, l.all_lyrics)
+    updated = l.create_wordcloud(bg_color, l.all_lyrics)
+
+    if isDarkMode:
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    else: 
+        updated['layout']['paper_bgcolor'] = '#d9e3f1'
+        updated['layout']['plot_bgcolor'] = '#d9e3f1'
+    
+    return updated
 
 # TODO slider wordcloud when rerendering
 

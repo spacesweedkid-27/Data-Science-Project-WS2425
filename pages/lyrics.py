@@ -21,7 +21,6 @@ import matplotlib as mpl
 import numpy as np # Sorry
 import ast
 from matplotlib.colors import ListedColormap
-from textblob import TextBlob
 
 nltk.data.path.append('nltk_data')
 
