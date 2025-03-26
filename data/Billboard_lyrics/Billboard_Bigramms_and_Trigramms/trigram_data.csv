@@ -1,0 +1,21 @@
+Trigram,Frequency
+"('one', 'two', 'three')",106
+"('go', ""'head"", 'gone')",90
+"('walk', 'like', 'talk')",82
+"('never', 'let', 'go')",79
+"('like', 'talk', 'walk')",75
+"('make', 'feel', 'like')",73
+"('talk', 'walk', 'like')",55
+"('rack', 'city', 'bitch')",53
+"('girl', 'let', 'love')",52
+"('catch', 'ridin', 'dirty')",51
+"('night', 'get', 'lucky')",51
+"('lean', 'wit', 'rock')",48
+"(""'head"", 'gone', 'get')",48
+"('gone', 'get', 'sexy')",48
+"('could', 'bet', 'never')",48
+"('bright', 'like', 'diamond')",48
+"('get', 'lucky', 'night')",48
+"('bet', 'never', 'got')",46
+"('never', 'got', 'sweat')",46
+"('wo', 'let', 'go')",45

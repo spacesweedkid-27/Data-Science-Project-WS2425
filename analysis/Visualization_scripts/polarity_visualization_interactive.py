@@ -7,7 +7,7 @@ from textblob import TextBlob
 import numpy as np
 
 # Daten laden und zusammenführen
-folder_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\BillBoard_Lyrics_preprocessed"
+folder_path = r"/Users/kapviq/Library/Mobile Documents/com~apple~CloudDocs/studies /CAU/sem5/DataScienceProject/Data-Science-Project-WS2425/data/Billboard_lyrics/Billboard_Lyrics_preprocessed"
 
 file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
 dataframes = []
@@ -40,7 +40,7 @@ def get_word_polarity(text):
 all_data['Polarity'] = all_data['Lyrics'].apply(get_word_polarity)
 
 # Daten für die Visualisierung vorbereiten
-years = list(range(2005, 2025))
+years = list(range(2005, 2024))
 polarities_by_year = {year: [] for year in years}
 mean_polarities = {}
 
@@ -52,6 +52,9 @@ for year in years:
         mean_polarities[year] = np.mean(all_polarities) if all_polarities else 0  # Durchschnitt berechnen
     else:
         mean_polarities[year] = 0
+
+
+all_data.to_csv('/Users/kapviq/Library/Mobile Documents/com~apple~CloudDocs/studies /CAU/sem5/DataScienceProject/Data-Science-Project-WS2425/data/Billboard_lyrics/polarity/polarity.csv', index=False) 
 
 #Interaktive Visualisierung mit Optimierung
 fig = go.Figure()
@@ -127,6 +130,6 @@ fig.update_layout(
 )
 
 #Visualisierung anzeigen
-import plotly.io as pio
-pio.renderers.default = "browser"
-fig.show()
+#import plotly.io as pio
+#pio.renderers.default = "browser"
+#fig.show()

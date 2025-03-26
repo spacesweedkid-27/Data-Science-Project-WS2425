@@ -307,7 +307,7 @@ duration_years_bar = dbc.Container([
     html.P('This graph shows the average duration of songs for each year, providing insights into how song lengths have changed over the past 20 years (without outliers).'
            ' The average song length has dropped from around 4:00 minutes in 2005 to about 3:20 minutes in 2024, showing a decrease of roughly 17% and an overall downward trend.'
            ' The most noticeable drop happened between 2017 and 2019, suggesting a major shift in the music industry or trends during that time.', 
-           className='text-muted mb-3'),
+           className='mb-3'),
     #duration_years_bar_toggle,
     dcc.Graph(
         id='duration-years-bar',
@@ -321,7 +321,7 @@ duration_boxplot = dbc.Container([
     html.P('This graph highlights the outliers in song durations across different years.'
            ' Outliers are either unusually short or exceptionally long tracks.'
            ' Removing outliers can provide a more accurate representation of trends, as extremely short or long tracks can alter average duration calculations.', 
-           className='text-muted mb-3'),
+           className='mb-3'),
     dcc.Graph(id='duration-boxplot', figure=init_duration_boxplot)
 ], class_name='mt-3')
 
@@ -342,7 +342,7 @@ tempo_plot = dbc.Container([
     html.P('This plot illustartes the tempo distribution of songs over the years, showing individual song tempos and the average trend over time.'
            ' The red line indicates that the average tempo has remained surprisingly consistent, around 120-125 BPM.'
            ' This consistency suggests that despite changes in music the tempo of popular music has remained remarkably unchanged.', 
-           className='text-muted mb-3'),
+           className='mb-3'),
     tempo_year_range_slider,
     dcc.Graph(
         id='tempo-plot',

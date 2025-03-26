@@ -12,12 +12,12 @@ from dash_bootstrap_templates import load_figure_template
 import plotly.io as pio
 from base64 import b64encode # Only used for saving high res plot images.
 
-
 app = Dash(__name__,
     external_stylesheets=[dbc.themes.MORPH, dbc.icons.FONT_AWESOME],
     use_pages=True
 ) 
 server=app.server
+
 
 # We'll need to call some functions lateron to dynamically
 # change the graphs generated on the embedded pages.
@@ -340,11 +340,10 @@ def update_duration_years_bar_theme(n_clicks):
 # Duration slider callback
 @callback(
     Output('duration-years-bar', 'figure', allow_duplicate=True),
-   #[Input('duration-years-bar-toggle', 'value'),]
     Input('theme-store', 'data'),
     prevent_initial_call = True
 )
-def update_duration_years_bar(show_outliers, theme):
+def update_duration_years_bar(theme):
     updated = t.create_duration_years_bar_with_outliers([], theme)
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
@@ -406,7 +405,24 @@ def update_tempo_plot(year_range, theme):
 ###################################
 # LYRICS
 ###################################
+#Polarity 
+# Callback für den Slider
+'''@callback(
+    Output("lyrics_graph", "figure"),
+    Input("year_slider", "value")
+)
+def update_graph(selected_year):
+    return get_figure(all_data, selected_year)'''
 
+# Themeswitch polarity
+@callback(
+    Output('polarity-year-chart', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_polarity_year_chart(n_clicks):
+    return update_fig_template(n_clicks)
+
+# Theme switch wordcloud
 @callback(
     Output('wordcloud', 'figure'),
     Input('color-mode-switch', 'n_clicks')
@@ -431,6 +447,30 @@ def update_wordcloud(n_clicks):
     return updated
 
 # TODO slider wordcloud when rerendering
+
+# Top 20 Bigrams / Trigrams
+
+# Theme switch callback for xaxis yaxis figtype.
+@callback(
+    Output('bigram-trigram-barchart', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_xaxis_yaxis_figtype(n_clicks):
+    return update_fig_template(n_clicks)
+
+@callback(
+    Output('bigram-trigram-barchart', 'figure', allow_duplicate=True),
+   [Input('bigram-trigram-radio', 'value'),
+    Input('theme-store', 'data')],
+    prevent_initial_call = True
+)
+def update_word_frequency_bigram_trigram(value, theme):
+    updated = l.create_word_frequency_bigram_trigram(value, theme)
+
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    return updated
 
 ###################################
 # GRAPH TEMPLATE pt.3

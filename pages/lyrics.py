@@ -5,7 +5,6 @@ from dash import dcc, html, callback
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import plotly.express as px
-import nltk
 from dash_bootstrap_templates import load_figure_template
 from collections import Counter
 from wordcloud import WordCloud
@@ -17,6 +16,7 @@ import re
 import random
 import matplotlib as mpl
 import numpy as np # Sorry
+import ast
 from matplotlib.colors import ListedColormap
 
 dash.register_page(__name__)
@@ -73,42 +73,136 @@ STOP_WORDS = {"wan", "na", "ta", "ca", 'nigga'}
 ###################################
 # POLARITY CHART INTERACTIVE
 
+polarity_data = pd.read_csv('data/Billboard_lyrics/polarity/polarity.csv', usecols=['Year','Polarity'])
+polarity_df = pd.DataFrame(data = polarity_data)
+years = list(range(2005, 2025))
+
+def create_polarity_year_chart(theme):    
+    polarities_by_year = {year: [] for year in years}
+    mean_polarities = {}
+
+    for year in years:
+        yearly_data = polarity_df[polarity_df['Year'] == year]
+        if not yearly_data.empty:
+            all_polarities = [p for sublist in yearly_data['Polarity'].apply(ast.literal_eval) for p in sublist]
+            polarities_by_year[year] = all_polarities
+            mean_polarities[year] = np.mean(all_polarities) if all_polarities else 0  # Durchschnitt berechnen
+        else:
+            mean_polarities[year] = 0
+    
+    fig = go.Figure()
+
+    for year in years:
+        polarities = np.array(polarities_by_year[year])
+        
+        # Trennen der neutralen Werte (Polarität = 0)
+        negative = polarities[polarities < 0]
+        neutral = polarities[polarities == 0]
+        positive = polarities[polarities > 0]
+
+        # Histogramme für jede Polaritätsklasse
+        fig.add_trace(go.Histogram(
+            x=negative,
+            name=f'Negative ({year})',
+            marker_color='red',
+            opacity=0.7,
+            visible=True if year in years else False
+        ))
+
+        fig.add_trace(go.Histogram(
+            x=positive,
+            name=f'Positive ({year})',
+            marker_color='blue',
+            opacity=0.7,
+            visible=True if year in years else False
+        ))
+
+        fig.add_trace(go.Histogram(
+            x=neutral,
+            name=f'Neutral ({year})',
+            marker_color='gray',
+            opacity=0.5,
+            visible=True if year in years else False
+        ))
+
+        # Durchschnittliche Polarität als dünne vertikale Linie 
+        fig.add_trace(go.Scatter(
+            x=[mean_polarities[year], mean_polarities[year]],  # Linie bei Durchschnittswert
+            y=[1, 10**5],  # Höhe der Linie (angepasst für logarithmische Skalierung)
+            mode="lines",
+            line=dict(color="orange", width=2, dash="dash"),  # Farbe: Orange, Dünn, Gestrichelt
+            name=f'Mean ({year})',
+            visible=True if year in years else False
+        ))
+
+    steps = []
+    for i, year in enumerate(years):
+        step = dict(
+            method="update",
+            args=[{"visible": [j // 4 == i for j in range(len(years) * 4)]}],
+            label=str(year)
+        )
+        steps.append(step)
+
+    fig.update_layout(
+        xaxis_title="Polarity",
+        yaxis_title="Number of words",
+        barmode='overlay',  # Histogramme überlagern sich leicht für bessere Sichtbarkeit
+        yaxis_type="log",  # Logarithmische Skalierung
+        sliders=[{
+            "active": 0,  # Startjahr 2005
+            "currentvalue": {
+                "visible": True,
+                "prefix": "Jahr: ",
+                "font": {"size": 20}
+            },
+            "steps": steps
+        }]
+    )
+    fig.update_layout(
+        autosize = True,
+        height = 600,
+        template = theme
+    )
+    return fig
+
+init_polarity_years_chart = create_polarity_year_chart(theme)
 
 
 ###################################
-# MOST FREQUENT WORDS/BIGRAMMS/TRIGRAMMS
+# MOST FREQUENT WORDS/BIGRAMS/TRIGRAMS
 
-# Create function for n-gram frequency analysis
-def get_ngram_frequencies(text, n=1, top_n=20):
-    tokens = nltk.word_tokenize(text)
-    tokens = [t for t in tokens if t not in STOP_WORDS]
-    
-    # For n > 1, filter out n-grams that have repeated words
-    if n > 1:
-        ngram_list = [ng for ng in ngrams(tokens, n) if len(set(ng)) == n]
+bigram_data = pd.read_csv('data/Billboard_lyrics/Billboard_Bigramms_and_Trigramms/bigram_data.csv')
+trigram_data = pd.read_csv('data/Billboard_lyrics/Billboard_Bigramms_and_Trigramms/trigram_data.csv')
+
+bigram_df = pd.DataFrame(data = bigram_data)
+bigram_df['Bigram'] = bigram_df['Bigram'].apply(lambda x: ' '.join(eval(x)))
+trigram_df = pd.DataFrame(data = trigram_data)
+trigram_df['Trigram'] = trigram_df['Trigram'].apply(lambda x: ' '.join(eval(x)))
+
+def create_word_frequency_bigram_trigram(mode, theme):
+    if mode == 'bigram':
+        df = bigram_df
+        fig = px.bar(bigram_df, x='Bigram', y='Frequency')
     else:
-        ngram_list = tokens
-    
-    freq = Counter(ngram_list)
-    return freq.most_common(top_n)
+        df = trigram_df
+        fig = px.bar(trigram_df, x='Trigram', y='Frequency')
 
-# Define the helper function to generate the word frequency chart
-def create_word_frequency_chart(n, theme):
-    freq_data = get_ngram_frequencies(all_lyrics, n)
-    words, counts = zip(*freq_data)
-    words = [" ".join(w) if isinstance(w, tuple) else w for w in words]
-    
-    # Basic bar chart with Plotly Express
-    fig = px.bar(x=words,
-                 y=counts,
-                 labels={"x": "Words/Phrases", "y": "Frequency"},
-                 text_auto=True,
-                 template = theme)
+    fig.update_layout(
+        xaxis_title = 'Phrase',
+        yaxis_title = 'Frequency',
+        autosize = True,
+        xaxis = dict(tickangle=45),
+        yaxis = dict(
+            tickmode = 'linear',
+            dtick = max(df['Frequency'].max() // 10, 1)),
+        height = 600,
+        template = theme,
+    )
+
     return fig
 
-n = 1  # Top 20 most frequent words, subject to change from filters.
-
-init_word_frequency_chart = create_word_frequency_chart(n, theme)
+init_word_frequency_chart = create_word_frequency_bigram_trigram('bigram', theme)
 
 ###################################
 # WORD CLOUD
@@ -181,19 +275,84 @@ wordcloud = dbc.Container([
 # Any related callbacks need to be defined in app.py
 # Name these elements precicesly and plugg them into the layout below.
 
-polarity_chart = dcc.Graph(
-    id="polarity-chart",
-    figure = init_word_frequency_chart
+###################################
+# POLARITY
+
+polarity_years_chart = dbc.Container([
+    html.H3('Polarity distribution per year'),
+    dcc.Graph(
+        id = 'polarity-year-chart',
+        figure = init_polarity_years_chart
     )
-ngram_slider = dcc.Slider(
-    id="ngram-slider",
-    min=1,
-    max=3,
-    step=1,
-    marks={1: "Words", 2: "Bigrams", 3: "Trigrams"},
-    value=1,
+], class_name = 'mt-5')
+
+###################################
+# BIGRAM TRIGRAM CHART
+
+bigram_trigram_text = dbc.Container(
+    '''
+    Lyrics oftentimes are what makes listeners relate to a song. We've looked 
+    into the lyrics of the Top 100 songs and used the nltk package to identify 
+    the most frequently used phrases.
+    '''
 )
-word_frequency_chart = dcc.Graph(id="word-frequency-chart")
+
+bigram_trigram_radio = dbc.RadioItems(
+    id = 'bigram-trigram-radio',
+    options = [
+        {'label': 'Show digrams', 'value': 'bigram'},
+        {'label': 'Show trigrams', 'value': 'trigram'}
+    ],
+    value = 'bigram',
+    inline = True
+)
+
+bigram_trigram_controls = dbc.Row([
+    dbc.Col(bigram_trigram_radio, width = 'auto'),
+    dbc.Col(class_name = 'fa-regular fa-circle-question',
+            id = 'bigram-trigram-radio-info',
+            style = {'cursor': 'pointer'},
+            width = 'auto'
+        ),
+    dbc.Col(
+        dbc.Tooltip(
+            'Changes the viewing mode to either bigram or trigram. Bigram'
+            'contains the top 20 most frequent two-word phrases, trigram the'
+            'top 20 most frequent three-word phrases.',
+            target = 'bigram-trigram-radio-info',
+            placement = 'right'
+        )
+    )
+])
+bigram_trigram_info_text = dbc.Card([
+    dbc.CardBody([
+        dbc.Row([
+            dbc.Col(class_name='fa-regular fa-lightbulb', width = 'auto'),
+            dbc.Col(html.H5('info', className = 'card-title align-top'))
+        ]),
+        html.P(
+            '''
+            Some of the Bigrams do not represent actual lyrics, but annotations
+            that signal who of several artists appearing in a feature or 
+            collaboration project is currently singing their part. Future work
+            should be done on identifying when an Artist's name is part of a
+            song and when it is just an annotation meant for the reader of lyrics.
+            ''', className = 'mb-0'
+        )], class_name='p-2 p2-5 ps-5'
+    )
+    ], color = 'secondary', class_name='mb-4 p-2'
+)
+
+bigram_trigram_barchart = dbc.Container([
+    html.H3('Top 20 most frequent phrases'),
+    bigram_trigram_text,
+    bigram_trigram_info_text,
+    bigram_trigram_controls,
+    dcc.Graph(
+        id = 'bigram-trigram-barchart',
+        figure = init_word_frequency_chart
+    )
+], class_name = 'mt-3')
 
 ###################################
 # MAIN LAYOUT
@@ -203,32 +362,28 @@ word_frequency_chart = dcc.Graph(id="word-frequency-chart")
 # Don't change the name from layout to anything else. Dash page
 # registry needs this attribute to properly load the content.
 # Layout of the Lyrics page
+
+'''##layout add for polarity 
+layout = html.Div([
+    html.H1("Analyse der Songtext-Polarität"),
+    dcc.Slider(
+        id="year_slider",
+        min=2005,
+        max=2024,
+        step=1,
+        marks={year: str(year) for year in range(2005, 2025)},
+        value=2005
+    ),
+    dcc.Graph(id="lyrics_graph")
+])
+#'''
+
 layout = html.Div([ 
-    # Store lyrics data for use in callbacks
-    #dcc.Store(id='lyrics-store', data=all_lyrics),  # Store data here
-    
     heading,
     main_content,
     screaming,
 
     wordcloud,
-    
-    # New Section for Lyrics Analysis:
-    dbc.Container([
-        html.H2("Lyrics Analysis"),
-        html.P("This section analyzes song lyrics trends over time."),
-
-        # Polarity Chart
-        html.H4("Polarity Analysis"),
-        dcc.Graph(id="polarity-chart"),  # The graph will be updated through callback
-
-        # Word Frequency Analysis
-        html.H4("Word Frequency Analysis"),
-        ngram_slider,  # Slider to control n-gram range
-        dcc.Graph(id="word-frequency-chart"),  # Word frequency chart
-        
-        # Word Cloud
-        html.H4("Word Cloud"),
-       #word_cloud  # Assuming word_cloud is defined
-    ])
-])
+    bigram_trigram_barchart,
+    polarity_years_chart,
+], className = 'mb-5')
