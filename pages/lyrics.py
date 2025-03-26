@@ -22,9 +22,9 @@ from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 
 dash.register_page(__name__)
 
-load_figure_template('bootstrap')
-theme = 'bootstrap' #  Initial theme that needs to be passed to graphs on load
-bg_color = '#212529'
+load_figure_template('morph')
+theme = 'morph' #  Initial theme that needs to be passed to graphs on load
+bg_color = '#d9e3f1'
 
 heading = dbc.Container('We got some information about tempo here')
 main_content = dbc.Container('Some information about this project goes here. '
@@ -110,18 +110,19 @@ def create_word_frequency_chart(n):
 # Colormap for light theme.
 blues_cm = mpl.colormaps['Blues']
 blues_light_cm = ListedColormap(blues_cm(np.linspace(0.50, 1.00, 128)))
+blues_dark_cm = ListedColormap(blues_cm(np.linspace(0.00, 0.80, 204)))
 
 def create_wordcloud(bgcolor, text = all_lyrics):
     wordcloud = WordCloud(
         width = 1500,
-        height = 475,
+        height = 535,
         background_color = bgcolor,
         stopwords = STOP_WORDS
     ).generate(text)
     if bgcolor == '#d9e3f1':
         wordcloud.recolor(colormap = blues_light_cm)
     else:
-        wordcloud.recolor(colormap = 'Blues')
+        wordcloud.recolor(colormap = blues_dark_cm)
 
     img = wordcloud.to_image()
 
@@ -148,8 +149,8 @@ def create_wordcloud(bgcolor, text = all_lyrics):
     )
     fig.update_layout(
         autosize = True,
-        #width = 800,
-        #height = 400,
+        #width = 1500 * 0.843,
+        #height = 450 * 0.843,
         margin = dict(l=0, r=0, t=0, b=0),
         xaxis = dict(visible = False),
         yaxis = dict(visible = False)

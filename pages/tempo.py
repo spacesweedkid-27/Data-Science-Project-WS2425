@@ -10,8 +10,8 @@ from dash_bootstrap_templates import load_figure_template
 
 dash.register_page(__name__)
 
-load_figure_template('bootstrap')
-theme = 'bootstrap' #  Initial theme that needs to be passed to graphs on load
+load_figure_template('morph')
+theme = 'morph' #  Initial theme that needs to be passed to graphs on load
 
 heading = dbc.Container('We got some information about tempo here')
 main_content = dbc.Container('Some information about this project goes here. '

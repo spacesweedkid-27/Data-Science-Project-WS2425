@@ -14,7 +14,7 @@ from base64 import b64encode # Only used for saving high res plot images.
 import random # Only for saving high res plot images
 
 app = Dash(__name__,
-    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME],
+    external_stylesheets=[dbc.themes.MORPH, dbc.icons.FONT_AWESOME],
     use_pages=True
 ) 
 server=app.server
@@ -38,12 +38,12 @@ import data_collection.scripts.numerize_chords as nc
 # Design-specific stuff, do not touch or I'll cry.
 ###################################
 
-templates = ['bootstrap']
+templates = ['morph']
 load_figure_template(templates)
 
 def update_fig_template(n_clicks):
     isDarkMode = n_clicks % 2 == 1
-    template = pio.templates['plotly_dark'] if isDarkMode else pio.templates['bootstrap']
+    template = pio.templates['plotly_dark'] if isDarkMode else pio.templates['morph']
     
     patched_fig = Patch()
     patched_fig['layout']['template'] = template
@@ -100,7 +100,7 @@ app.layout = dbc.Container([
     #  Holds dynamic page data.
     dash.page_container,
     #  Invisible storage for active theme.
-    dcc.Store(id='theme-store', data = 'bootstrap'),
+    dcc.Store(id='theme-store', data = 'morph'),
 ], fluid=True, class_name='mb-5')
 
 #dcc.Store(id='lyrics-store', data='')  # Store for lyrics data
@@ -134,7 +134,7 @@ clientside_callback(
 )
 def update_theme_store(n_clicks):
     isDarkMode = n_clicks % 2 == 1
-    return 'plotly_dark' if isDarkMode else 'bootstrap'
+    return 'plotly_dark' if isDarkMode else 'morph'
 
 # SPECIFIC CALLBACKS
 
@@ -411,7 +411,16 @@ def update_wordcloud(n_clicks):
     else:
         bg_color = '#d9e3f1'
     
-    return l.create_wordcloud(bg_color, l.all_lyrics)
+    updated = l.create_wordcloud(bg_color, l.all_lyrics)
+
+    if isDarkMode:
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    else: 
+        updated['layout']['paper_bgcolor'] = '#d9e3f1'
+        updated['layout']['plot_bgcolor'] = '#d9e3f1'
+    
+    return updated
 
 # TODO slider wordcloud when rerendering
 
