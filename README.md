@@ -105,39 +105,169 @@ sections in which important steps are explained to integrate plots into the webs
 
 ## Individual assignments
 
-| Phase                         | Task              | Assignee
-| :---------------------------- | :---------------- | :-------- |
-| Data acquisition and cleaning | Chord URLs        | Nike |
-|                               | Chords from URLs  | Henri |
-|                               | Song durations    | Sena |
-|                               | Song bpm          | Sena |
-|                               | Lyrics            | Mika |
-|                               | Top Tags          | Mika |
-| presentation                  | presentation week 1 pdf | Henri |
-|                               | presentation week 2 pdf | Henri |
-| poster                        | poster design     | Henri |
-|                               | plot export high res | Nike |
-|                               | texts             | Henri, Sena, Mika |
-|                               | github setup      | Henri & Nike |
-| Data processing               | calculate harmonies and progressions | Henri |
-| Website                       | setting up website structure and design | Nike |
-|                               | setting up hosting on render | Nike |
-|                               | Troubleshooting   | Nike |
-|                               | Texts on website  | Henri, Sena, Mika, Nike |
-| Vizualization                 | Chord frequency by year       | Nike |
-|                               | Chord frequency by Top Tags   | Nike |
-|                               | Harmonic progression by frequency | Henri |
-|                               | Main harmony by Top Tags      | Nike |
-|                               | Interval progression by absolute frequency | Henri |
-|                               | Variance of interval-length over year | Henri |
-|                               | Lyrics polarity               | Mika |
-|                               | Wordcloud                     | Mika |
-|                               | Wordfrequency                 | Mika |
-|                               | Average song duration         | Sena |
-|                               | Song duration distribution    | Sena | 
-|                               | Average tempo over year       | Sena |
-|                               | Implementing dynamic theme switch for plots | Henri & Nike |
-| misc.                         | documentation of process on github | Nike |
+
+<table>
+     <tr>
+          <th>Phase</th>
+          <th>Task</th>
+          <th>Assignee</th>
+     </tr>
+     <tr>
+          <td>Data acquisition and cleaning</td>     
+          <td>Chord URLs</td>
+          <td>Nike</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Chords from URLs</td>
+          <td>Henri</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Song durations</td>
+          <td>Sena</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Song bpm</td>
+          <td>Sena</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Lyrics</td>
+          <td>Mika</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Top Tags</td>
+          <td>Mika</td>
+     </tr>
+     <tr>
+          <td>presentation</td>
+          <td>presentation week 1 pdf</td>
+          <td>Henri</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>presentation week 2 pdf</td>
+          <td>Henri</td>
+     </tr>
+     <tr>
+          <td>poster</td>
+          <td>poster design</td>
+          <td>Henri</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>plot export high res</td>
+          <td>Nike</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>texts</td>
+          <td>Henri, Sena, Mika</td>
+     </tr>
+     <tr>
+          <td>Data processing</td>
+          <td>calculate harmonies and progressions</td>
+          <td>Henri</td>
+     </tr>
+     <tr>
+          <td>Website</td>
+          <td>setting up website structure and design</td>
+          <td>Nike</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>setting up hosting on render</td>
+          <td>Nike</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Troubleshooting & support</td>
+          <td>Nike</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>texts on website</td>
+          <td>Henri, Sena, Mika, Nike</td>
+     </tr>
+     <tr>
+          <td>Vizualization</td>
+          <td>Chord frequency by year</td>
+          <td>Nike</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Chord frequency by Top Tags</td>
+          <td>Nike</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Harmonic Progressions by frequency</td>
+          <td>Henri</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Main harmony by Top Tags</td>
+          <td>Nike</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Interval progression by absolute frequency</td>
+          <td>Henri</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Variance of interval-length over year</td>
+          <td>Henri</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Lyrics polarity</td>
+          <td>Mika</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Wordcloud</td>
+          <td>Mika</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Wordfrequency</td>
+          <td>Mika</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Average song duration</td>
+          <td>Sena</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Song duration distribution</td>
+          <td>Sena</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>Average tempo over year</td>
+          <td>Sena</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>implementing dynamic theme switch for plots</td>
+          <td>Henri & Nike</td>
+     </tr>
+     <tr>
+          <td>misc.</td>
+          <td>documentation of process on github</td>
+          <td>Nike</td>
+     </tr>
+     <tr>
+          <td></td>
+          <td>github setup</td>
+          <td>Henri & Nike</td>
+     </tr>
+</table>
 
 # Relevant Links
 - Meeting notes: https://docs.google.com/document/d/1ay493goKrk9lXcohRdS-Nmk4IwNVLyt5xk9RbDqi5Pc/edit?tab=t.0
