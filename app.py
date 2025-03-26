@@ -365,15 +365,22 @@ def update_tempo_plot(year_range, theme):
 ###################################
 #Polarity 
 # Callback für den Slider
-@callback(
+'''@callback(
     Output("lyrics_graph", "figure"),
     Input("year_slider", "value")
 )
 def update_graph(selected_year):
-    return get_figure(all_data, selected_year)
+    return get_figure(all_data, selected_year)'''
 
-##
+# Themeswitch polarity
+@callback(
+    Output('polarity-year-chart', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_polarity_year_chart(n_clicks):
+    return update_fig_template(n_clicks)
 
+# Theme switch wordcloud
 @callback(
     Output('wordcloud', 'figure'),
     Input('color-mode-switch', 'n_clicks')
@@ -390,6 +397,30 @@ def update_wordcloud(n_clicks):
     return l.create_wordcloud(bg_color, l.all_lyrics)
 
 # TODO slider wordcloud when rerendering
+
+# Top 20 Bigrams / Trigrams
+
+# Theme switch callback for xaxis yaxis figtype.
+@callback(
+    Output('bigram-trigram-barchart', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
+)
+def update_xaxis_yaxis_figtype(n_clicks):
+    return update_fig_template(n_clicks)
+
+@callback(
+    Output('bigram-trigram-barchart', 'figure', allow_duplicate=True),
+   [Input('bigram-trigram-radio', 'value'),
+    Input('theme-store', 'data')],
+    prevent_initial_call = True
+)
+def update_word_frequency_bigram_trigram(value, theme):
+    updated = l.create_word_frequency_bigram_trigram(value, theme)
+
+    if theme == 'plotly_dark':
+        updated['layout']['paper_bgcolor'] = '#212529'
+        updated['layout']['plot_bgcolor'] = '#212529'
+    return updated
 
 ###################################
 # GRAPH TEMPLATE pt.3
