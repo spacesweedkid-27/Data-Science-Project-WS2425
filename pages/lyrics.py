@@ -22,8 +22,8 @@ from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 
 dash.register_page(__name__)
 
-load_figure_template('morph')
-theme = 'morph' #  Initial theme that needs to be passed to graphs on load
+load_figure_template('bootstrap')
+theme = 'bootstrap' #  Initial theme that needs to be passed to graphs on load
 bg_color = '#212529'
 
 heading = dbc.Container('We got some information about tempo here')
@@ -113,8 +113,8 @@ blues_light_cm = ListedColormap(blues_cm(np.linspace(0.50, 1.00, 128)))
 
 def create_wordcloud(bgcolor, text = all_lyrics):
     wordcloud = WordCloud(
-        width = 800,
-        height = 400,
+        width = 1500,
+        height = 475,
         background_color = bgcolor,
         stopwords = STOP_WORDS
     ).generate(text)
@@ -147,8 +147,9 @@ def create_wordcloud(bgcolor, text = all_lyrics):
         )
     )
     fig.update_layout(
-        width = 800,
-        height = 400,
+        autosize = True,
+        #width = 800,
+        #height = 400,
         margin = dict(l=0, r=0, t=0, b=0),
         xaxis = dict(visible = False),
         yaxis = dict(visible = False)

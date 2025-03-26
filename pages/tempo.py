@@ -10,8 +10,8 @@ from dash_bootstrap_templates import load_figure_template
 
 dash.register_page(__name__)
 
-load_figure_template('morph')
-theme = 'morph' #  Initial theme that needs to be passed to graphs on load
+load_figure_template('bootstrap')
+theme = 'bootstrap' #  Initial theme that needs to be passed to graphs on load
 
 heading = dbc.Container('We got some information about tempo here')
 main_content = dbc.Container('Some information about this project goes here. '
@@ -113,10 +113,10 @@ def create_duration_years_bar_with_outliers(show_outliers, theme):
 
     if 'show' in show_outliers:
         df_to_use = df_original
-        title = "Average Song Durations Over 20 Years (With Outliers)"
+        #title = "Average Song Durations Over 20 Years (With Outliers)"
     else:
         df_to_use = remove_outliers_duration(df_original, "Duration_min")
-        title = "Average Song Durations Over 20 Years (Without Outliers)"
+        #title = "Average Song Durations Over 20 Years (Without Outliers)"
     
     df_grouped_duration = df_to_use.groupby("Year", as_index=False)["Duration_min"].mean()
     df_grouped_duration['Duration_formatted'] = df_grouped_duration['Duration_min'].apply(format_duration_min)
@@ -125,7 +125,7 @@ def create_duration_years_bar_with_outliers(show_outliers, theme):
     y_ticks = list(range(0, y_max))  
     y_labels = [format_duration_min(y) for y in y_ticks]  
     
-    fig = px.bar(df_grouped_duration, x="Year", y="Duration_min", title=title)
+    fig = px.bar(df_grouped_duration, x="Year", y="Duration_min")
     
     fig.update_traces(
         hovertemplate='<b>Year:</b> %{x}<br>' +
@@ -156,7 +156,7 @@ def create_duration_years_bar_with_outliers(show_outliers, theme):
     return fig
 
 def create_duration_boxplot(theme):
-    fig = px.box(df_all_years_duration, x="Year", y="Duration_min", title="Song Duration Distribution Per Year (With Outliers)")
+    fig = px.box(df_all_years_duration, x="Year", y="Duration_min")
     
     df_grouped_duration = df_all_years_duration.groupby("Year", as_index=False)["Duration_min"].mean()
     df_grouped_duration['Duration_formatted'] = df_grouped_duration['Duration_min'].apply(format_duration_min)
@@ -228,7 +228,6 @@ def create_tempo_plot_with_range(year_range, theme):
     filtered_grouped_tempo = df_filtered_tempo.groupby("Year", as_index=False)["Tempo"].mean()
     
     fig = px.scatter(df_filtered_tempo, x="Year", y="Tempo",
-                     title="Average Song Tempo (BPM) Over The Last 20 Years ",
                      labels={"Tempo": "Tempo (BPM)", "Year": "Year"})
     
     # Line for average tempo values

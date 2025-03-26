@@ -10,9 +10,11 @@ import dash
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import load_figure_template
 import plotly.io as pio
+from base64 import b64encode # Only used for saving high res plot images.
+import random # Only for saving high res plot images
 
 app = Dash(__name__,
-    external_stylesheets=[dbc.themes.MORPH, dbc.icons.FONT_AWESOME],
+    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME],
     use_pages=True
 ) 
 server=app.server
@@ -36,12 +38,12 @@ import data_collection.scripts.numerize_chords as nc
 # Design-specific stuff, do not touch or I'll cry.
 ###################################
 
-templates = ['morph']
+templates = ['bootstrap']
 load_figure_template(templates)
 
 def update_fig_template(n_clicks):
     isDarkMode = n_clicks % 2 == 1
-    template = pio.templates['plotly_dark'] if isDarkMode else pio.templates['morph']
+    template = pio.templates['plotly_dark'] if isDarkMode else pio.templates['bootstrap']
     
     patched_fig = Patch()
     patched_fig['layout']['template'] = template
@@ -98,7 +100,7 @@ app.layout = dbc.Container([
     #  Holds dynamic page data.
     dash.page_container,
     #  Invisible storage for active theme.
-    dcc.Store(id='theme-store', data = 'morph'),
+    dcc.Store(id='theme-store', data = 'bootstrap'),
 ], fluid=True, class_name='mb-5')
 
 #dcc.Store(id='lyrics-store', data='')  # Store for lyrics data
@@ -132,7 +134,7 @@ clientside_callback(
 )
 def update_theme_store(n_clicks):
     isDarkMode = n_clicks % 2 == 1
-    return 'plotly_dark' if isDarkMode else 'morph'
+    return 'plotly_dark' if isDarkMode else 'bootstrap'
 
 # SPECIFIC CALLBACKS
 
@@ -174,6 +176,15 @@ def update_heatmap(min_frequency, shrink_chords, theme):
     if theme == 'plotly_dark':
         updated_heatmap_fig['layout']['paper_bgcolor'] = '#212529'
         updated_heatmap_fig['layout']['plot_bgcolor'] = '#212529'
+
+    # save image automatically
+    #updated_heatmap_fig.write_image(
+    #    file = f'plot_images/chords_years_heatmap{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 650,
+    #    scale = 5
+    #    )
+
     return updated_heatmap_fig
 
 # Callback for chordfrequency by toptags slider.
@@ -198,6 +209,14 @@ def update_chords_toptags_bubble(min_frequency, theme):
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
 
+    # save image automatically
+    #updated.write_image(
+    #    file = f'plot_images/chords_toptags{random.randint(0,1000)}.svg',
+    #    width = 1224,
+    #    height = 600,
+    #    scale = 1
+    #)
+
     return updated
 
 # Callbacks for harmony barchart. 
@@ -221,6 +240,15 @@ def update_bar_chart_harmony(min_frequency, theme):
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+    
+    # save image automatically
+    #updated.write_image(
+    #    file = f'plot_images/harmony_bar{random.randint(0,1000)}.svg',
+    #    width = 1224,
+    #    height = 450,
+    #    scale = 1
+    #)
+    
     return updated
 
 @callback(
@@ -313,6 +341,15 @@ def update_duration_years_bar(show_outliers, theme):
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+    
+    # save image automatically
+    #updated.write_image(
+    #    file = f'plot_images/duration_years{random.randint(0,1000)}.svg',
+    #    width = 1224,
+    #    height = 400,
+    #    scale = 1
+    #)
+
     return updated
 
 # Duration Boxplot Themeswitch.
@@ -347,6 +384,15 @@ def update_tempo_plot(year_range, theme):
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+
+    # save image automatically
+    #updated.write_image(
+    #   file = f'plot_images/tempo_years{random.randint(0,1000)}.svg',
+    #   width = 1224,
+    #   height = 400,
+    #   scale = 1
+    #)
+
     return updated
 
 ###################################
