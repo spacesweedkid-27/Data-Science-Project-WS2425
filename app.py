@@ -332,12 +332,12 @@ def update_duration_years_bar_theme(n_clicks):
 # Duration slider callback
 @callback(
     Output('duration-years-bar', 'figure', allow_duplicate=True),
-   [Input('duration-years-bar-toggle', 'value'),
-    Input('theme-store', 'data')],
+   #[Input('duration-years-bar-toggle', 'value'),]
+    Input('theme-store', 'data'),
     prevent_initial_call = True
 )
 def update_duration_years_bar(show_outliers, theme):
-    updated = t.create_duration_years_bar_with_outliers(show_outliers, theme)
+    updated = t.create_duration_years_bar_with_outliers([], theme)
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'

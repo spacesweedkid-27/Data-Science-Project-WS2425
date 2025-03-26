@@ -294,17 +294,17 @@ xaxis_yaxis_figtype_slider = dcc.Slider(
 ###################################
 
 # Define the toggle for the Duration bar chart
-duration_years_bar_toggle = dcc.Checklist(
-    id='duration-years-bar-toggle',
-    options=[{'label': 'Outlier', 'value': 'show'}],
-    value=['show'],
-    inline=True
-)
+#duration_years_bar_toggle = dcc.Checklist(
+#    id='duration-years-bar-toggle',
+#    options=[{'label': 'Outlier', 'value': 'show'}],
+#    value=['show'],
+#    inline=True
+#)
 
 # Container for the duration bar chart
 duration_years_bar = dbc.Container([
     html.H3('Average Song Duration Over the Years'),
-    duration_years_bar_toggle,
+    #duration_years_bar_toggle,
     dcc.Graph(
         id='duration-years-bar',
         figure=init_duration_years_bar
