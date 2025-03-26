@@ -81,7 +81,35 @@ songs and those mostly correlate to specific genres. By querying the last.FM API
 `data/Billboard_lyrics/Billboard_Lyrics_Top_Tags/*.csv`.
 
 ## notes on main harmony and harmonic progression
-Henri, please do this, you are better equipped to explain your algorithm than me.
+We wanted to extract the main harmonic progression because they make songs in different key-signature comparable: <br>
+A popular progression that is written (I, IV, V, I) can be played in C-major with chords (C, F, G, C), but also in, for example, A-minor with chords (Am, Dm, Em, Am) which differ not only in main chord-key but also in mode, but use the same _idea_. <br>
+When it comes down of how original individual songs are, we can use harmonic progressions as an efficient feature extraction.
+
+The algorithm to find the main harmonic progression looks like this:
+1. Find key signature of song (`numerize_chords.identify_key_2`)
+     1. For each chord assume that the song is played in the key signature the chord would provide.
+     2. Give the current assumed mode a rating for each chord in the song based on how well it would fit. <br>
+     Here we add for the I a rating of 2, the other harmonics of the key signature a rating of 1 and chords that are not fitting a rating of 0. <br>
+     It is important here to notice that the scoring in major and minor mode is different, since the measure has different intervals.
+     3. After going through all possible modes pick the mode with the best score if the rating is _confident_ enough. <br>
+     If not, pick the first chord as the key signature.
+
+Generally this algorithm picks the chord as key signature that is played most, since it accumulates most points, but in case of a tiebreak, the other harmonic chords give a decisive score.
+
+2. Determine harmonic position (I, II, etc.) of each chord in the song, use 0 if it does not fit (`numerize_chords.convert_song_to_harmony`) <br>
+By using the key signature derived from the previous algorithm which determines the position and mode of the main harmonic chord - the _tonic_ chord, we can derive the harmonic position of all other chords. <br>
+At this moment, cover-songs of the same song that would be played in a different key, or even in a different mode, even though this might confuse the listener, would be equivalent with same numerical representation as a long tuple.
+3. Extract main harmonic progression (`process_harmonies.identify_main_harmony_2`) <br>
+Here we use a heuristic approach to determine the harmonic portion that repeats maximally.
+     1. We start with an empty tuple as our temporary solution.
+     2. For each iteration we find the harmonic chord that most frequently follows the temporary solution and append it.
+     3. If the temporary solution contains a full repetition, like (1,2) in (1,2,1,2), return the repetition.
+     4. If there were no direct repetitions of the temporary solution in the song we return the 4-bar repetition with highest confidence.
+
+We extracted the harmonies, main harmonies, the intervals in half steps between each chord `numerize_chords.convert_song_to_interval_difference`, their variance `numerize_chords.variance_of_intervals` and the main interval distances into our csvs.
+
+Later we noticed, that we can also use the main interval distances to find the main harmonic progressions without having to identify the tonic chord position, since a repetition in half steps like (-5, -5, 2, -4), which was the most popular main interval repetition (see website) can be played with the notes C, G, A, F which makes only sense if played in C-major with the chords (C, G, Am, F) which maps to the harmonic progression (I, V, VI, IV) in major mode. <br>
+This approach could be used in further studies to compose an algorithm to find main harmonic progressions.
 
 ## notes on the website structure
 To keep the files holding the website data organized, we opted for dynamically loading
