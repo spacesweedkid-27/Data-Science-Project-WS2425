@@ -9,6 +9,8 @@ import nltk
 from dash_bootstrap_templates import load_figure_template
 from collections import Counter
 from nltk.util import ngrams
+import nltk
+nltk.download('punkt_tab')
 from wordcloud import WordCloud
 import base64
 from io import BytesIO
@@ -74,9 +76,10 @@ STOP_WORDS = {"wan", "na", "ta", "ca", 'nigga'}
 ###################################
 # POLARITY CHART INTERACTIVE
 
+
+
 ###################################
 # MOST FREQUENT WORDS/BIGRAMMS/TRIGRAMMS
-
 
 # Create function for n-gram frequency analysis
 def get_ngram_frequencies(text, n=1, top_n=20):
@@ -93,16 +96,22 @@ def get_ngram_frequencies(text, n=1, top_n=20):
     return freq.most_common(top_n)
 
 # Define the helper function to generate the word frequency chart
-def create_word_frequency_chart(n):
+def create_word_frequency_chart(n, theme):
     freq_data = get_ngram_frequencies(all_lyrics, n)
     words, counts = zip(*freq_data)
     words = [" ".join(w) if isinstance(w, tuple) else w for w in words]
     
     # Basic bar chart with Plotly Express
-    fig = px.bar(x=words, y=counts, labels={"x": "Words/Phrases", "y": "Frequency"},
-                 title=f"Top {len(words)} Most Frequent {'Words' if n==1 else 'Phrases'}",
-                 text_auto=True)
+    fig = px.bar(x=words,
+                 y=counts,
+                 labels={"x": "Words/Phrases", "y": "Frequency"},
+                 text_auto=True,
+                 template = theme)
     return fig
+
+n = 1  # Top 20 most frequent words, subject to change from filters.
+
+init_word_frequency_chart = create_word_frequency_chart(n, theme)
 
 ###################################
 # WORD CLOUD
@@ -175,7 +184,10 @@ wordcloud = dbc.Container([
 # Any related callbacks need to be defined in app.py
 # Name these elements precicesly and plugg them into the layout below.
 
-polarity_chart = dcc.Graph(id="polarity-chart")
+polarity_chart = dcc.Graph(
+    id="polarity-chart",
+    figure = init_word_frequency_chart
+    )
 ngram_slider = dcc.Slider(
     id="ngram-slider",
     min=1,
