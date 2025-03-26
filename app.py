@@ -211,10 +211,10 @@ def update_chords_toptags_bubble(min_frequency, theme):
 
     # save image automatically
     #updated.write_image(
-    #    file = f'plot_images/chords_toptags{random.randint(0,1000)}.svg',
+    #    file = f'plot_images/chords_toptags{random.randint(0,1000)}.png',
     #    width = 1224,
     #    height = 600,
-    #    scale = 1
+    #    scale = 5
     #)
 
     return updated
@@ -243,10 +243,10 @@ def update_bar_chart_harmony(min_frequency, theme):
     
     # save image automatically
     #updated.write_image(
-    #    file = f'plot_images/harmony_bar{random.randint(0,1000)}.svg',
+    #    file = f'plot_images/harmony_bar{random.randint(0,1000)}.png',
     #    width = 1224,
     #    height = 450,
-    #    scale = 1
+    #    scale = 5
     #)
     
     return updated
@@ -315,6 +315,14 @@ def update_harmonies_toptags_bubble(min_frequency, theme):
     if theme == 'plotly_dark':
         updated['layout']['paper_bgcolor'] = '#212529'
         updated['layout']['plot_bgcolor'] = '#212529'
+    
+    # save image automatically
+    #updated.write_image(
+    #    file = f'plot_images/harmonies_toptags{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 600,
+    #    scale = 5
+    #)
     return updated
 
 
@@ -344,10 +352,10 @@ def update_duration_years_bar(show_outliers, theme):
     
     # save image automatically
     #updated.write_image(
-    #    file = f'plot_images/duration_years{random.randint(0,1000)}.svg',
+    #    file = f'plot_images/duration_years{random.randint(0,1000)}.png',
     #    width = 1224,
     #    height = 400,
-    #    scale = 1
+    #    scale = 5
     #)
 
     return updated
@@ -387,10 +395,10 @@ def update_tempo_plot(year_range, theme):
 
     # save image automatically
     #updated.write_image(
-    #   file = f'plot_images/tempo_years{random.randint(0,1000)}.svg',
-    #   width = 1224,
-    #   height = 400,
-    #   scale = 1
+    #    file = f'plot_images/tempo_years{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 400,
+    #    scale = 3.8
     #)
 
     return updated

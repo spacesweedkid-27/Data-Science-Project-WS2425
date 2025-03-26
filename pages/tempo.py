@@ -235,8 +235,8 @@ def create_tempo_plot_with_range(year_range, theme):
                     mode="lines", name="Average", line=dict(width=2))
     
     fig.update_layout(
-        xaxis=dict(type='category'),
-        yaxis=dict(title="Tempo (BPM)"),
+        xaxis=dict(type='category', automargin=True),
+        yaxis=dict(title="Tempo (BPM)", automargin=True),
         template = theme,
     )
     
@@ -331,6 +331,7 @@ tempo_year_range_slider = dcc.RangeSlider(
 # Container for the Tempo plot
 tempo_plot = dbc.Container([
     html.H3('Average Tempo Over the Years'),
+    tempo_year_range_slider,
     dcc.Graph(
         id='tempo-plot',
         figure=init_tempo_plot
@@ -343,4 +344,4 @@ layout = html.Div([heading,
                    duration_years_bar,
                    duration_boxplot,
                    tempo_plot,
-                   tempo_year_range_slider])
+                   ])

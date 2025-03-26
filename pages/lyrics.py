@@ -18,7 +18,7 @@ import re
 import random
 import matplotlib as mpl
 import numpy as np # Sorry
-from matplotlib.colors import LinearSegmentedColormap, ListedColormap
+from matplotlib.colors import ListedColormap
 
 dash.register_page(__name__)
 
@@ -117,6 +117,7 @@ def create_wordcloud(bgcolor, text = all_lyrics):
         width = 1500,
         height = 535,
         background_color = bgcolor,
+        #background_color = '#ffffff',
         stopwords = STOP_WORDS
     ).generate(text)
     if bgcolor == '#d9e3f1':
