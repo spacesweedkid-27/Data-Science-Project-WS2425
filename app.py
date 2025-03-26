@@ -363,6 +363,16 @@ def update_tempo_plot(year_range, theme):
 ###################################
 # LYRICS
 ###################################
+#Polarity 
+# Callback für den Slider
+@callback(
+    Output("lyrics_graph", "figure"),
+    Input("year_slider", "value")
+)
+def update_graph(selected_year):
+    return get_figure(all_data, selected_year)
+
+##
 
 @callback(
     Output('wordcloud', 'figure'),
