@@ -20,6 +20,13 @@ main_content = dbc.Container('Some information about this project goes here. '
 'being listed in the official requirements provided by CAU, it still holds a lot'
 'of value from a scientific standpoint.')
 
+heading = dbc.Container(html.H3('About the time information'))
+intro_content = dbc.Container('This page looks at how song duration and '
+'tempo have changed over the past 20 years using data from Spotify’s API and SongBPM.com.'
+' Getting track durations from Spotify was pretty straightforward since their API provides that info directly. '
+'SongBPM.com, on the other hand, doesn’t have a public API, so the tempo data was pulled by finding each song’s URL and extracting the BPM from there. '
+'Over the last three years this became trickier because the site changed its URL structure, making it more difficult to retrieve tempo information.')
+
 ###################################
 # GRAPHS
 ###################################
@@ -352,7 +359,8 @@ tempo_plot = dbc.Container([
 
 # MAIN LAYOUT
 layout = html.Div([heading,
-                   main_content,
+                   #main_content,
+                   intro_content,
                    duration_years_bar,
                    duration_boxplot,
                    tempo_plot,
