@@ -8,9 +8,6 @@ import plotly.express as px
 import nltk
 from dash_bootstrap_templates import load_figure_template
 from collections import Counter
-from nltk.util import ngrams
-import nltk
-nltk.download('punkt_tab')
 from wordcloud import WordCloud
 import base64
 from io import BytesIO

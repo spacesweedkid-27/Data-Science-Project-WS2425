@@ -13,13 +13,6 @@ dash.register_page(__name__)
 load_figure_template('morph')
 theme = 'morph' #  Initial theme that needs to be passed to graphs on load
 
-heading = dbc.Container('We got some information about tempo here')
-main_content = dbc.Container('Some information about this project goes here. '
-'This content answers questions about what data sources we used, how the data '
-'was processed and what assumptions were made. Whilest this information not '
-'being listed in the official requirements provided by CAU, it still holds a lot'
-'of value from a scientific standpoint.')
-
 heading = dbc.Container(html.H3('About the time information'))
 intro_content = dbc.Container('This page looks at how song duration and '
 'tempo have changed over the past 20 years using data from Spotify’s API and SongBPM.com.'

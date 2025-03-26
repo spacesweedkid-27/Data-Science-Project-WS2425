@@ -11,9 +11,7 @@ import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import load_figure_template
 import plotly.io as pio
 from base64 import b64encode # Only used for saving high res plot images.
-import nltk
 
-nltk.download('punkt_tab')
 
 app = Dash(__name__,
     external_stylesheets=[dbc.themes.MORPH, dbc.icons.FONT_AWESOME],
