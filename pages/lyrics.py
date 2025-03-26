@@ -5,26 +5,30 @@ from dash import dcc, html, callback
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import plotly.express as px
-from textblob import TextBlob
-import numpy as np
 import nltk
 from dash_bootstrap_templates import load_figure_template
 from collections import Counter
 from nltk.util import ngrams
+import nltk
 from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 import glob
 import os
 import re
 import random
+import matplotlib as mpl
+import numpy as np # Sorry
+from matplotlib.colors import ListedColormap
+from textblob import TextBlob
+
+nltk.data.path.append('nltk_data')
 
 dash.register_page(__name__)
 
 load_figure_template('morph')
 theme = 'morph' #  Initial theme that needs to be passed to graphs on load
-bg_color = '#212529'
+bg_color = '#d9e3f1'
 
 heading = dbc.Container('We got some information about tempo here')
 main_content = dbc.Container('Some information about this project goes here. '
@@ -37,7 +41,7 @@ screaming = dbc.Container('NEVER GONNA GIVE YOU UP, NEVER GONNA LET YOU DOWN, '
 'SAY GOODBYE, NEVER GONNA TELL A LIE AND HURT YOU!')
 
 # Verzeichnis und CSV-Dateien laden
-folder_path = "data/Billboard_lyrics/BillBoard_Lyrics_preprocessed"
+folder_path = "data/Billboard_lyrics/Billboard_Lyrics_preprocessed/"
 file_paths = glob.glob(os.path.join(folder_path, "billboard_*.csv"))
 
 ###################################
@@ -69,7 +73,7 @@ all_data = pd.concat(dataframes, ignore_index=True)
 all_lyrics = " ".join(all_data["Lyrics"].dropna()).lower()
 
 # Define STOP_WORDS
-STOP_WORDS = {"wan", "na", "ta", "ca"}
+STOP_WORDS = {"wan", "na", "ta", "ca", 'nigga'}
 
 ###################################
 # POLARITY CHART INTERACTIVE
@@ -178,7 +182,6 @@ fig.update_layout(
 ###################################
 # MOST FREQUENT WORDS/BIGRAMMS/TRIGRAMMS
 
-
 # Create function for n-gram frequency analysis
 def get_ngram_frequencies(text, n=1, top_n=20):
     tokens = nltk.word_tokenize(text)
@@ -194,51 +197,43 @@ def get_ngram_frequencies(text, n=1, top_n=20):
     return freq.most_common(top_n)
 
 # Define the helper function to generate the word frequency chart
-def create_word_frequency_chart(n):
+def create_word_frequency_chart(n, theme):
     freq_data = get_ngram_frequencies(all_lyrics, n)
     words, counts = zip(*freq_data)
     words = [" ".join(w) if isinstance(w, tuple) else w for w in words]
     
     # Basic bar chart with Plotly Express
-    fig = px.bar(x=words, y=counts, labels={"x": "Words/Phrases", "y": "Frequency"},
-                 title=f"Top {len(words)} Most Frequent {'Words' if n==1 else 'Phrases'}",
-                 text_auto=True)
+    fig = px.bar(x=words,
+                 y=counts,
+                 labels={"x": "Words/Phrases", "y": "Frequency"},
+                 text_auto=True,
+                 template = theme)
     return fig
 
+n = 1  # Top 20 most frequent words, subject to change from filters.
+
+init_word_frequency_chart = create_word_frequency_chart(n, theme)
+
 ###################################
-# WORD CLOUDS
+# WORD CLOUD
 
-# Create Word Cloud
-# Word Cloud Generation Function
-'''def create_wordcloud(text, bgcolor):
-    wordcloud = WordCloud(
-        width=800,
-        height=400,
-        background_color=bgcolor,
-        stopwords=STOP_WORDS).generate(text)
-    img = BytesIO()
-    plt.figure(figsize=(10, 5))
-    plt.imshow(wordcloud, interpolation="bilinear")
-    plt.axis("off")
-    plt.savefig(img, format="png")
-    plt.close()
-    img.seek(0)
-    return "data:image/png;base64," + base64.b64encode(img.read()).decode()'''
-
-def generate_wordcloud_blue_colors():
-    return (f'rgb({random.randint(0,100)},{random.randint(0,100)},{random.randint(100,255)})')
+# Colormap for light theme.
+blues_cm = mpl.colormaps['Blues']
+blues_light_cm = ListedColormap(blues_cm(np.linspace(0.50, 1.00, 128)))
+blues_dark_cm = ListedColormap(blues_cm(np.linspace(0.00, 0.80, 204)))
 
 def create_wordcloud(bgcolor, text = all_lyrics):
     wordcloud = WordCloud(
-        width = 800,
-        height = 400,
+        width = 1500,
+        height = 535,
         background_color = bgcolor,
+        #background_color = '#ffffff',
         stopwords = STOP_WORDS
     ).generate(text)
     if bgcolor == '#d9e3f1':
-        wordcloud.recolor(colormap = 'ocean') # light background
+        wordcloud.recolor(colormap = blues_light_cm)
     else:
-        wordcloud.recolor(colormap = 'Blues')
+        wordcloud.recolor(colormap = blues_dark_cm)
 
     img = wordcloud.to_image()
 
@@ -264,8 +259,9 @@ def create_wordcloud(bgcolor, text = all_lyrics):
         )
     )
     fig.update_layout(
-        width = 800,
-        height = 400,
+        autosize = True,
+        #width = 1500 * 0.843,
+        #height = 450 * 0.843,
         margin = dict(l=0, r=0, t=0, b=0),
         xaxis = dict(visible = False),
         yaxis = dict(visible = False)
@@ -278,7 +274,7 @@ init_wordcloud_img = create_wordcloud(bg_color, all_lyrics)
 wordcloud = dbc.Container([
     html.H3('Wordcloud'),
     html.P('Controls go here'),
-    dcc.Graph(figure = init_wordcloud_img, id = 'wordcloud')
+    dcc.Graph(figure = init_wordcloud_img, id = 'wordcloud', className='d-grid d-md-block mx-auto')
 ], class_name='mt-3')
 
 ###################################
@@ -289,7 +285,10 @@ wordcloud = dbc.Container([
 # Any related callbacks need to be defined in app.py
 # Name these elements precicesly and plugg them into the layout below.
 
-polarity_chart = dcc.Graph(id="polarity-chart")
+polarity_chart = dcc.Graph(
+    id="polarity-chart",
+    figure = init_word_frequency_chart
+    )
 ngram_slider = dcc.Slider(
     id="ngram-slider",
     min=1,
@@ -299,8 +298,6 @@ ngram_slider = dcc.Slider(
     value=1,
 )
 word_frequency_chart = dcc.Graph(id="word-frequency-chart")
-'''word_cloud = html.Img(src=init_wordcloud_img,
-                      style={"width": "100%", "height": "auto"})'''
 
 ###################################
 # MAIN LAYOUT
@@ -328,7 +325,7 @@ layout = html.Div([
 
 layout = html.Div([ 
     # Store lyrics data for use in callbacks
-    dcc.Store(id='lyrics-store', data=all_lyrics),  # Store data here
+    #dcc.Store(id='lyrics-store', data=all_lyrics),  # Store data here
     
     heading,
     main_content,

@@ -17,7 +17,6 @@ import plotly.express as px
 from textblob import TextBlob
 import numpy as np
 from collections import Counter
-from nltk.util import ngrams
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import base64
@@ -31,6 +30,7 @@ app = Dash(__name__,
     use_pages=True
 ) 
 server=app.server
+
 
 # We'll need to call some functions lateron to dynamically
 # change the graphs generated on the embedded pages.

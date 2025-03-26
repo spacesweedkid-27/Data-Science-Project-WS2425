@@ -6,9 +6,10 @@ from textblob import TextBlob
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.io as pio
+import random
 
 # Define the folder path
-folder_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\BillBoard_Lyrics_preprocessed"
+folder_path = r"/Users/kapviq/Library/Mobile Documents/com~apple~CloudDocs/studies /CAU/sem5/DataScienceProject/Data-Science-Project-WS2425/data/Billboard_lyrics/Billboard_Lyrics_preprocessed"
 
 # Get all CSV file paths
 file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
@@ -86,7 +87,6 @@ def update_fig_template(n_clicks):
     width=4000,  # Increase width for higher resolution
     height=2200,  # Increase height for higher resolution
     
-    title="Average Song Polarity over the Years",
     xaxis_title="Year",
     yaxis_title="Average Polarity",
     showlegend=False,  
@@ -109,7 +109,17 @@ def update_fig_template(n_clicks):
     ),
     title_font=dict(color='black', size=16),  
     bargap=0.1  # Reduces space between bars
+
     )
+    # high res export
+    #fig.write_image(
+    #   file = f'/Users/kapviq/Library/Mobile Documents/com~apple~CloudDocs/studies /CAU/sem5/DataScienceProject/Data-Science-Project-WS2425/{random.randint(0,1000)}.png',
+    #    width = 1224,
+    #    height = 650,
+    #    scale = 4
+    #)
+
+    
 
     return fig  
 
