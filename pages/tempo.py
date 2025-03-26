@@ -20,6 +20,13 @@ main_content = dbc.Container('Some information about this project goes here. '
 'being listed in the official requirements provided by CAU, it still holds a lot'
 'of value from a scientific standpoint.')
 
+heading = dbc.Container(html.H3('About the time information'))
+intro_content = dbc.Container('This page looks at how song duration and '
+'tempo have changed over the past 20 years using data from Spotify’s API and SongBPM.com.'
+' Getting track durations from Spotify was pretty straightforward since their API provides that info directly. '
+'SongBPM.com, on the other hand, doesn’t have a public API, so the tempo data was pulled by finding each song’s URL and extracting the BPM from there. '
+'Over the last three years this became trickier because the site changed its URL structure, making it more difficult to retrieve tempo information.')
+
 ###################################
 # GRAPHS
 ###################################
@@ -304,6 +311,10 @@ xaxis_yaxis_figtype_slider = dcc.Slider(
 # Container for the duration bar chart
 duration_years_bar = dbc.Container([
     html.H3('Average Song Duration Over the Years'),
+    html.P('This graph shows the average duration of songs for each year, providing insights into how song lengths have changed over the past 20 years (without outliers).'
+           ' The average song length has dropped from around 4:00 minutes in 2005 to about 3:20 minutes in 2024, showing a decrease of roughly 17% and an overall downward trend.'
+           ' The most noticeable drop happened between 2017 and 2019, suggesting a major shift in the music industry or trends during that time.', 
+           className='text-muted mb-3'),
     #duration_years_bar_toggle,
     dcc.Graph(
         id='duration-years-bar',
@@ -314,6 +325,10 @@ duration_years_bar = dbc.Container([
 # Comtaimer for boxplot
 duration_boxplot = dbc.Container([
     html.H3('Song Duration Distribution'),
+    html.P('This graph highlights the outliers in song durations across different years.'
+           ' Outliers are either unusually short or exceptionally long tracks.'
+           ' Removing outliers can provide a more accurate representation of trends, as extremely short or long tracks can alter average duration calculations.', 
+           className='text-muted mb-3'),
     dcc.Graph(id='duration-boxplot', figure=init_duration_boxplot)
 ], class_name='mt-3')
 
@@ -331,6 +346,10 @@ tempo_year_range_slider = dcc.RangeSlider(
 # Container for the Tempo plot
 tempo_plot = dbc.Container([
     html.H3('Average Tempo Over the Years'),
+    html.P('This plot illustartes the tempo distribution of songs over the years, showing individual song tempos and the average trend over time.'
+           ' The red line indicates that the average tempo has remained surprisingly consistent, around 120-125 BPM.'
+           ' This consistency suggests that despite changes in music the tempo of popular music has remained remarkably unchanged.', 
+           className='text-muted mb-3'),
     tempo_year_range_slider,
     dcc.Graph(
         id='tempo-plot',
@@ -340,7 +359,8 @@ tempo_plot = dbc.Container([
 
 # MAIN LAYOUT
 layout = html.Div([heading,
-                   main_content,
+                   #main_content,
+                   intro_content,
                    duration_years_bar,
                    duration_boxplot,
                    tempo_plot,
