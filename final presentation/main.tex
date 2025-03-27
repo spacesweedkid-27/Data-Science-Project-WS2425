@@ -1,0 +1,119 @@
+\input{../praeambel.tex}
+
+
+\usepackage{qrcode}
+\usepackage{setspace}
+
+\addbibresource{../poster/references.bib}
+%\renewcommand{\bibfont}{\tiny}
+
+%\setbeamertemplate{blocks}[default] % Remove the shadows and borders of blocks.
+
+%\setbeamercolor{bibliography item}{fg=bonewhite}
+%\setbeamercolor{bibliography entry author}{fg=bonewhite}
+%\setbeamercolor{bibliography entry title}{fg=bonewhite}
+%\setbeamercolor{bibliography entry location}{fg=bonewhite}
+%\setbeamercolor{bibliography entry note}{fg=bonewhite}
+%\setbeamercolor{background canvas}{bg=bonewhite}
+
+%\setbeamerfont{block title}{size=\Large, series=\bfseries}
+
+\author[H. Heyden \and M. Materzok \and N. Pulow \and S. Şimşek]{Henri Heyden \and Mika Materzok \and Nike Pulow \and Senanur Şimşek}
+\title{What made Music popular?}
+\date{March 28, 2025}
+\subtitle{A Retrospective of the last 20 Years}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % - How did song duration change over the years?
+    % - How did song tempo change over the years?
+    % Y What chord-progressions repeat most frequently?
+    % Y Do certain chord(-progressions) dominate specific genres?
+    % Y What chords and chord types dominate over the years?
+    % N How variant are the intervals that are being played?
+    % Y Which words and combinations are the most frequent?
+    % Y How did lyric polarity change? 
+
+\begin{document}
+\maketitle
+\section{Motivation}
+\begin{frame}{Motivation}
+    \begin{center}
+    \begin{minipage}{0.4\textwidth}
+    \doublespacing
+    \textquote{I think music in itself is healing.\\It's an explosive expression of humanity.\\It's something we are all touched by.\\No matter what culture we're from,\\everyone loves music.} -- \textit{Billy Joel}
+    \end{minipage}
+    \end{center}
+\end{frame}
+
+\section{What we wanted to know}
+\begin{frame}[allowframebreaks]{What we wanted to know}
+    \begin{block}{Generally}
+    How did various musical/lyrical elements vary in the most popular songs of the last 20 years?
+    \end{block}
+
+    \framebreak
+
+    \begin{block}{Concrete}
+    \onehalfspacing
+    \begin{itemize}
+        \item Rhythm \begin{itemize}
+                \item How did song duration change?
+                \item How did song tempo change?
+            \end{itemize}
+        \item Chords \begin{itemize}
+                \item What chord-progressions repeat most frequently?
+                \item Do certain chord-progressions dominate specific genres?
+                \item What chords and chord types dominate?
+                \item How variant are the intervals between chords?
+            \end{itemize}
+        \item Lyrics \begin{itemize}
+                \item Which words and combinations are the most frequent?
+                \item How did lyric polarity change?
+            \end{itemize}
+    \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{How we found out}
+\subsection{Data Sources}
+\begin{frame}{Data Sources}
+    \begin{itemize}
+        \item \textbf{Main source:} \textcite{bill} of 2005 up to 2024 with a (Title, Artist) table for each year.
+        \item \textbf{Refined sources using songs from the main source:}
+            \begin{itemize}
+                \item \textcite{spot} for song duration
+                \item \textcite{sbpm} webscraping for tempo
+                \item \textcite{ug} webscraping for chords
+                \item \textcite{lastfm} for \textquote{topTags} (genres)
+                \item \textcite{lyr} for lyrics and \textcite{pol} for analysis
+            \end{itemize}
+        \end{itemize}
+\end{frame}
+\subsection{Data Collection}
+\begin{frame}{Data Collection}
+    \begin{itemize}
+        \item Rhythm
+        \begin{enumerate}
+            \item For each song retrieve duration \autocite{spot} and tempo \autocite{sbpm}
+            \item Create (Title, Artist, Duration) and (Title, Artist, Tempo) tables.
+        \end{enumerate}
+        \item Chords
+        \begin{enumerate}
+            \item Use chord-link finder to search for links on \textcite{ug} for each (Title, Artist) tuple.
+            \item Run chord webscraper to scrape each chord for found song links.
+            \item Create (Title, Artist, Chords) tables.
+            \item Scrape genres from \textcite{lastfm} and create (Title, Artist, Top\_Tags) table.
+        \end{enumerate}
+        \item Lyrics
+        \begin{enumerate}
+            \item Use \textcite{lyr} to retrieve links to lyrics.
+            \item Scrape all lyrics and create (Title, Artist, Lyrics\_URL, Lyrics) tables.
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+\begin{frame}{References}
+    \printbibliography
+\end{frame}
+\end{document}
+
