@@ -8,10 +8,9 @@ import numpy as np
 
 # Load and combine the csv files
 folder_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\BillBoard_Lyrics_preprocessed"
-
 file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
-dataframes = []
 
+dataframes = []
 for file in file_paths:
     filename = os.path.basename(file)
     match = re.search(r'(\d{4})', filename)  # extract what year it is from the file name
@@ -19,7 +18,6 @@ for file in file_paths:
         year = int(match.group(1))
     else:
         continue
-
     df = pd.read_csv(file)
     df['Year'] = year
     dataframes.append(df)
@@ -30,8 +28,9 @@ else:
     raise ValueError("Keine gültigen CSV-Dateien gefunden.")
 
 # Function to calculate the Word polarity
+# Below function was modified with the help of ChatGPT
 def get_word_polarity(text):
-    if isinstance(text, str):  
+    if isinstance(text, str):
         words = text.split()
         polarities = [TextBlob(word).sentiment.polarity for word in words]
         return polarities
@@ -39,7 +38,7 @@ def get_word_polarity(text):
 
 all_data['Polarity'] = all_data['Lyrics'].apply(get_word_polarity)
 
-# preprare data for visualisation
+# Prepare data for visualization
 years = list(range(2005, 2025))
 polarities_by_year = {year: [] for year in years}
 mean_polarities = {}
@@ -49,12 +48,12 @@ for year in years:
     if not yearly_data.empty:
         all_polarities = [p for sublist in yearly_data['Polarity'] for p in sublist]
         polarities_by_year[year] = all_polarities
-        mean_polarities[year] = np.mean(all_polarities) if all_polarities else 0  # Durchschnitt berechnen
+        mean_polarities[year] = np.mean(all_polarities) if all_polarities else 0  # Calculate avarage
     else:
         mean_polarities[year] = 0
 
-# Interactive Visualization 
-# Below function has been modified with the help of Chatgpt
+# Interactive Visualization
+# Below function was modified with the help of ChatGPT
 fig = go.Figure()
 
 for year in years:
@@ -64,40 +63,26 @@ for year in years:
     negative = polarities[polarities < 0]
     neutral = polarities[polarities == 0]
     positive = polarities[polarities > 0]
-
-    #  create histogrram for every class of plarity
+    
+    # Create histogram for each polarity class
     fig.add_trace(go.Histogram(
-        x=negative,
-        name=f'Negativ ({year})',
-        marker_color='red',
-        opacity=0.7,
+        x=negative, name=f'Negativ ({year})', marker_color='red', opacity=0.7,
         visible=True if year == 2005 else False
     ))
-
     fig.add_trace(go.Histogram(
-        x=positive,
-        name=f'Positiv ({year})',
-        marker_color='blue',
-        opacity=0.7,
+        x=positive, name=f'Positiv ({year})', marker_color='blue', opacity=0.7,
         visible=True if year == 2005 else False
     ))
-
     fig.add_trace(go.Histogram(
-        x=neutral,
-        name=f'Neutral ({year})',
-        marker_color='gray',
-        opacity=0.5,
+        x=neutral, name=f'Neutral ({year})', marker_color='gray', opacity=0.5,
         visible=True if year == 2005 else False
     ))
-
-    # Avarage Polarity as thin line
+    
+    # Average Polarity as thin line
     fig.add_trace(go.Scatter(
-        x=[mean_polarities[year], mean_polarities[year]],  # Line at Avarage
-        y=[1, 10**5],  
-        mode="lines",
-        line=dict(color="orange", width=2, dash="dash"),  
-        name=f'Durchschnitt ({year})',
-        visible=True if year == 2005 else False
+        x=[mean_polarities[year], mean_polarities[year]],  # Line at Average
+        y=[1, 10**5], mode="lines", line=dict(color="orange", width=2, dash="dash"),
+        name=f'Durchschnitt ({year})', visible=True if year == 2005 else False
     ))
 
 # Correct slider definition
@@ -114,8 +99,8 @@ fig.update_layout(
     title="Verteilung der Wortpolaritäten in Songtexten (2005–2024)",
     xaxis_title="Polarität",
     yaxis_title="Anzahl der Wörter",
-    barmode='overlay',  # Histograms overlay for a better clarity
-    yaxis_type="log",  
+    barmode='overlay',  # Histograms overlay for better clarity
+    yaxis_type="log",
     sliders=[{
         "active": 0,  # Start 2005
         "currentvalue": {
