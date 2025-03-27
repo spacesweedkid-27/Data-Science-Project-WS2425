@@ -76,7 +76,13 @@ datasources = dbc.Container(
 )
 
 challenges_heading = dbc.Container('challenges', class_name='h3 mt-4')
-challenges = dbc.Container('TODO: Description on what challenges we faced.')
+challenges = dbc.Container('Finding accurate song data came with a few challenges. '
+' Since there’s no public API for chord data, a two-step web scraping process was used to extract information from Ultimate Guitar. '
+' But that came with its own set of challenges. Licensing restrictions, inconsistent artist name formatting, and incorrect search results meant filtering and manual checks were needed.'
+' Lyrics faced similar issues, mainly due to API limitations that struggled to handle featured artists, so searches focused on the first listed artist.'
+' Tempo was no different. While Spotify’s API provided durations easily, SongBPM required scraping URLs to extract tempo values. '
+' That worked fine until 2022, when they changed their URL structure. Despite multiple attempts, no solution was found to retrieve information for most tracks from the past three years. '
+' On thop of that, this was the first time some of us worked with APIs and web scraping, so certain parts of the process took longer than others.')
 
 layout = html.Div([
     about_heading,
