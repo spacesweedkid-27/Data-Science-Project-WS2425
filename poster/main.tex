@@ -20,6 +20,7 @@
 }%
 
 \renewcommand{\bibfont}{\tiny}
+
 \setbeamercolor{bibliography item}{fg=bonewhite}
 \setbeamercolor{bibliography entry author}{fg=bonewhite}
 \setbeamercolor{bibliography entry title}{fg=bonewhite}
@@ -27,8 +28,10 @@
 \setbeamercolor{bibliography entry note}{fg=bonewhite}
 %\setbeamercolor{background canvas}{bg=bonewhite}
 
+\setbeamerfont{block title}{size=\Large, series=\bfseries}
+
 \author[H. Heyden \and M. Materzok \and N. Pulow \and S. Şimşek]{Henri Heyden \and Mika Materzok \and Nike Pulow \and Senanur Şimşek}
-\title{What made music popular in the last 20 years?}
+\title{\huge What made Music popular?\\ \large A Retrospective of the last 20 Years}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -67,7 +70,7 @@
 
     \begin{figure}[hbt!]
         \centering
-        \includegraphics[width=\textwidth]{./figures/1.png}
+        \includegraphics[width=0.9\textwidth]{./figures/1.png}
         \caption{Top ten most used basic chords over the years}
         \label{fig:chords}
     \end{figure}
@@ -77,14 +80,14 @@
     \begin{figure}[hbt!]
         \centering
         \includegraphics[width=\textwidth]{./figures/9.png}
-        \caption{Four frequent genre tags over how often they use a chord progression with less frequent combinations filtered out.}
+        \caption{frequent genre tags over how often they use a chord progression with less frequent combinations filtered out}
         \label{fig:harmtags}
     \end{figure}
 
     \end{block}
     \end{column}
 \begin{column}{0.49\textwidth}
-    \begin{block}{Lyrics}
+    \begin{block}{Lyrics}\vspace{-0.4cm}
     Song lyrics often reflect emotions and moods of their time. By extracting them from \textcite{lyr} and analyzing their polarity over the years with \textcite{pol}, we can identify cultural trends about how the language in songs had become positively or negatively charged, see figure \ref{fig:pol}.
 
     \begin{figure}[hbt!]
@@ -93,8 +96,10 @@
         \caption{Song lyric polarity over time}
         \label{fig:pol}
     \end{figure}
+    \vspace{1cm}
 
     In addition to polarity, the most frequently used words in song lyrics provide insight into lyrical trends. Figure \ref{fig:cloud} displays the most common words appearing in lyrics over the years.
+    \vspace{1cm}
 
     \begin{figure}[hbt!]
         \centering
@@ -103,24 +108,48 @@
         \label{fig:cloud}
     \end{figure}
     \end{block}
+    \vspace{1cm}
 
     \begin{block}{Song Duration}
-        % TODO: Insert stuff here!
-    \end{block}
+    The duration of songs has evolved over time, reflecting changes in listening habits and industry standards. We received the duration of songs with \textcite{spot}. Even though minimal, we can see a small general trend to shorter songs in figure \ref{fig:dur}. \\
+    A length of 3 minutes and 30 seconds seems ideal.
 
-\end{column}
-\end{columns}
-\placetextbox{0.85}{0.2}{
+    \begin{figure}[hbt!]
+        \centering
+        \includegraphics[width=\textwidth]{./figures/6_cut.png}
+        \caption{Average song duration over the years}
+        \label{fig:dur}
+    \end{figure}
+    \end{block}
+    \vspace{1cm}
+    
+    \begin{minipage}{0.68\textwidth}
+    \begin{block}{Tempo}
+    Tempo plays a crucial role in defining the energy and feel of a song. We used \textcite{sbpm} to find the beats per minute of the songs. In figure \ref{fig:bpm} we can see how it changed and how variant it is.
+    
+    \begin{figure}[hbt!]
+        \centering
+        \includegraphics[width=\textwidth]{./figures/8.png}
+        \caption{Average song tempo in beats per minute over the years}
+        \label{fig:bpm}
+    \end{figure}
+    \end{block}
+    \end{minipage}
+    \hspace{0.925cm}
+    \begin{minipage}{0.28\textwidth}
     \begin{block}{Website}
     \vspace{1cm}
     \begin{minipage}{9cm}
-        \small
         To learn more about this project, visit our website! \\ \vspace{0.1cm}
         \qrcode[height=9cm]{https://fur-fortnite.onrender.com/}
     \end{minipage}
     \end{block}
-}
-%\placetextbox{0.6}{0.99}{\qrcode[height=6cm]{https://fur-fortnite.onrender.com/}}
+    \vspace{1.9cm}
+    \end{minipage} \\
+    \vspace{4cm}
+\end{column}
+\end{columns}
+%\placetextbox{0.63}{0.99}{\qrcode[height=6cm]{https://fur-fortnite.onrender.com/}}
 
 % May god have mercy for this latex code
 \placetextbox{0.015}{0.03}{
@@ -133,6 +162,10 @@
     \hspace{0.5cm}
     \begin{minipage}{0.2\textwidth}
         \printbibliography[keyword={2}]
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}{0.2\textwidth}
+        \printbibliography[keyword={3}]
     \end{minipage}
 }
 \end{frame}
