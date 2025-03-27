@@ -91,7 +91,7 @@ def clean_artist_name(artist):
     artist = re.sub(r'--+', '-', artist)
     
     return artist
-
+# Below function has been modified with the help of ChatGPT.
 def get_song_tempo(artist, song):
     """
     Looksup the tempo of a song using songbpm.com.

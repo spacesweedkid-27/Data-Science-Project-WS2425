@@ -168,6 +168,8 @@ def shrink_chord(chord: str) -> str:
        Examples: "Gmaj" -> "G", "Bb" -> "Bb", "C#min" -> "C#m".
     """
     if len(chord) <= 2:
+        if has_number(chord):
+            return ''.join(i for i in chord if not i.isdigit())
         return chord
     else:
         # Check if there is another important symbol to include.
@@ -178,6 +180,10 @@ def shrink_chord(chord: str) -> str:
         else:
             return chord[:1 + has_flatsharp]
 
+def has_number(str):
+    '''Helper for shrink chord function. Returns true, if there's a number in
+    a chord.'''
+    return any(char.isdigit() for char in str)
 
 def identify_key(chords: list[str]) -> str:
     """According to what chords are in a song, returns the key according to some method.

@@ -117,6 +117,7 @@ def check_for_chords_type(response):
 
     # We're assuming, every valid link contains "chords", but we know for
     # certain, that the rest of the link is correct.
+    # The following few lines are chatGPT assisted.
     matches = re.findall(r'https://tabs\.ultimate-guitar\.com/tab/[^"]*chords[^"]*',
                          clean_response)
     for url in matches:

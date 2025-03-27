@@ -94,6 +94,7 @@ def lowercase_name(name):
     ''' Turns whitespaces into '-'. '''
     return name.replace(' ', '-').lower()
 
+# This and the following function are chatGPT assisted.
 def clean_special_characters(str):
     ''' Removes special characters from strings.'''
     str = re.sub('[^A-Za-z0-9 ]+', '', str)

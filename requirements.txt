@@ -5,4 +5,5 @@ plotly==6.0.1
 dash_bootstrap_components==2.0.0
 dash_bootstrap_templates==2.1.0
 dash_html_components==2.0.0
+wordcloud==1.9.4
 gunicorn
