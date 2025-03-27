@@ -1,8 +1,8 @@
-import pandas as pd
-from dash import Dash, dash_table, dcc, html, clientside_callback, callback
+# Dash related imports
 import dash
-from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
+from dash import dcc, html
+from dash.dependencies import Input, Output
 
 # Import Layout attributes to dynamically inject them into the page.
 from pages.chords import layout as chords_layout
@@ -10,8 +10,6 @@ from pages.lyrics import layout as lyrics_layout
 from pages.tempo import layout as tempo_layout
 
 dash.register_page(__name__, path='/')
-
-chord_data = pd.read_csv('data/chords_extracted/billboard_2005.csv')
 
 # This page is basically a wrapper for chords, lyrics and tempo pages.
 # There's really no need to change anything here.

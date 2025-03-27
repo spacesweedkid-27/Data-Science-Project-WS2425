@@ -627,22 +627,23 @@ fig_var = dbc.Container([
 
 # META TEXT
 meta = dbc.Container([
-    html.H3('About the chords'),
-        html.P(
-            """
-            We searched with an automatic search query injector for 2000 Songs, of these we received 1382 chords. The remaining 618 were missing due to either:
+    'We searched with an automatic search query injector for 2000 songs. This '
+    'way we received chords for 1382 songs. The remaining 618 were missing due '
+    'to either: ',
+    html.Ul([
+        html.Li('1. Broken search results'),
+        html.Li('2. Only non-free chords available or no public chords found'),
+        html.Li('3. Labels / artists blocking chord pages due to copyright etc.')
+    ]),
+    '''Since the algorithm picked the first link that contains the song\'s title 
+    and artist-name, and the links in most cases were sorted by user-ratings, 
+    this meant that for the most popular songs we achieved correct results. 
+    Some songs that didn\'t stand the test of time which were coicidentally 
+    rap / hip-hop songs, did have chords that did not make sense if you listen 
+    to the music. This wasn't that much of an issue though, since their harmony 
+    didn\'t matter that much.'''
+], class_name = 'mb-2')
 
-            1. Broken search results
-
-            2. Only non-free chords available or no public chords found
-             
-            3. Labels/artists blocking chord pages due to copyright etc.
-
-            Since the algorithm picked the first link that contains the song's title and artist, and the links were normally sorted by ratings, this meant that for the most popular songs we got correct results.  
-            Some songs that didn't stand the test of time, which were coincidentally rap/hip-hop songs, did have chords that didn't make sense if you listen to the music. This wasn't that much of an issue though, since their \"harmony\" didn't matter that much.
-            """
-    )
-])
 ###################################
 
 ###################################

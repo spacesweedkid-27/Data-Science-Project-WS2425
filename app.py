@@ -95,6 +95,14 @@ navbar = dbc.Navbar(
         class_name='mb-2',
         id='content')
 
+# Footer component
+footer = dbc.NavbarSimple(
+    children = [
+        dbc.NavItem(dbc.NavLink('Github', href = 'https://github.com/spacesweedkid-27/Data-Science-Project-WS2425/tree/main', external_link = True)),
+        dbc.NavItem(dbc.NavLink('Impressum', href = '/impressum'))
+    ], color = 'info', class_name = 'mb-0'
+)
+
 ###################################
 
 # Main layout that loads all static content and other pages.
@@ -105,6 +113,7 @@ app.layout = dbc.Container([
     dash.page_container,
     #  Invisible storage for active theme.
     dcc.Store(id='theme-store', data = 'morph'),
+    footer,
 ], fluid=True, class_name='mb-5')
 
 #dcc.Store(id='lyrics-store', data='')  # Store for lyrics data
