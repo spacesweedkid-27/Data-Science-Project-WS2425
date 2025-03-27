@@ -7,7 +7,7 @@ import os
 # Genius API Token
 GENIUS_API_TOKEN = 'XEO7v-2JGWVsHSUXV8HC7n6S7iXY8Uh_BMoqdYBDimTttVOAquc1EUT0z_DcbL9U'
 
-# Function to retrieve artist information
+# retrieve artist information
 def request_artist_info(artist_name, page):
     base_url = 'https://api.genius.com'
     headers = {'Authorization': 'Bearer ' + GENIUS_API_TOKEN}
@@ -20,6 +20,7 @@ def request_artist_info(artist_name, page):
     return response
 
 # Function to retrieve song URLs
+#Below function has been modified with the help of Chatgpt
 def request_song_url(artist_name, song_cap):
     page = 1
     songs = []
@@ -46,6 +47,7 @@ def request_song_url(artist_name, song_cap):
     return songs
 
 # Function to scrape lyrics from a Genius song URL
+#Below function has been modified with the help of Chatgpt
 def scrape_song_lyrics(url):
     page = requests.get(url)
     html = BeautifulSoup(page.text, 'html.parser')
@@ -60,24 +62,24 @@ def scrape_song_lyrics(url):
 
 # Function to write lyrics to CSV file
 def write_lyrics_to_csv(input_csv, output_csv):
-    # Read the input CSV file
+    # Read the input
     with open(input_csv, 'r', encoding='utf-8') as infile:
         reader = csv.DictReader(infile)
-        fieldnames = reader.fieldnames + ['Lyrics']  # Adding Lyrics column
+        fieldnames = reader.fieldnames + ['Lyrics']  # Adding a lyrics collumn
         rows = list(reader)
     
-    # Open the output CSV file for writing
+    # Starting an new output csv
     with open(output_csv, 'w', newline='', encoding='utf-8') as outfile:
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
         writer.writeheader()
 
-        # Loop through each song in the input CSV
+        
         for row in rows:
             artist_name = row['Artist']
             song_title = row['Title']
             lyrics_url = row['Lyrics_URL']
             
-            # Scrape lyrics from Genius URL
+            #scrape the lyrics from genius using the function above
             lyrics = scrape_song_lyrics(lyrics_url)
 
             # Add lyrics to the row and write it to the output CSV
@@ -86,7 +88,7 @@ def write_lyrics_to_csv(input_csv, output_csv):
 
     print(f'Lyrics have been added to {output_csv}')
 
-# Calling the function with the original CSV file and the desired output file
+# Done for every file instead of combining and then fetching
 input_csv = r'C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\Billboard_Lyrics_URL\billboard_2013_lyrics_URL.csv'
 output_csv = 'billboard_2013_Lyrics_text.csv'
 write_lyrics_to_csv(input_csv, output_csv)
