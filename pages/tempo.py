@@ -1,11 +1,15 @@
-import pandas as pd
-from dash import Dash, dash_table, dcc, html, clientside_callback, callback
-from dash.dependencies import Input, Output
+# General imports
+import os
+
+# Dash related imports
 import dash
 import dash_bootstrap_components as dbc
-import plotly.express as px
-import os
+from dash import dcc, html
 from dash_bootstrap_templates import load_figure_template
+
+# Plot related imports
+import pandas as pd
+import plotly.express as px
 
 
 dash.register_page(__name__)

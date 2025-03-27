@@ -2,15 +2,19 @@
 DS Project Website
 Für Fortnite
 '''
+# General imports
+from base64 import b64encode # Only used for saving high res plot images.
 
-import pandas as pd
-from dash import Dash, dcc, html, clientside_callback, callback, Patch
-from dash.dependencies import Input, Output
+# Dash related imports
 import dash
 import dash_bootstrap_components as dbc
+from dash import Dash, dcc, html, clientside_callback, callback, Patch
+from dash.dependencies import Input, Output
 from dash_bootstrap_templates import load_figure_template
+
+# Plot related imports
+import pandas as pd
 import plotly.io as pio
-from base64 import b64encode # Only used for saving high res plot images.
 
 app = Dash(__name__,
     external_stylesheets=[dbc.themes.MORPH, dbc.icons.FONT_AWESOME],
@@ -423,8 +427,8 @@ def update_polarity_year_chart(n_clicks):
     return update_fig_template(n_clicks)
 
 @callback(
-        Output('polarity-mean-year-chart', 'figure'),
-        Input('color-mode-switch', 'n_clicks')
+    Output('polarity-mean-year-chart', 'figure'),
+    Input('color-mode-switch', 'n_clicks')
 )
 def update_polarity_mean_year_chart(n_clicks):
     return update_fig_template(n_clicks)

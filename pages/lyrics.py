@@ -1,24 +1,28 @@
-import pandas as pd
-import dash
-import dash_bootstrap_components as dbc
-from dash import dcc, html, callback
-from dash.dependencies import Input, Output
-import plotly.graph_objects as go
-import plotly.express as px
-from dash_bootstrap_templates import load_figure_template
-from collections import Counter
-from wordcloud import WordCloud
-from plotly.subplots import make_subplots
+# General imports
 import base64
-from io import BytesIO
 import glob
 import os
 import re
-import random
-import matplotlib as mpl
-import numpy as np # Sorry
 import ast
+from io import BytesIO
+
+# Dash related imports
+import dash
+import dash_bootstrap_components as dbc
+from dash import dcc, html
+from dash_bootstrap_templates import load_figure_template
+
+# Plot related imports
+import matplotlib as mpl
+import pandas as pd
+import numpy as np # Sorry
 from matplotlib.colors import ListedColormap
+
+# Specialized imports
+import plotly.graph_objects as go
+import plotly.express as px
+from wordcloud import WordCloud
+
 
 dash.register_page(__name__)
 
@@ -175,14 +179,11 @@ init_polarity_years_chart = create_polarity_year_chart(theme)
 # POLARITY AVERAGE OVER YEAR
 
 def create_polarity_mean_years_bar(theme):
-    #fig = make_subplots(rows = 1, cols = 1, subplot_titles = [''])
-
     mean_pol = []
     years = []
 
     for year in range(2005, 2025):
         year_data = polarity_df[polarity_df['Year'] == year]
-        #print(year_data.head())
 
         if not year_data.empty:
             year_data.loc[:,'Polarity'] = year_data.loc[:,'Polarity'].apply(ast.literal_eval)

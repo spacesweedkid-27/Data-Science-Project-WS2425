@@ -1,15 +1,19 @@
-import pandas as pd
-from dash import Dash, dash_table, dcc, html, clientside_callback, callback
-from dash.dependencies import Input, Output
-import dash
-import dash_bootstrap_components as dbc
-import plotly.graph_objects as go
-import plotly.express as px
+# General imports
 import ast
 import glob
 import os
 import csv
+
+# Dash related imports
+import dash
+import dash_bootstrap_components as dbc
+from dash import dcc, html
 from dash_bootstrap_templates import load_figure_template
+
+# Plot related imports
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
 from data_collection.scripts.progression_by_frequency import get_all_main_harmonies_and_intervals
 
 import data_collection.scripts.numerize_chords as nc
