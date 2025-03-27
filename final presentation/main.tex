@@ -127,26 +127,63 @@
 
 \section{What we found out}
 \subsection{Results}
-\begin{frame}{Results}
-    \begin{itemize}
-        \item Rhythm:
-            \begin{itemize} 
-                \item Duration: Overall slight downward trend; Average duration is about 3:30min
-                \item Tempo: (Surprisingly) almost no changes;  Average tempo is about 120bpm
-            \end{itemize}
-        \item Chords:
-            \begin{itemize} 
-                \item Most common chords are C Major and A Minor
-                \item Most common harmonic progression is I, VI, III, VII
-                \item Most common interval progression is (-5, -5, +2, -4)
-                \item Most frequent tag is Pop-music, following Rap and Hip-Hop
-                \item Interval variance stayed the same
-            \end{itemize}
-        \item Lyrics:
-            \begin{itemize} 
-                \item Most common words are "oh", "yeah", "la"
-            \end{itemize}
-    \end{itemize}
+\begin{frame}{Rhythm I}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{../plot_images/duration_years903.png}
+        \caption{Average song duration over the years}
+        \label{fig:duration} 
+    \end{figure}
+\end{frame}
+\begin{frame}{Rhythm II}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{../plot_images/tempo_years364.png}
+        \caption{Average song duration over the years}
+        \label{fig:tempo} 
+    \end{figure}
+\end{frame}
+\begin{frame}{Chord I}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{../plot_images/harmony_bar68.png}
+        \caption{Top ten most used harmonic progressions by absolute frequrncy}
+        \label{fig:harmony_bar} 
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Chord II}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{../plot_images/chords_years_heatmap231.png}
+        \caption{Top ten most used basic chords over the years}
+        \label{fig:chords_heatmap} 
+    \end{figure}
+\end{frame}
+\begin{frame}{Chord III}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{../plot_images/harmonies_toptags765.png}
+        \caption{Frequent genre tags over how often they use a chrod progression with less frequent combinations filtered out}
+        \label{fig:harmonies_toptags} 
+    \end{figure}
+\end{frame}
+\begin{frame}{Lyrics I}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{../polarity_barchart604.png}
+        \caption{Song lyric polarity over time}
+        \label{fig:polarity_bar} 
+    \end{figure}
+\end{frame}
+\begin{frame}{Lyrics II}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{../poster/figures/11.png}
+        \caption{Wordcloud of most frequent and important words of all lyrics}
+        \label{fig:wordcloud} 
+    \end{figure}
 \end{frame}
 
 \section{References}
