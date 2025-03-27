@@ -54,39 +54,36 @@
 
     \framebreak
 
-    \begin{block}{Concrete}
+    \begin{block}{Subquestions}
     \onehalfspacing
     \begin{itemize}
         \item Rhythm \begin{itemize}
-                \item How did song duration change?
-                \item How did song tempo change?
+                \item Duration
+                \item Tempo
             \end{itemize}
         \item Chords \begin{itemize}
-                \item What chord-progressions repeat most frequently?
-                \item Do certain chord-progressions dominate specific genres?
-                \item What chords and chord types dominate?
-                \item How variant are the intervals between chords?
+                \item Chord-progressions
+                \item Chords and chord types
+                \item Intervals between chords
             \end{itemize}
         \item Lyrics \begin{itemize}
-                \item Which words and combinations are the most frequent?
-                \item How did lyric polarity change?
+                \item Words and combinations
+                \item Polarity
             \end{itemize}
     \end{itemize}
     \end{block}
 \end{frame}
-
 \section{How we found out}
 \subsection{Data Sources}
 \begin{frame}{Data Sources}
     \begin{itemize}
-        \item \textbf{Main source:} \textcite{bill} of 2005 up to 2024 with a (Title, Artist) table for each year.
+        \item \textbf{Main source:} \textcite{bill} of 2005 up to 2024
         \item \textbf{Refined sources using songs from the main source:}
             \begin{itemize}
-                \item \textcite{spot} for song duration
-                \item \textcite{sbpm} webscraping for tempo
-                \item \textcite{ug} webscraping for chords
-                \item \textcite{lastfm} for \textquote{topTags} (genres)
-                \item \textcite{lyr} for lyrics and \textcite{pol} for analysis
+                \item Rhythm: \textcite{spot}, \textcite{sbpm}
+                \item Chords: \textcite{ug}
+                \item Lyrics: \textcite{lastfm}, \textcite{lyr}
+                
             \end{itemize}
         \end{itemize}
 \end{frame}
@@ -95,21 +92,57 @@
     \begin{itemize}
         \item Rhythm
         \begin{enumerate}
-            \item For each song retrieve duration \autocite{spot} and tempo \autocite{sbpm}
-            \item Create (Title, Artist, Duration) and (Title, Artist, Tempo) tables.
+            \item Retrieve duration \autocite{spot} and tempo \autocite{sbpm}
+            \item Create tables
         \end{enumerate}
         \item Chords
         \begin{enumerate}
-            \item Use chord-link finder to search for links on \textcite{ug} for each (Title, Artist) tuple.
-            \item Run chord webscraper to scrape each chord for found song links.
-            \item Create (Title, Artist, Chords) tables.
-            \item Scrape genres from \textcite{lastfm} and create (Title, Artist, Top\_Tags) table.
+            \item Use chord-link finder to search for links on \textcite{ug}
+            \item Run chord webscraper for found song links
+            \item Create tables
+            \item Scrape genres from \textcite{lastfm} and create table
         \end{enumerate}
         \item Lyrics
         \begin{enumerate}
-            \item Use \textcite{lyr} to retrieve links to lyrics.
-            \item Scrape all lyrics and create (Title, Artist, Lyrics\_URL, Lyrics) tables.
+            \item Retrieve links to lyrics from \textcite{lyr}
+            \item Scrape lyrics and create tables
         \end{enumerate}
+    \end{itemize}
+\end{frame}
+\subsection{Challenges}
+\begin{frame}{Challenges}
+    \begin{itemize}
+        \item No public APIs
+        \item Licensing restrictions
+        \item Incorrect search results
+        \item URL changes
+        \item Inconsistent artist names
+            \begin{itemize} 
+                \item Featured artists
+                \item Special characters
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+\section{What we found out}
+\subsection{Results}
+\begin{frame}{Results}
+    \begin{itemize}
+        \item Rhythm:
+            \begin{itemize} 
+                \item Duration: Overall downward trend
+                \item Tempo: (Surprisingly) almost no changes
+            \end{itemize}
+        \item Chords:
+            \begin{itemize} 
+                \item Most common chords are C Major and A Minor
+                \item Most common harmonic progression is I, VI, III, VII
+                \item Most frequent genre is pop-music
+                \item Higher variance indicates more musical variety
+            \end{itemize}
+        \item Lyrics:
+            \begin{itemize} 
+                \item Most common words are "oh", "yeah", "la"
+            \end{itemize}
     \end{itemize}
 \end{frame}
 \begin{frame}{References}
