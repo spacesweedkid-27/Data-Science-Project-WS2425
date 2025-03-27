@@ -1,8 +1,7 @@
-import pandas as pd
-from dash import Dash, dash_table, dcc, html, clientside_callback, callback
-from dash.dependencies import Input, Output
+# Dash related imports
 import dash
 import dash_bootstrap_components as dbc
+from dash import html
 
 dash.register_page(__name__)
 
