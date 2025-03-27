@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 from textblob import TextBlob
 import numpy as np
 
-# Daten laden und zusammenführen
+# Load and combine the csv files
 folder_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\BillBoard_Lyrics_preprocessed"
 
 file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
@@ -14,7 +14,7 @@ dataframes = []
 
 for file in file_paths:
     filename = os.path.basename(file)
-    match = re.search(r'(\d{4})', filename)  # Jahr aus Dateinamen extrahieren
+    match = re.search(r'(\d{4})', filename)  # extract what year it is from the file name
     if match:
         year = int(match.group(1))
     else:
@@ -29,7 +29,7 @@ if dataframes:
 else:
     raise ValueError("Keine gültigen CSV-Dateien gefunden.")
 
-# Funktion zur Berechnung der Wortpolarität
+# Function to calculate the Word polarity
 def get_word_polarity(text):
     if isinstance(text, str):  
         words = text.split()
@@ -39,7 +39,7 @@ def get_word_polarity(text):
 
 all_data['Polarity'] = all_data['Lyrics'].apply(get_word_polarity)
 
-# Daten für die Visualisierung vorbereiten
+# preprare data for visualisation
 years = list(range(2005, 2025))
 polarities_by_year = {year: [] for year in years}
 mean_polarities = {}
@@ -53,18 +53,19 @@ for year in years:
     else:
         mean_polarities[year] = 0
 
-#Interaktive Visualisierung mit Optimierung
+# Interactive Visualization 
+# Below function has been modified with the help of Chatgpt
 fig = go.Figure()
 
 for year in years:
     polarities = np.array(polarities_by_year[year])
     
-    # Trennen der neutralen Werte (Polarität = 0)
+    # Define different Polarity classes
     negative = polarities[polarities < 0]
     neutral = polarities[polarities == 0]
     positive = polarities[polarities > 0]
 
-    # Histogramme für jede Polaritätsklasse
+    #  create histogrram for every class of plarity
     fig.add_trace(go.Histogram(
         x=negative,
         name=f'Negativ ({year})',
@@ -89,17 +90,17 @@ for year in years:
         visible=True if year == 2005 else False
     ))
 
-    # Durchschnittliche Polarität als dünne vertikale Linie 
+    # Avarage Polarity as thin line
     fig.add_trace(go.Scatter(
-        x=[mean_polarities[year], mean_polarities[year]],  # Linie bei Durchschnittswert
-        y=[1, 10**5],  # Höhe der Linie (angepasst für logarithmische Skalierung)
+        x=[mean_polarities[year], mean_polarities[year]],  # Line at Avarage
+        y=[1, 10**5],  
         mode="lines",
-        line=dict(color="orange", width=2, dash="dash"),  # Farbe: Orange, Dünn, Gestrichelt
+        line=dict(color="orange", width=2, dash="dash"),  
         name=f'Durchschnitt ({year})',
         visible=True if year == 2005 else False
     ))
 
-#Korrekte Slider-Definition mit optimierter Sichtbarkeit
+# Correct slider definition
 steps = []
 for i, year in enumerate(years):
     step = dict(
@@ -113,10 +114,10 @@ fig.update_layout(
     title="Verteilung der Wortpolaritäten in Songtexten (2005–2024)",
     xaxis_title="Polarität",
     yaxis_title="Anzahl der Wörter",
-    barmode='overlay',  # Histogramme überlagern sich leicht für bessere Sichtbarkeit
-    yaxis_type="log",  # Logarithmische Skalierung
+    barmode='overlay',  # Histograms overlay for a better clarity
+    yaxis_type="log",  
     sliders=[{
-        "active": 0,  # Startjahr 2005
+        "active": 0,  # Start 2005
         "currentvalue": {
             "visible": True,
             "prefix": "Jahr: ",
@@ -126,7 +127,7 @@ fig.update_layout(
     }]
 )
 
-#Visualisierung anzeigen
+# Show the Chart
 import plotly.io as pio
 pio.renderers.default = "browser"
 fig.show()

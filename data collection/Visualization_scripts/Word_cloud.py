@@ -35,7 +35,7 @@ for file in file_paths:
 all_data = pd.concat(dataframes, ignore_index=True)
 all_lyrics = ' '.join(all_data['Lyrics'].dropna()).lower()  
 
-# Funktion zum Erstellen der Word Cloud
+# Function to generate a Word cloud
 def generate_wordcloud(text):
     wordcloud = WordCloud(width=800, height=400, background_color='white', stopwords=STOP_WORDS).generate(text)
     
@@ -49,6 +49,7 @@ def generate_wordcloud(text):
     return "data:image/png;base64," + base64.b64encode(img.read()).decode()
 
 # Dash App
+# Below function has been modified with the help of Chatgpt
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
@@ -56,7 +57,7 @@ app.layout = html.Div([
     html.Img(id='wordcloud-image')
 ])
 
-# Callback für Word Cloud
+
 @app.callback(
     Output('wordcloud-image', 'src'),
     Input('wordcloud-image', 'id')

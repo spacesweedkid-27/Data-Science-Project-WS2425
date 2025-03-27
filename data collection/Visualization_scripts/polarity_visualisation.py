@@ -9,8 +9,6 @@ import plotly.io as pio
 
 # Define the folder path
 folder_path = r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\BillBoard_Lyrics_preprocessed"
-
-# Get all CSV file paths
 file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
 
 dataframes = []
@@ -21,7 +19,7 @@ def get_polarity(text):
     if isinstance(text, str):
         return TextBlob(text).sentiment.polarity
     else:
-        return 0.0  # If the value is not a string, return neutral polarity (0)
+        return 0.0  
 
 # Read and process CSV files
 for file in file_paths:
@@ -32,10 +30,10 @@ for file in file_paths:
     else:
         continue
 
-    # Read the CSV file
+    
     df = pd.read_csv(file)
 
-    # Skip files without 'Lyrics' column
+    # Skip files that don't have a 'Lyrics' column
     if "Lyrics" not in df.columns:
         print(f"Skipping {filename}: 'Lyrics' column is missing")
         continue
@@ -44,12 +42,13 @@ for file in file_paths:
     df['Polarity'] = df['Lyrics'].apply(get_polarity)  # Calculate polarity for each song's lyrics
     dataframes.append(df)
 
-# Combine all data into a single dataframe
+
 if dataframes:
     all_data = pd.concat(dataframes, ignore_index=True)
 else:
     raise ValueError("No valid CSV files found.")
 
+# Below function has been modified with the help of Chatgpt
 def update_fig_template(n_clicks):
     isDarkMode = n_clicks % 2 == 1  
     template = "plotly_dark" if isDarkMode else "morph"
@@ -95,18 +94,18 @@ def update_fig_template(n_clicks):
     xaxis=dict(
         type="category",  # Ensure labels are treated as categories
         tickmode="array", 
-        tickvals=[str(year) for year in range(2005, 2025)],  # Explicitly set all years
+        tickvals=[str(year) for year in range(2005, 2025)],  
         ticktext=[str(year) for year in range(2005, 2025)],  
         tickfont=dict(color='black'),  
         title_font=dict(color='black', size=14),
-        tickangle=-90  # Rotates x-axis labels 90 degrees
+        tickangle=-90  # Rotates x-axis labels 90 degrees so everything fits
     ),
     yaxis=dict(
         tickfont=dict(color='black'),  
         title_font=dict(color='black', size=14)  
     ),
     title_font=dict(color='black', size=16),  
-    bargap=0.1  # Reduces space between bars
+    bargap=0.1  
     )
 
     return fig  

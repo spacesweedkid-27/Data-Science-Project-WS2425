@@ -12,13 +12,13 @@ import nltk
 nltk.download('punkt')
 
 
-STOP_WORDS = {"wan", "na", "ta", "ca"}  # Wörter, die ignoriert werden sollen
+STOP_WORDS = {"wan", "na", "ta", "ca"}  # Words to be ignored
 
 
 folder_path =  r"C:\Users\MikaM\OneDrive\Dokumente\Uni-Cau-kiel\Data-Science-Project\Data-Science-Project-WS2425\data\Billboard_lyrics\BillBoard_Lyrics_preprocessed"
 file_paths = glob.glob(os.path.join(folder_path, "*.csv"))
 
-#Daten einlesen & Lyrics kombinieren
+# read and combine the csv files
 dataframes = []
 for file in file_paths:
     filename = os.path.basename(file)
@@ -31,26 +31,27 @@ for file in file_paths:
     df['Year'] = year  
     dataframes.append(df)
 
-#Alle Jahre zusammenfügen
+
 all_data = pd.concat(dataframes, ignore_index=True)
 
-#Alle Lyrics zu einer Liste zusammenführen
-all_lyrics = ' '.join(all_data['Lyrics'].dropna()).lower()  # Alles in Kleinbuchstaben
+#all Lyrics in one List
+all_lyrics = ' '.join(all_data['Lyrics'].dropna()).lower()  # everything lemmatized
 
-#Funktion für Wort-, Bigramm-, Trigramm-Häufigkeiten
+#Function to get N-Gram Frequencies
 def get_ngram_frequencies(text, n=1, top_n=20):
     tokens = nltk.word_tokenize(text)
-    tokens = [t for t in tokens if t not in STOP_WORDS]  # Stop-Wörter entfernen
+    tokens = [t for t in tokens if t not in STOP_WORDS]  # Remove the Stop words mentioned above
     
     if n == 1:
         ngram_list = tokens
     else:
-        ngram_list = [ng for ng in ngrams(tokens, n) if len(set(ng)) == n]  # Unterschiedliche Wörter erzwingen
+        ngram_list = [ng for ng in ngrams(tokens, n) if len(set(ng)) == n]  # Only accept Bi- and Trigramms that have different Words
     
     freq = Counter(ngram_list)
     return freq.most_common(top_n)
 
-#Dash App erstellen
+#Dash App 
+# Below function has been modified with the help of Chatgpt
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
@@ -66,7 +67,7 @@ app.layout = html.Div([
     dcc.Graph(id='word-frequency-chart')
 ])
 
-#Callback-Funktion für interaktive Visualisierung
+#Callback-Function for interactive visualization
 @app.callback(
     Output('word-frequency-chart', 'figure'),
     Input('ngram-slider', 'value')
@@ -81,6 +82,6 @@ def update_chart(n):
                  text_auto=True)
     return fig
 
-# Server starten
+
 if __name__ == '__main__':
     app.run(debug=True)
