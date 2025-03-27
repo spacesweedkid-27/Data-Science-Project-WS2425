@@ -83,9 +83,7 @@ def update_fig_template(n_clicks):
             ))
 
     fig.update_layout(
-    width=4000,  # Increase width for higher resolution
-    height=2200,  # Increase height for higher resolution
-    
+
     title="Average Song Polarity over the Years",
     xaxis_title="Year",
     yaxis_title="Average Polarity",
@@ -118,7 +116,10 @@ n_clicks = 1
 fig = update_fig_template(n_clicks)
 
 if fig:
-    fig.show()  
+    # Export the figure with small base resolution but high scale for printing
+    pio.write_image(fig, "output.png", width=900, height=500, scale=2)
+    fig.show()
+
 else:
     print("Figure generation failed.")
-
+    
