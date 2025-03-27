@@ -42,7 +42,7 @@ main_content = dbc.Container(
     of accurate genre data proved this endaevor too complicated for the scope of 
     this project.''')
 
-# Verzeichnis und CSV-Dateien laden
+# load Path and Files
 folder_path = "data/Billboard_lyrics/Billboard_Lyrics_preprocessed/"
 file_paths = glob.glob(os.path.join(folder_path, "billboard_*.csv"))
 
@@ -84,6 +84,7 @@ polarity_data = pd.read_csv('data/Billboard_lyrics/polarity/polarity.csv', useco
 polarity_df = pd.DataFrame(data = polarity_data)
 years = list(range(2005, 2025))
 
+#Below function has been modified with the help of Chatgpt
 def create_polarity_year_chart(theme):    
     polarities_by_year = {year: [] for year in years}
     mean_polarities = {}
@@ -93,7 +94,7 @@ def create_polarity_year_chart(theme):
         if not yearly_data.empty:
             all_polarities = [p for sublist in yearly_data['Polarity'].apply(ast.literal_eval) for p in sublist]
             polarities_by_year[year] = all_polarities
-            mean_polarities[year] = np.mean(all_polarities) if all_polarities else 0  # Durchschnitt berechnen
+            mean_polarities[year] = np.mean(all_polarities) if all_polarities else 0  # calculate the Avarage
         else:
             mean_polarities[year] = 0
     
@@ -102,12 +103,12 @@ def create_polarity_year_chart(theme):
     for year in years:
         polarities = np.array(polarities_by_year[year])
         
-        # Trennen der neutralen Werte (Polarität = 0)
+        # split into negative neutral and positive polarity
         negative = polarities[polarities < 0]
         neutral = polarities[polarities == 0]
         positive = polarities[polarities > 0]
 
-        # Histogramme für jede Polaritätsklasse
+        # Histogram for every polarity class
         fig.add_trace(go.Histogram(
             x=negative,
             name=f'Negative ({year})',
@@ -132,12 +133,12 @@ def create_polarity_year_chart(theme):
             visible=True if year in years else False
         ))
 
-        # Durchschnittliche Polarität als dünne vertikale Linie 
+        # Show Avarage as a small line 
         fig.add_trace(go.Scatter(
-            x=[mean_polarities[year], mean_polarities[year]],  # Linie bei Durchschnittswert
-            y=[1, 10**5],  # Höhe der Linie (angepasst für logarithmische Skalierung)
+            x=[mean_polarities[year], mean_polarities[year]],  
+            y=[1, 10**5],  # height of the line with logarithmic scaling
             mode="lines",
-            line=dict(color="orange", width=2, dash="dash"),  # Farbe: Orange, Dünn, Gestrichelt
+            line=dict(color="orange", width=2, dash="dash"),  
             name=f'Mean ({year})',
             visible=True if year in years else False
         ))
@@ -154,10 +155,10 @@ def create_polarity_year_chart(theme):
     fig.update_layout(
         xaxis_title="Polarity",
         yaxis_title="Number of words",
-        barmode='overlay',  # Histogramme überlagern sich leicht für bessere Sichtbarkeit
-        yaxis_type="log",  # Logarithmische Skalierung
+        barmode='overlay',  # Histograms overlay for better clarity
+        yaxis_type="log",  
         sliders=[{
-            "active": 0,  # Startjahr 2005
+            "active": 0,  # Start 2005
             "currentvalue": {
                 "visible": True,
                 "prefix": "Jahr: ",
