@@ -59,6 +59,9 @@ for file in files:
     
     count_per_year[year] = counts
 
+# The following df modifications were assisted by chatGPT (up until the
+# create_heatmap() function definition).
+
 all_chords = list(set([chord for year_data in count_per_year.values()
                             for chord in year_data]))
 sorted_years = sorted(count_per_year.keys())
@@ -180,6 +183,9 @@ chords_df = pd.read_csv('data/merged.csv', usecols=['Year', 'Title',
                                                  'Artist', 'Chords'])
 # Turn chords into list objects.
 chords_df['Chords'] = chords_df['Chords'].apply(apply_literal_eval)
+
+# The following df modifications were assisted by chatGPT (up until the 
+# create_chords_toptags_bubble() function definition).
 
 # Merge all tags files into one dataframe.
 tags_file_path = glob.glob(

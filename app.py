@@ -422,6 +422,13 @@ def update_graph(selected_year):
 def update_polarity_year_chart(n_clicks):
     return update_fig_template(n_clicks)
 
+@callback(
+        Output('polarity-mean-year-chart', 'figure'),
+        Input('color-mode-switch', 'n_clicks')
+)
+def update_polarity_mean_year_chart(n_clicks):
+    return update_fig_template(n_clicks)
+
 # Theme switch wordcloud
 @callback(
     Output('wordcloud', 'figure'),

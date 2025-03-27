@@ -8,6 +8,7 @@ import plotly.express as px
 from dash_bootstrap_templates import load_figure_template
 from collections import Counter
 from wordcloud import WordCloud
+from plotly.subplots import make_subplots
 import base64
 from io import BytesIO
 import glob
@@ -25,15 +26,17 @@ load_figure_template('morph')
 theme = 'morph' #  Initial theme that needs to be passed to graphs on load
 bg_color = '#d9e3f1'
 
-heading = dbc.Container('We got some information about tempo here')
-main_content = dbc.Container('Some information about this project goes here. '
-'This content answers questions about what data sources we used, how the data '
-'was processed and what assumptions were made. Whilest this information not '
-'being listed in the official requirements provided by CAU, it still holds a lot'
-'of value from a scientific standpoint.')
-screaming = dbc.Container('NEVER GONNA GIVE YOU UP, NEVER GONNA LET YOU DOWN, '
-'NEVER GONNA RUN AROUND AND DESERT YOU. NEVER GONNA MAKE YOU CRY, NEVER GONNA '
-'SAY GOODBYE, NEVER GONNA TELL A LIE AND HURT YOU!')
+heading = dbc.Container(html.H3('About the lyrics'))
+main_content = dbc.Container(
+    '''For many people the words of a song is what they relate to most. In this 
+    section we take a deeper look into the verbal contents of songs. Using the 
+    Genius API we created a dataset containing lyrics for most songs from 
+    the Billboard End of Year Top 100 from 2005 to 2024. The following plots 
+    display the results of analyzing them using different tools such as nltk and
+    WordBlob. Further studies might look for correlations between polarity of 
+    lyrics and genres. While we originally planned to do exactly that, the lack 
+    of accurate genre data proved this endaevor too complicated for the scope of 
+    this project.''')
 
 # Verzeichnis und CSV-Dateien laden
 folder_path = "data/Billboard_lyrics/Billboard_Lyrics_preprocessed/"
@@ -168,6 +171,59 @@ def create_polarity_year_chart(theme):
 
 init_polarity_years_chart = create_polarity_year_chart(theme)
 
+###################################
+# POLARITY AVERAGE OVER YEAR
+
+def create_polarity_mean_years_bar(theme):
+    #fig = make_subplots(rows = 1, cols = 1, subplot_titles = [''])
+
+    mean_pol = []
+    years = []
+
+    for year in range(2005, 2025):
+        year_data = polarity_df[polarity_df['Year'] == year]
+        #print(year_data.head())
+
+        if not year_data.empty:
+            year_data.loc[:,'Polarity'] = year_data.loc[:,'Polarity'].apply(ast.literal_eval)
+            year_data_exploded = year_data.explode('Polarity')
+            avg_polarity = year_data_exploded.mean()
+            
+            # This is probably not necessary, but I get confused when dealing
+            # with exploded dataframes, so I'll just append the values I want
+            # to a list to create the dataframe from those lists. Not pretty,
+            # but it works.
+            years.append(year)
+            mean_pol.append(avg_polarity['Polarity'])
+
+
+    df = pd.DataFrame({
+        'Year': years,
+        'Polarity': mean_pol
+    })
+    fig = px.bar(df, x = 'Year', y = 'Polarity')
+
+    fig.update_layout(
+        autosize = True,
+        
+        xaxis_title = "Year",
+        yaxis_title="Mean Polarity",
+        showlegend=False,  
+        hovermode="closest",
+        template = theme,
+        xaxis=dict(
+            type="category",  # Ensure labels are treated as categories
+            tickmode="array", 
+            tickvals=[str(year) for year in range(2005, 2025)],  # Explicitly set all years
+            ticktext=[str(year) for year in range(2005, 2025)],  
+            tickangle=-45  # Rotates x-axis labels 90 degrees
+        ),
+        bargap=0.1  # Reduces space between bars
+    )
+
+    return fig
+
+init_polarity_mean_years_bar = create_polarity_mean_years_bar(theme)
 
 ###################################
 # MOST FREQUENT WORDS/BIGRAMS/TRIGRAMS
@@ -192,7 +248,7 @@ def create_word_frequency_bigram_trigram(mode, theme):
         xaxis_title = 'Phrase',
         yaxis_title = 'Frequency',
         autosize = True,
-        xaxis = dict(tickangle=45),
+        xaxis = dict(tickangle=-45),
         yaxis = dict(
             tickmode = 'linear',
             dtick = max(df['Frequency'].max() // 10, 1)),
@@ -260,31 +316,78 @@ def create_wordcloud(bgcolor, text = all_lyrics):
 
 init_wordcloud_img = create_wordcloud(bg_color, all_lyrics)
 
-# Wordcloud Wrapper object
-wordcloud = dbc.Container([
-    html.H3('Wordcloud'),
-    html.P('Controls go here'),
-    dcc.Graph(figure = init_wordcloud_img, id = 'wordcloud', className='d-grid d-md-block mx-auto')
-], class_name='mt-3')
-
 ###################################
 # HTML ELEMENTS
 ###################################
 
 # Define your html elements such as dbc.Container or dbc.Sliders here.
 # Any related callbacks need to be defined in app.py
-# Name these elements precicesly and plugg them into the layout below.
+# Name these elements precisely and plug them into the layout below.
+
+###################################
+# WORDCLOUD
+
+# Wordcloud Text
+wordcloud_text = dbc.Container(
+    '''The most frequently used words in song lyrics provide insight into
+    lyrics trends. This wordcloud displays the most common words appearing in
+    songtexts over all the years we've analyzed. Many of these words are simple 
+    exclamations such as "oh", "yeah" and "la" which serve rhythmic rather than 
+    semantic purposes as frequently seen in lyrics of rap and hip-hop music. 
+    Other words like "love", "baby" and "life" are more common in pop 
+    songwriting. Interestingly, the presence of words with negative polarity 
+    values such as "fuck" and "bitch" suggests that lyrics contain explicit 
+    and aggressive language. This is further analyzed in the polarity-section 
+    further down.''', class_name = 'mb-2'
+)
+
+# Wordcloud Wrapper object
+wordcloud = dbc.Container([
+    html.H3('Wordcloud'),
+    wordcloud_text,
+    dcc.Graph(figure = init_wordcloud_img,
+              id = 'wordcloud',
+              className='d-grid d-md-block mx-auto')
+], class_name='mt-3 mb-5')
 
 ###################################
 # POLARITY
 
+polarity_years_text = dbc.Container([
+    html.H3('Polarity'),
+    html.P('''Song lyrics often reflect emotions and moods of their time. By extracting
+     them using the Genius API and analyzing their polarity over the years with 
+    TextBlob, we can identify cultural trends about how the language in songs 
+    becomes positively or negatively charged. The first plot shows the average 
+    polarity for each year. From 2005 to 2010 it increased, reaching its peak 
+    around 2010 meaning the lyrics became more positive during this time. 
+    The lowest values appear between 2017 and 2020. \n
+    The second plot in this section contains more detail and puts the mean 
+    values into perspective by providing absolute word frequencies for different 
+    polarities for each year.''')], class_name = 'mb-2'
+)
+
 polarity_years_chart = dbc.Container([
-    html.H3('Polarity distribution per year'),
+    html.H4('Polarity distribution per year'),
     dcc.Graph(
         id = 'polarity-year-chart',
         figure = init_polarity_years_chart
     )
 ], class_name = 'mt-5')
+
+polarity_avg_years_chart = dbc.Container([
+    html.H4('Polarity mean per year'),
+    dcc.Graph(
+        id = 'polarity-mean-year-chart',
+        figure = init_polarity_mean_years_bar
+    )
+])
+
+polarity_wrapper = dbc.Container([
+    polarity_years_text,
+    polarity_avg_years_chart,
+    polarity_years_chart
+], class_name = 'mb-5')
 
 ###################################
 # BIGRAM TRIGRAM CHART
@@ -352,7 +455,7 @@ bigram_trigram_barchart = dbc.Container([
         id = 'bigram-trigram-barchart',
         figure = init_word_frequency_chart
     )
-], class_name = 'mt-3')
+], class_name = 'mb-5')
 
 ###################################
 # MAIN LAYOUT
@@ -361,29 +464,11 @@ bigram_trigram_barchart = dbc.Container([
 # Layout elements can be plugged in here.
 # Don't change the name from layout to anything else. Dash page
 # registry needs this attribute to properly load the content.
-# Layout of the Lyrics page
-
-'''##layout add for polarity 
-layout = html.Div([
-    html.H1("Analyse der Songtext-Polarität"),
-    dcc.Slider(
-        id="year_slider",
-        min=2005,
-        max=2024,
-        step=1,
-        marks={year: str(year) for year in range(2005, 2025)},
-        value=2005
-    ),
-    dcc.Graph(id="lyrics_graph")
-])
-#'''
 
 layout = html.Div([ 
     heading,
     main_content,
-    screaming,
-
     wordcloud,
     bigram_trigram_barchart,
-    polarity_years_chart,
+    polarity_wrapper,
 ], className = 'mb-5')
